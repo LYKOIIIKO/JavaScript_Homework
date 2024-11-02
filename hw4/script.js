@@ -294,24 +294,24 @@
 
 //11. *** Нарисовать равнобедренный треугольник из символов ^. Высоту выбирает пользователь. Например: высота = 5, на экране:
 
-let arr1 = ['&nbsp;','&nbsp;','&nbsp;','&nbsp;','&nbsp;','&nbsp;','&nbsp;','&nbsp;','&#8743;'];
-let arr2 = ['&nbsp;','&nbsp;','&nbsp;','&nbsp;','&nbsp;','&nbsp;','&#8743;','&#8743;','&#8743;','&nbsp;'];
-let arr3 = ['&nbsp;','&nbsp;','&nbsp;','&nbsp;','&#8743;','&#8743;','&#8743;','&#8743;','&#8743;','&nbsp;'];
-let arr4 = ['&nbsp;','&nbsp;','&#8743;','&#8743;','&#8743;','&#8743;','&#8743;','&#8743;','&#8743;'];
-let arr5 = ['&#8743;', '&#8743;', '&#8743;', '&#8743;', '&#8743;', '&#8743;', '&#8743;', '&#8743;', '&#8743;'];
+// let arr1 = ['&nbsp;','&nbsp;','&nbsp;','&nbsp;','&nbsp;','&nbsp;','&nbsp;','&nbsp;','&#8743;'];
+// let arr2 = ['&nbsp;','&nbsp;','&nbsp;','&nbsp;','&nbsp;','&nbsp;','&#8743;','&#8743;','&#8743;','&nbsp;'];
+// let arr3 = ['&nbsp;','&nbsp;','&nbsp;','&nbsp;','&#8743;','&#8743;','&#8743;','&#8743;','&#8743;','&nbsp;'];
+// let arr4 = ['&nbsp;','&nbsp;','&#8743;','&#8743;','&#8743;','&#8743;','&#8743;','&#8743;','&#8743;'];
+// let arr5 = ['&#8743;', '&#8743;', '&#8743;', '&#8743;', '&#8743;', '&#8743;', '&#8743;', '&#8743;', '&#8743;'];
 
-document.write(`${arr1.join('')} <br>`);
-document.write(`${arr2.join('')} <br>`);
-document.write(`${arr3.join('')} <br>`);
-document.write(`${arr4.join('')} <br>`);
-document.write(`${arr5.join('')} <br>`);
+// document.write(`${arr1.join('')} <br>`);
+// document.write(`${arr2.join('')} <br>`);
+// document.write(`${arr3.join('')} <br>`);
+// document.write(`${arr4.join('')} <br>`);
+// document.write(`${arr5.join('')} <br>`);
 
-let triangleHeight = +prompt('Введите желаемую высоту треугольника...'),
-	triangleLevel = [];
+// let triangleHeight = +prompt('Введите желаемую высоту треугольника...'),
+// 	triangleLevel = [];
 
-for (let i = 1; i <= 5; i++) {
-	for (let j = 8; j == 0; j = j - 2) {
-		triangleLevel.
-	}
-}
+// for (let i = 1; i <= 5; i++) {
+// 	for (let j = 8; j == 0; j = j - 2) {
+// 		triangleLevel.
+// 	}
+// }
 
