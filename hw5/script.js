@@ -1,130 +1,170 @@
-//Сделайте функцию, которая отнимает от первого числа второе и делит на третье. Числа передаются параметром.
+//Домашняя работа №5 - Функции
 
-// function result(a, b, c) {
-// 	console.log(a - b / c);
-// }
+console.log('-----------Задание 1-----------');
+//1.Сделайте функцию, которая отнимает от первого числа второе и делит на третье. Числа передаются параметром.
 
-// result(4, 7, 9);
+function result1(a, b, c) {
+	return (a - b) / c;
+}
 
-//Напишите функции min и max, которые возвращают меньшее и большее из чисел a и b.
+console.log(result1(10, 2, 3));
 
-// function min(a, b) {
-// 	if (a < b) {
-// 		return a;
-// 	} else {
-// 		return b;
-// 	}
-// }
+console.log('-----------Задание 2-----------');
+//2. Сделайте функцию, которая возвращает куб числа и его квадрат. Число передается параметром.
 
-// console.log(min(1,2));
+function result2(a) {
+	console.log(`Квадрат числа ${a} равен ${a * a}`);
+	console.log(`Куб числа ${a} равен ${a * a * a}`);
+}
 
-// function max(a, b) {
-// 	if (a < b) {
-// 		return b;
-// 	} else {
-// 		return a;
-// 	}
-// }
+result2(3);
 
-// console.log(max(1,2));
+console.log('-----------Задание 3-----------');
+//3.Напишите функции min и max, которые возвращают меньшее и большее из чисел a и b.
 
-//Напишите две функции: первая ф-ция должна возвращать массив с числовыми значениями, диапазон которых должен вводиться пользователем с клавиатуры; вторая – выводить полученный массив.
-//НЕВЕРНОЕ РЕШЕНИЕ аННА РЕШИЛА ПРАВИЛЬНО
-// let arr = [],
-// 	num = +prompt('Введи число');
+function min(a, b) {
+	if (a < b) {
+		return a;
+	} else {
+		return b;
+	}
+}
 
-// function getArr() {
-// 	for(let i = 0; num != ''; i++) {
-		
-// 		arr.push(num);
-// 		num = +prompt('Введи число');
-// 	}
-// 	return arr;
-// }
-// getArr();
+function max(a, b) {
+	if (a > b) {
+		return a;
+	} else {
+		return b;
+	}
+}
 
-// function letArr() {
-// 	console.log(arr);
-// }
-//  letArr();
+console.log(min(3, 5));
+console.log(max(3, 5));
+
+console.log('-----------Задание 4-----------');
+//4.Напишите две функции: первая ф-ция должна возвращать массив с числовыми значениями, диапазон которых должен вводиться пользователем с клавиатуры; вторая – выводить полученный массив.
+
+function createArr() {
+	let a = +prompt('Введите первое число...'),
+		b = +prompt('Введите второе число...'),
+		arr = [];
+
+	while (a <= b) {
+		arr.push(a);
+		a++;
+	}
+
+	return arr
+}
+
+let array = createArr();
+
+function showArr() {
+	console.log(array);
+}
+
+showArr();
+
+console.log('-----------Задание 5-----------');
+//5.Сделайте функцию isEven() (even - это четный), которая параметром принимает целое число и проверяет: четное оно или нет. Если четное - пусть функция возвращает true, если нечетное — false.
+
+function isEven(num) {
+	return num % 2 == 0;
+}
+
+console.log(isEven(3));
 
 
-// function showArr(arr) {
-// 	// 	for(let i = 0; i < arr.length; i++) {
-// 	// 		console.log(arr[i]);
-// 	// 	}
-// 	// }
 
+
+
+
+////////////////////////////////////доп
 /*Создайте массив с числами и длиной массива от 5 до 8 на выш выбор. Необходимо найти и вывести наименьшее число в массиве*/
 
 // используйте внутри функции уже созданные функции для создания массива и поиска мин значения
 
-function min(a, b) {
-	return a > b ? b : a;
-}
+// function min(a, b) {
+// 	return a > b ? b : a;
+// }
 
-function getArr(a, b) {
-	let arr = [];
-	for(let i = a; i <= b; i++){
-		arr.push(i);
-	}
-	return arr;
-}
+// function getArr(a, b) {
+// 	let arr = [];
+// 	for(let i = a; i <= b; i++){
+// 		arr.push(i);
+// 	}
+// 	return arr;
+// }
 
-function getMinInArr(arr) {
-	let m = Infinity;
-	for(let i = 0; i < arr.length; i++) {
+// function getMinInArr(arr) {
+// 	let m = Infinity;
+// 	for(let i = 0; i < arr.length; i++) {
 		
-		m = min(m, arr[i]);
+// 		m = min(m, arr[i]);
+// 	}
+// 	return m;
+// }
+
+// let myArr = getArr(1, 8);
+// console.log(getMinInArr(myArr));
+
+// //"Многие программы электронной вёрстки и редакторы HTML используют Lorem Ipsum в качестве текста по умолчанию" Напишите функцию findLongestWord(str), которая принимает строку в качестве параметра и находит самое длинное слово в строке.
+
+
+// function findLongestWord(str) {
+// 	strArr = str.split(' ');
+// 	strMax = '';
+// 	for (let i = 0; i < strArr.length; i++) {
+// 		if (strArr[i].length > strMax.length) {
+// 			strMax = strArr[i];
+// 		}
+// 	}
+// 	console.log(strMax);
+// }
+
+// let str = 'Многие программы электронной вёрстки и редакторы HTML используют Lorem Ipsum в качестве текста по умолчанию';
+// findLongestWord(str);
+/////////////////////////////////////////////////////////////////////////
+
+console.log('-----------Задание 6-----------');
+//6. Напишите ф-цию, в которую передается массив с целыми числами. Верните новый массив, где останутся лежать только четные из этих чисел. Для этого используйте вспомогательные функции isEven и createArr из предыдущих задач.
+
+function evenArr(array) {
+	let evenArray = [];
+	for(let i = 0; i < array.length; i++) {
+		if (isEven(array[i]) == true) evenArray.push(array[i]);
 	}
-	return m;
+	return evenArray;
 }
 
-let myArr = getArr(1, 8);
-console.log(getMinInArr(myArr));
+console.log(evenArr(array));
 
-//Сделайте функцию isEven() (even - это четный), которая параметром принимает целое число и проверяет: четное оно или нет. Если четное - пусть функция возвращает true, если нечетное — false.
+console.log('-----------Задание 7-----------');
 
-function isEven(num) {
-	let check;
-	if (num % 2 == 0) {
-		check = true;
-	} else {
-		check = false;
-	}
-	return check;
-}
+// 7. Напишите ф-цию, которая рисует следующую пирамидку (исп. вложенные
+// циклы):
+// 1
+// 22
+// 333
+// 4444
+// 55555
+// 666666
+// 7777777
+// 88888888
+// 999999999
+// Кол-во рядов должно вводиться параметром. Если пользователь ввел доп.
+// параметр, непредусмотренный ф-цией по умолчанию - один любой символ,
+// кроме пробела, то пирамида должна быть нарисована этим символом,
+// например:
 
-//alert(isEven(1));
+// Курс «JS».
 
-//Напишите ф-цию, в которую передается массив с целыми числами. Верните новый массив, где останутся лежать только четные из этих чисел. Для этого используйте вспомогательные функции isEven и createArr из предыдущих задач.
-
-function getEvenArr(myArr) {
-	let evenArr = [];
-
-	for (let i = 0; i < myArr.length; i++) {
-		if(isEven(myArr[i])) {
-			evenArr.push(myArr[i]);
-		}
-	}
-	return evenArr;
-}
-
-console.log(getEvenArr(myArr));
-
-//"Многие программы электронной вёрстки и редакторы HTML используют Lorem Ipsum в качестве текста по умолчанию" Напишите функцию findLongestWord(str), которая принимает строку в качестве параметра и находит самое длинное слово в строке.
-
-
-function findLongestWord(str) {
-	strArr = str.split(' ');
-	strMax = '';
-	for (let i = 0; i < strArr.length; i++) {
-		if (strArr[i].length > strMax.length) {
-			strMax = strArr[i];
-		}
-	}
-	console.log(strMax);
-}
-
-let str = 'Многие программы электронной вёрстки и редакторы HTML используют Lorem Ipsum в качестве текста по умолчанию';
-findLongestWord(str);
+// *
+// **
+// ***
+// ****
+// *****
+// ******
+// *******
+// ********
+// *********
