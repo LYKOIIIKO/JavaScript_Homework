@@ -207,176 +207,249 @@
 
 // console.log(fibonacci());
 
-console.log('-----------Задание 10-----------');
-//10. Дано число. Сложите его цифры. Если сумма получилась более 9-ти, опять сложите его цифры. И так, пока сумма не станет однозначным числом (9 и менее). Исп. Рекурсию.
-// Я НЕ ПОНИМАЮ УСЛОВИЕ
-function numCheck(num) {
-	let sum = 0;
-	for (let i = 0; i < num.length; i++) {
-		sum += +num[i];
-	}
-	console.log(sum);
-	num = sum;
+// console.log('-----------Задание 10-----------');
+// //10. Дано число. Сложите его цифры. Если сумма получилась более 9-ти, опять сложите его цифры. И так, пока сумма не станет однозначным числом (9 и менее). Исп. Рекурсию.
+// // Я НЕ ПОНИМАЮ УСЛОВИЕ
+// function numCheck(num) {
+// 	let sum = 0;
+// 	for (let i = 0; i < num.length; i++) {
+// 		sum += +num[i];
+// 	}
+// 	console.log(sum);
+// 	num = sum;
 
-	if (sum > 9) numCheck(String(num));
-}
+// 	if (sum > 9) numCheck(String(num));
+// }
 
-console.log(numCheck('55566666'));
+// console.log(numCheck('55566666'));
 
-console.log('-----------Задание 11-----------');
-//11. Дан массив с числами (передается параметром). Выведите последовательно его элементы, используя рекурсию и не используя цикл.
+// console.log('-----------Задание 11-----------');
+// //11. Дан массив с числами (передается параметром). Выведите последовательно его элементы, используя рекурсию и не используя цикл.
 
-function printArray(arr) {
-	console.log(arr[i]);
-	i++;
-	if (i < arr.length) printArray(arr);
-}
+// function printArray(arr) {
+// 	console.log(arr[i]);
+// 	i++;
+// 	if (i < arr.length) printArray(arr);
+// }
 
-let i = 0;
-printArray([0,1,2,3,4,5]);
+// let i = 0;
+// printArray([0,1,2,3,4,5]);
 
-console.log('-----------Задание 12-----------');
-// //12. Напишите ф-цию, запрашивающую имя, фамилия, отчество и номер
-// группы студента и выводящую введённые данные в следующем виде:
+// console.log('-----------Задание 12-----------');
+// // //12. Напишите ф-цию, запрашивающую имя, фамилия, отчество и номер
+// // группы студента и выводящую введённые данные в следующем виде:
 
-// *****************************
-// * Домашняя работа: «Функции» *
-// * Выполнил: студент гр. W4017 *
-// * Иванов Иван Иванович *
-// *****************************
+// // *****************************
+// // * Домашняя работа: «Функции» *
+// // * Выполнил: студент гр. W4017 *
+// // * Иванов Иван Иванович *
+// // *****************************
 
-// Размер рамки должен определятся автоматически по самой длинной строке.
-// Рамку вывести в консоль.
-//ЭТО БЫЛО ЖЕСТКО
+// // Размер рамки должен определятся автоматически по самой длинной строке.
+// // Рамку вывести в консоль.
+// //ЭТО БЫЛО ЖЕСТКО
 
-function showHomework() {
-	let firstName = prompt('Введите имя'),
-		lastName = prompt('Введите фамилию'),
-		middleName = prompt('Введите отчество'),
-		group = prompt('Введите номер группы'),
-		string1 = '',
-		string2 = `* Домашняя работа: «Функции» `,
-		string3 = `* Выполнил: студент гр. ${group} `,
-		string4 = `* ${lastName} ${firstName} ${middleName} `,
-		length = null;
+// function showHomework() {
+// 	let firstName = prompt('Введите имя'),
+// 		lastName = prompt('Введите фамилию'),
+// 		middleName = prompt('Введите отчество'),
+// 		group = prompt('Введите номер группы'),
+// 		string1 = '',
+// 		string2 = `* Домашняя работа: «Функции» `,
+// 		string3 = `* Выполнил: студент гр. ${group} `,
+// 		string4 = `* ${lastName} ${firstName} ${middleName} `,
+// 		length = null;
 
-	if(string2.length > string3.length && string2.length > string4.length) {
-		length = string2.length + 1;
-	} else if (string3.length > string2.length && string3.length > string4.length) {
-		length = string3.length + 1;
-	} else if (string4.length > string2.length && string4.length > string3.length) {
-		length = string4.length + 1;
-	}
+// 	if(string2.length > string3.length && string2.length > string4.length) {
+// 		length = string2.length + 1;
+// 	} else if (string3.length > string2.length && string3.length > string4.length) {
+// 		length = string3.length + 1;
+// 	} else if (string4.length > string2.length && string4.length > string3.length) {
+// 		length = string4.length + 1;
+// 	}
 
-	for (let i = 0; i < length; i++) {
-		string1 += '*';
-	}
+// 	for (let i = 0; i < length; i++) {
+// 		string1 += '*';
+// 	}
 
-	if(string2.length < length) {
-		stringPush = '';
-		for(let i = 1; i < (length - string2.length); i++) {
-			stringPush += ' ';
-		}
-		string2 += stringPush + '*';
-	}
+// 	if(string2.length < length) {
+// 		stringPush = '';
+// 		for(let i = 1; i < (length - string2.length); i++) {
+// 			stringPush += ' ';
+// 		}
+// 		string2 += stringPush + '*';
+// 	}
 
-	if(string3.length < length) {
-		stringPush = '';
-		for(let i = 1; i < (length - string3.length); i++) {
-			stringPush += ' ';
-		}
-		string3 += stringPush + '*';
-	}
+// 	if(string3.length < length) {
+// 		stringPush = '';
+// 		for(let i = 1; i < (length - string3.length); i++) {
+// 			stringPush += ' ';
+// 		}
+// 		string3 += stringPush + '*';
+// 	}
 
-	if(string4.length < length) {
-		stringPush = '';
-		for(let i = 1; i < (length - string4.length); i++) {
-			stringPush += ' ';
-		}
-		string4 += stringPush + '*';
-	}
+// 	if(string4.length < length) {
+// 		stringPush = '';
+// 		for(let i = 1; i < (length - string4.length); i++) {
+// 			stringPush += ' ';
+// 		}
+// 		string4 += stringPush + '*';
+// 	}
 
-	console.log(string1);
-	console.log(string2);
-	console.log(string3);
-	console.log(string4);
-	console.log(string1);
-}
+// 	console.log(string1);
+// 	console.log(string2);
+// 	console.log(string3);
+// 	console.log(string4);
+// 	console.log(string1);
+// }
 
-showHomework();
+// showHomework();
 
-console.log('-----------Задание 13-----------');
-//13. Напишите ф-цию, которая должна проверить правильность ввода адреса эл. почты, неиспользуя регулярные выражения. Почта верна при условии: a. весь адрес не должен содержать русские буквы и спецсимволы, кроме одной «собачки», знака подчеркивания, дефиса и точки, причем они не могут быть первыми и последними в адресе, и идти подряд, например: «..», «@.», «.@» или «@@», «_@», «@-», «--» и т.п. 
-//b. имя эл. почты (до знака @) должно быть длиной более 2 символов, причем имя может содержать только буквы, цифры, но не быть первыми и единственными в имени, и точку; 
-//c. после последней точки и после @, домен верхнего уровня (ru, by, com и т.п.) не может быть длиной менее 2 и более 11 символов.
+// console.log('-----------Задание 13-----------');
+// //13. Напишите ф-цию, которая должна проверить правильность ввода адреса эл. почты, неиспользуя регулярные выражения. Почта верна при условии: a. весь адрес не должен содержать русские буквы и спецсимволы, кроме одной «собачки», знака подчеркивания, дефиса и точки, причем они не могут быть первыми и последними в адресе, и идти подряд, например: «..», «@.», «.@» или «@@», «_@», «@-», «--» и т.п. 
+// //b. имя эл. почты (до знака @) должно быть длиной более 2 символов, причем имя может содержать только буквы, цифры, но не быть первыми и единственными в имени, и точку; 
+// //c. после последней точки и после @, домен верхнего уровня (ru, by, com и т.п.) не может быть длиной менее 2 и более 11 символов.
 
-function emailCheck (email) {
-	let rule1 = 'йцукенгшщзхъфывапролджэячсмитьбюЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ',
-		rule2 = `~!#$%^&*()+=№;:'",/|`;
-}
+// function emailCheck (email) {
+// 	let rule1 = 'йцукенгшщзхъфывапролджэячсмитьбюЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ',
+// 		rule2 = `~!#$%^&*()+=№;:'",/|`;
+// }
 
-let email = prompt('Введите email...');
-emailCheck(email);
+// let email = prompt('Введите email...');
+// emailCheck(email);
 
 
 
-console.log('-----------Дополнительное задание 2-----------');
-// //"Многие программы электронной вёрстки и редакторы HTML используют Lorem Ipsum в качестве текста по умолчанию" Напишите функцию findLongestWord(str), которая принимает строку в качестве параметра и находит самое длинное слово в строке.
+// console.log('-----------Дополнительное задание 2-----------');
+// // //"Многие программы электронной вёрстки и редакторы HTML используют Lorem Ipsum в качестве текста по умолчанию" Напишите функцию findLongestWord(str), которая принимает строку в качестве параметра и находит самое длинное слово в строке.
 
-function findLongestWord(str) {
-	strArr = str.split(' ');
-	strMax = '';
-	for (let i = 0; i < strArr.length; i++) {
-		if (strArr[i].length > strMax.length) {
-			strMax = strArr[i];
-		}
-	}
-	console.log(strMax);
-}
+// function findLongestWord(str) {
+// 	strArr = str.split(' ');
+// 	strMax = '';
+// 	for (let i = 0; i < strArr.length; i++) {
+// 		if (strArr[i].length > strMax.length) {
+// 			strMax = strArr[i];
+// 		}
+// 	}
+// 	console.log(strMax);
+// }
 
-let str = 'Многие программы электронной вёрстки и редакторы HTML используют Lorem Ipsum в качестве текста по умолчанию';
-findLongestWord(str);
+// let str = 'Многие программы электронной вёрстки и редакторы HTML используют Lorem Ipsum в качестве текста по умолчанию';
+// findLongestWord(str);
 
-console.log('-----------Дополнительное задание 3-----------');
-//Напишите функцию, которая проверяет, является ли переданная строка палиндромом.
+// console.log('-----------Дополнительное задание 3-----------');
+// //Напишите функцию, которая проверяет, является ли переданная строка палиндромом.
 
-function palindrome(str) {
-	let arr = str.split('');
-	let arrRev = arr.reverse();
-	let strRev = arrRev.join('');
-	if (str == strRev) return true;
-	else return false;
-}
+// function palindrome(str) {
+// 	let arr = str.split('');
+// 	let arrRev = arr.reverse();
+// 	let strRev = arrRev.join('');
+// 	if (str == strRev) return true;
+// 	else return false;
+// }
 
-console.log(palindrome('анна'));
-console.log(palindrome('мадам'));
-console.log(palindrome('функция'));
+// console.log(palindrome('анна'));
+// console.log(palindrome('мадам'));
+// console.log(palindrome('функция'));
 
-console.log('-----------Дополнительное задание 4-----------');
-//Нужно написать функцию, которая проверяет, являются ли две строки анаграммами, причем регистр букв не имеет значения. Учитываются лишь символы; пробелы или знаки препинания в расчет не берутся.
+// console.log('-----------Дополнительное задание 4-----------');
+// //Нужно написать функцию, которая проверяет, являются ли две строки анаграммами, причем регистр букв не имеет значения. Учитываются лишь символы; пробелы или знаки препинания в расчет не берутся.
 
-function anagramma (word1, word2) {
-	word1 = word1.split('');
+// function anagramma (word1, word2) {
+// 	word1 = word1.split('');
 	
-	for (let i = 0; i < word2.length; i++) {
-		if(word1.indexOf(word2[i]) < 0 ) return false;
-	}
+// 	for (let i = 0; i < word2.length; i++) {
+// 		if(word1.indexOf(word2[i]) < 0 ) return false;
+// 	}
 
-	return true;
+// 	return true;
+// }
+
+// console.log(anagramma('жизнедеятельность', 'дятел'));
+
+console.log('-----------Дополнительное задание 5-----------');
+//Функция обратного порядка: Создайте функцию reverseString(str), которая принимает строку и возвращает её в обратном порядке
+
+function reverseString2(str) {
+	let strRev = str.split('').reverse().join('');
+	return strRev;
 }
 
-console.log(anagramma('жизнедеятельность', 'дятел'));
+console.log(reverseString2('Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse, consequatur!'));
 
-/*ДОП ЗАДАЧИ !!!!!!!!!!!!
-Функция обратного порядка: Создайте функцию reverseString(str), которая принимает строку и возвращает её в обратном порядке
+console.log('-----------Дополнительное задание 6-----------');
+//Функция для уникальных значений: Напишите функцию uniqueValues(arr), которая принимает массив и возвращает новый массив с уникальными значениями
+//НЕ РЕШИЛ
+function uniqueValues(arr) {
+let arrUnique = [arr[0]];
+for (let i = 0; i < arr.length; i++) {
+	
+	for (let j = 0; j < arr.length; j++) {
+		if (arr[i] == arr[j]) break;
+		else arrUnique.push(arr[i]);
+	}
+	
+}
+return arrUnique;
+}
 
-Функция для уникальных значений: Напишите функцию uniqueValues(arr), которая принимает массив и возвращает новый массив с уникальными значениями
+console.log(uniqueValues([0,0,1,1,2,2,3,3,4,4,5,5,1]));
 
-Функция находит общие элементы в двух массивах: Напишите функцию intersection(arr1, arr2), которая находит и возвращает общие элементы в двух массивах
 
-Функция поиска элемента в массиве: Напишите функцию contains(arr, value), которая проверяет, содержится ли значение в массиве
+console.log('-----------Дополнительное задание 7-----------');
+//Функция находит общие элементы в двух массивах: Напишите функцию intersection(arr1, arr2), которая находит и возвращает общие элементы в двух массивах
 
-Функция конвертации температуры: Напишите функцию celsiusToFahrenheit(celsius), которая конвертирует температуру из градусов Цельсия в градусы Фаренгейта
+function intersection(arr1, arr2) {
+	let result = [];
 
-Напишите функцию createArr(), которая создает массив, заполняемый "руками" (например, через prompt()), пока пользователь не введет пустую строку. Функция должна вернуть созданный массив.
-*/
+	for(let i = 0; i < arr1.length; i++) {
+		for(let j = 0; j < arr2.length; j++) {
+			if (arr1[i] == arr2[j]) result.push(arr1[i]);
+		}
+	}
+
+	return result;
+}
+
+console.log(intersection([0,1,2,3,4,5,5], [3,3,4,5,6,7,8]));
+
+
+console.log('-----------Дополнительное задание 8-----------');
+//Функция поиска элемента в массиве: Напишите функцию contains(arr, value), которая проверяет, содержится ли значение в массиве
+
+function contains(arr, value) {
+	for (let i = 0; i < arr.length; i++) {
+		if (arr[i] == value) return true;
+	}
+	return false;
+}
+
+console.log(contains([0,1,2,3,4,5], 6));
+
+
+console.log('-----------Дополнительное задание 9-----------');
+//Функция конвертации температуры: Напишите функцию celsiusToFahrenheit(celsius), которая конвертирует температуру из градусов Цельсия в градусы Фаренгейта
+
+function celsiusToFahrenheit(celsius) {
+	let result = (9 / 5) * celsius + 32;
+	return result;
+}
+
+console.log(celsiusToFahrenheit(25));
+
+
+console.log('-----------Дополнительное задание 10-----------');
+//Напишите функцию createArr(), которая создает массив, заполняемый "руками" (например, через prompt()), пока пользователь не введет пустую строку. Функция должна вернуть созданный массив.
+
+function createArr2() {
+	let num = +prompt('Введите число...');
+
+	if (num != '') {
+		arr.push(num);
+		createArr2();
+	}
+
+	return arr;
+}
+let arr = [];
+console.log(createArr2());
