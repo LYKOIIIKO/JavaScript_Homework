@@ -309,20 +309,55 @@ console.log('-----------Задание 13-----------');
 //13. Напишите ф-цию, которая должна проверить правильность ввода адреса эл. почты, неиспользуя регулярные выражения. Почта верна при условии: a. весь адрес не должен содержать русские буквы и спецсимволы, кроме одной «собачки», знака подчеркивания, дефиса и точки, причем они не могут быть первыми и последними в адресе, и идти подряд, например: «..», «@.», «.@» или «@@», «_@», «@-», «--» и т.п. 
 //b. имя эл. почты (до знака @) должно быть длиной более 2 символов, причем имя может содержать только буквы, цифры, но не быть первыми и единственными в имени, и точку; 
 //c. после последней точки и после @, домен верхнего уровня (ru, by, com и т.п.) не может быть длиной менее 2 и более 11 символов.
-//НЕ РЕШИЛ!!!!!!!!!!!!!!!!
 
-// function emailCheck (email) {
-// 	let rule1 = 'йцукенгшщзхъфывапролджэячсмитьбюЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ',
-// 		rule2 = `~!#$%^&*()+=№;:'",/|`;
-// }
+function checkEmail (email) {
+	let arrTrueChars = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm', '@', '_', '.', '-'],
+		check,
+		arrTrueSpecChars = ['@','_','.','-'];
+	
+	for (let i = 0; i < email.length; i++) {
+		if (arrTrueChars.indexOf(email[i]) == -1) {
+			check = false;
+			break;
+		}
+	}
 
-// let email = prompt('Введите email...');
-// emailCheck(email);
+	if (arrTrueSpecChars.indexOf(email[0]) > -1 ||
+		arrTrueSpecChars.indexOf(email[email.length-1]) > -1) check = false;
 
+	for (let i = 0; i < email.length; i++) {
+		if (arrTrueSpecChars.indexOf(email[i]) > -1 &&
+			arrTrueSpecChars.indexOf(email[i+1]) > -1 ) {
+				check = false;
+				break;
+			}
+	}
+
+	let aPos = email.indexOf('@'),
+		dPos = email.lastIndexOf('.'),
+		emailName = email.slice(0, aPos),
+		emailDomain = email.slice(aPos+1, dPos),
+		emailZone = email.slice(dPos+1);
+
+	if (emailName.length < 2 ||
+		emailDomain.length < 2 ||
+		emailZone.length < 2 ||
+		emailDomain.length > 11 ||
+		emailZone.length > 11
+	) check = false;
+
+	if (check == undefined) check = true;
+	return check;
+}
+
+console.log(checkEmail('name@gmail.com'));
+console.log(checkEmail('anton.haba1995@sitename.com'));
+console.log(checkEmail('na me@.gmail.com'));
+console.log(checkEmail('naмe@gmail.com'));
 
 
 console.log('-----------Дополнительное задание 2-----------');
-// //"Многие программы электронной вёрстки и редакторы HTML используют Lorem Ipsum в качестве текста по умолчанию" Напишите функцию findLongestWord(str), которая принимает строку в качестве параметра и находит самое длинное слово в строке.
+//"Многие программы электронной вёрстки и редакторы HTML используют Lorem Ipsum в качестве текста по умолчанию" Напишите функцию findLongestWord(str), которая принимает строку в качестве параметра и находит самое длинное слово в строке.
 
 function findLongestWord(str) {
 	strArr = str.split(' ');
@@ -449,81 +484,3 @@ function createArr2() {
 }
 let arr = [];
 console.log(createArr2());
-
-
-console.log('-----------Дополнительное задание 11-----------');
-//Дана строка «Я учу javascript!». Вырежете из нее слово «учу» и слово «javascript» тремя разными способами (через substr, substring, slice).
-
-let str1 = 'Я учу javascript!';
-
-console.log(str1.substring(2, 5), str1.substring(6, 16));
-console.log(str1.substr(2, 3), str1.substr(6, 10));
-console.log(str1.substring(2, 5), str1.substring(6, 16));
-
-console.log('-----------Дополнительное задание 12-----------');
-//Дана строка 'aaa@bbb@ccc'. Замените все @ на ! с помощью глобального поиска и замены.
-
-//В переменной date лежит дата в формате 2025-12-31. Преобразуйте эту дату в формат 31/12/2025.
-
-let str2 = 'aaa@bbb@ccc';
-
-console.log(str2.replace(/@/g, '!'));
-
-let date2 = "2025-12-31";
-
-console.log(date2.replace(/(2025)-(12)-(31)/g, '$3/$2/$1'))
-
-console.log('-----------Дополнительное задание 13-----------');
-//Выведите на экран текущую дату-время в формате 12:59:59 31.12.2014. Для решения этой задачи напишите функцию, которая будет добавлять 0 перед днями и месяцами, которые состоят из одной цифры (из 1.9.2014 сделает 01.09.2014).
-
-let date3 = new Date();
-console.log(date3);
-
-let hour = date3.getHours(),
-	min = date3.getMinutes(),
-	sec = date3.getSeconds(),
-	day = date3.getDate(),
-	month = date3.getMonth(),
-	year = date3.getFullYear();
-
-if(day.length < 2) {
-	day = "0" + day;
-}
-
-if (month.length < 2) {
-	month = "0" + month;
-}
-
-console.log(`${hour}:${min}:${sec} ${day}.${month}.${year}`);
-
-console.log('-----------Дополнительное задание 14-----------');
-//Функция выбора случайного элемента из массива: Создайте функцию randomElement(arr), которая возвращает случайный элемент из переданного массива.
-
-function randomElement(arr) {
-	let max = arr.length - 1,
-		min = 0;
-	return Math.random() * (max - min) + min;
-}
-
-console.log(Math.round(randomElement([0,1,2,3,4,5,6,7,8,9,10])));
-
-console.log('-----------Дополнительное задание 15-----------');
-//Напишите функцию, которая принимает дату рождения и возвращает, сколько лет человеку на данный момент.
-//37 лет 7 месяцев 2 дня / 12.04.1987
-
-function howOld(birthday) {
-	let arr = birthday.split('.'),
-		date = new Date(),
-		day = date.getDate(),
-		month = date.getMonth() + 1,
-		year = date.getFullYear(),
-		date1 = (year * 365) + (month * 30) ;
-		date2 = (arr[0] * 365) + (arr[1] * 30) + +arr[2],
-		dateDiff = date1 - date2,
-		birthdayYear = dateDiff / 365,
-		birthdayMonth = 12 * (birthdayYear - Math.floor(birthdayYear));
-		
-	return `${Math.floor(birthdayYear)} лет ${birthdayMonth} месяцев`;
-}
-
-console.log(howOld('1995.06.19'));
