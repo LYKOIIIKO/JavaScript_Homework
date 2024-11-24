@@ -17,17 +17,26 @@
 (ввод информации о скорости движения), расчет пройденных километров.
  Контакты. Возм. методы: добавление нового контакта (ввод ФИО, возраст, телефон, эл.
 почта), проверка введенной информации, например: проверить возраст – должен быть
-целым неотрицательным числом больше 18, вывод информации о конкретном
-контакте, вывод всех контактов.
+целым неотрицательным числом больше 18, вывод информации о конкретном контакте, вывод всех контактов.
 
-Можно выдумать любой другой объект. Кол-во методов и свойств может быть любым, но не
-менее трех.
+Можно выдумать любой другой объект. Кол-во методов и свойств может быть любым, но не менее трех.
 */
 
 
-//Калькулятор
+//Калькулятор. Возможные методы: вкл/выкл калькулятора, получение выражения для расчета или, а и б числа с операцией, вычисление выражения, показ результата расчета.
 
+//включение калькулятора происходит по кнопке на странице
 let Calc = function() {
+	this.expression = function () {
+		this.formula = prompt('Введите выражение для расчета...');
+
+		if(!this.formula) {
+			this.get();
+		} else {
+			alert(`${this.formula} = ${eval(this.formula)}`);
+		}
+	};
+
 	this.get = function() {
 		this.a = +prompt('Введите число a');
 		this.b = +prompt('Введите число b');
@@ -62,7 +71,39 @@ let Calc = function() {
 };
 
 let calc = new Calc();
-calc.get();
-console.log(calc);
 
-//КОНТАКТЫ
+//Чайник. Возможные методы: ввод инф. о чайнике (мощность, объем, кол-во воды), вкл./выкл., расчет времени закипания воды.
+
+let Kettle = function() {
+	this.turnOn = function () {
+		this.info();
+	};
+
+	this.info = function() {
+		this.power = prompt('Введите мощность чайника, Вт.');
+		this.volume = prompt('Введите объем чайника, л.');
+		this.waterVolume = prompt('Введите количество воды в чайнике, л.');
+
+		this.power = this.power || 1700;
+		this.volume = this.volume || 1.8;
+		this.waterVolume = this.waterVolume || 1.8;
+
+		if(this.waterVolume > this.volume) {
+			alert('Вы не можете налить воды больше чем объем чайника!')
+		} else {
+			this.result();
+		}
+	};
+
+	this.result = function() {
+		this.waterCurrentTempC = 25;
+		this.waterRequiredTempC = 100;
+		this.heatCapacityWater = 4183;
+		
+		this.timeBoiling = this.heatCapacityWater * this.waterVolume * ((this.waterRequiredTempC + 273.15) - (this.waterCurrentTempC + 273.15)) / this.power;
+
+		alert(`Время закипания ${this.waterVolume} л воды в чайнике мощностью ${this.power} Вт и объемом ${this.volume} л, равно ${Math.round(this.timeBoiling)} сек.`)
+	};
+};
+
+let kettle = new Kettle();

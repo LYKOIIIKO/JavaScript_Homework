@@ -82,7 +82,9 @@ console.log('---------------Задание 8----------------');
 //Напишите ф-цию строгой проверки ввода номер телефона в международном формате (<код страны> <код города или сети> <номер телефона>). Функция должна возвращать true или false. Используйте регулярные выражения.
 
 function checkPhone(phone) {
-	let rule = /^[+]\d{1,3} \d{1,5} \d{6,10}/g;
+	if (!phone) return false;
+
+	let rule = /^\+?375 ?\(?(?:44|29|33|25)\)? ?[1-9]\d{2} ?-?\d{2} ?-?\d{2}$/;
 
 	return rule.test(phone);
 }
@@ -100,14 +102,21 @@ console.log('---------------Задание 9----------------');
 //Функция должна возвращать true или false. Используйте регулярные выражения.
 //СЛОЖНА!!!!!!!!!!!!!!!!!!!!!
 
-// function checkEmail(email) {
-// 	if (email.match(/[а-яА-Я]/)) {
-// 		return 'Адрес содержит кириллические символы!'
-// 	} else if (email.match(/[а-яА-Я]/))
-// }
+function checkEmail(email) {
+	if (!email) return false;
 
-// console.log(checkEmail('lykoiiiko@gmail.com'));
-// console.log(checkEmail('lykoiiikoЯ@gmail.com'));
+	let reg = /^[a-z0-9][a-z0-9._-]{0,28}[a-z0-9]@[a-z0-9][a-z0-9.-]{1,11}\.[a-z]{2,11}$/gi;
+
+	return reg.test(email);
+}
+
+console.log(checkEmail('lykoiiiko@gmail.com'));
+console.log(checkEmail('lykoiiikoЯ@gmail.com'));
+console.log(checkEmail('lykoiiiko@_gmail.com'));
+console.log(checkEmail('_lykoiiiko@gmail.com'));
+console.log(checkEmail('lykoiiiko@gmail.commmmmmmmmmmmmmmmmmmmmmmm'));
+console.log(checkEmail(''));
+
 
 console.log('---------------Задание 10----------------');
 //Напишите ф-цию, которая из полного адреса с параметрами и без, например: https://tech.onliner.by/2018/04/26/smart-do-200/?utm_source=main_tile&utm_medium=smartdo200#zag3 , получит адрес доменного имени (https://tech.onliner.by), остальную часть адреса без параметров (/2018/04/26/smart-do-200/), параметры (utm_source=main_tile&utm_medium=smartdo200) и хеш (#zag3). В адресе может и не быть каких-либо составляющих. Ф-ция должна возвращать массив.
@@ -126,6 +135,17 @@ let link = new URL('https://tech.onliner.by/2018/04/26/smart-do-200/?utm_source=
 
 console.log(getAdress(link));
 
+//Альтернативное решение на уроке
+
+// function parseUrl(value) {
+//     if (!value) return false;
+    
+//     let reg = /^(https?:\/\/)([a-z0-9][a-z.-]+[a-z0-9.-]+[a-z0-9]\.[a-z]{2,11})(\/[^?#\s]+\/?)?\/?(\?[^#\s]+)?(#[\w\d]+)?$/i;
+
+//     return value.match(reg);
+// }
+
+// console.log(parseUrl('https://tech.onliner.by/2018/04/26/smart-do-200/?utm_source=main_tile&utm_medium=smartdo200#zag3'));
 
 console.log('-----------Дополнительное задание 1-----------');
 //Функция выбора случайного элемента из массива: Создайте функцию randomElement(arr), которая возвращает случайный элемент из переданного массива.
