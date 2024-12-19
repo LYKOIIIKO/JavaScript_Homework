@@ -95,9 +95,103 @@ function popup() {
     });
 }
 
+function title() {
+    let elems = document.querySelectorAll('[title]');
+
+    if(!elems || elems.length == 0) return;
+
+    function create(value) {
+        if(!value) return;
+
+        let elem = document.createElement('div');
+        elem.classList.add('title');
+
+        elem.innerHTML = value;
+
+        return elem;
+    }
+
+    function clear() {
+        let elems = document.querySelectorAll('.title');
+
+        elems.forEach(function(elem) {
+            elem.remove();
+        })
+    }
+
+    elems.forEach(function(elem) {
+
+        let value = '';
+        let titleElem = '';
+
+
+        elem.addEventListener('mouseenter', function(event) {
+            clear();
+
+            value = elem.title;
+            titleElem = create(value);
+
+            if(!titleElem) return;
+
+            document.body.append(titleElem);
+            elem.removeAttribute('title');
+
+            titleElem.style.top = (event.pageY + 5) + 'px';
+            titleElem.style.left = (event.pageX + 5) + 'px';
+        });
+
+        elem.addEventListener('mouseleave', function(event) {
+            elem.title = value;
+
+            let toLeaveElem = event.toElement;
+            if(toLeaveElem.classList[0] == 'title') return;
+
+            clear();
+        });
+
+        elem.addEventListener('mousemove', function(event) {
+            titleElem.style.top = (event.pageY + 5) + 'px';
+            titleElem.style.left = (event.pageX + 5) + 'px';
+        })
+    })
+}
+
+function accordion() {
+
+    let elems = document.querySelectorAll('[data-accordion]');
+
+    if(!elems || elems.length == 0) return;
+
+    function closeAll(accordion) {
+        if(!accordion) return;
+
+        let liElems = accordion.querySelectorAll('li');
+
+        liElems.forEach(function(li) {
+            li.classList.remove('active');
+        })
+    }
+
+    elems.forEach(function(elem) {
+        let titles = elem.querySelectorAll('h3');
+
+        titles.forEach(function(title) {
+            title.addEventListener('click', function(event) {
+               let parentLi = event.target.closest('li');
+               if(!parentLi) return;
+
+                if(!parentLi.classList.contains('active')) closeAll(elem);
+               parentLi.classList.toggle('active');
+            })
+        })
+    })
+}
+
 
 window.addEventListener('load', function() {
 
     popup();
+    title();
+    accordion();
 
 });

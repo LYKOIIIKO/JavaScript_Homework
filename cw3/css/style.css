@@ -125,3 +125,63 @@ hr {
     max-width: 100%;
     max-height: 100%;
 }
+
+.title {
+    display: inline-block;
+    padding: 2px 8px;
+
+    border-radius: 5px;
+    background-color: rgba(255, 247, 177, .8);
+    box-shadow: 0 2px 5px #999;
+    
+    font-size: 12px;
+    color: #000;
+    
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 999;
+}
+
+.accordion {
+    background-color: #ccc;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.accordion__list {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.accordion__title {
+    background-color: #38938f;
+    color: #fff;
+    border-radius: 5px;
+    padding: 5px 10px;
+
+    font-size: 14px;
+}
+
+.accordion__title:hover,
+.accordion__item.active .accordion__title {
+    background-color: #006762;
+    cursor: pointer;
+}
+
+.accordion__content {
+    display: none;
+
+    padding: 10px;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+.accordion__item.active .accordion__content {
+    display: block;
+}
