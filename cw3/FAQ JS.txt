@@ -1,0 +1,2063 @@
+БАЗА (
+	//
+	подключение JS (
+		
+		<script src="scripts.js"></script> // в самый низ <body>, чтобы загружался в конце и отрабатывал корректно, предпочтителен
+		window.addEventListener('load', function() { // и добавляем слушателя в конец скрипта. современные требования. скрипт будет загружатся после загрузки html и css
+			new AppUI();
+		})
+		- вместо load можно DOMContentLoaded. он ждет загрузку только html
+
+		<script defer src="scripts.js"></script> //defer позволяет отложить загрузку скриптов, можно пихать подключение скрипта в head. альт
+
+		<script> //через тэг. альт
+			document.querySelector('.clickme button').onclick = function() {
+			    alert('Hello World!');
+			};
+		</script>
+	)
+	
+	console.log('Text'); //вывод в консоль браузера
+	alert('Text');//вывод на экран во всыплывающем окне
+	prompt('Введите текст'); //всплывающее окно просит юзера ввести что-нибудь
+	document.write('text'); //вывод текста в тело документа 
+	document.write(`${i} <br>`); //вывод текста в тело документа с новой строки
+	confirm(question); // диалоговое окно ОК/Отмена true/false
+	console.dir(document.querySelector('p')) //выведет элемент p как объект в консоль
+
+	type of a; //показать тип переменной a
+
+	a = (`${b} + c `) // ${} используется для вывода значения переменной b как строки. Работает только внутри обратных кавычек
+
+	let num = "111";
+	num[0] //квадратные скобки для выбора первого символа строки. счет идет от нуля
+	+num[1] // плюсик перед переменной преобразует ее в число
+
+	isFinite('string') //выдаст false. проверяет является ли значение числом
+	isNaN('123') //выдаст false. проверяет является ли значение НЕ числом
+
+	== //если равняется без учета типов данных
+	=== // если равняется С учетом типов данных
+)
+
+Условия if else switch (
+	if(условие) {код}
+	if(условие) {код} else {код}
+	if() {} else if() {}
+
+	switch(условие) {
+		case(условие):
+			код
+		break;
+		default:
+			code;
+		break;
+	}
+)
+
+Циклы for while (
+	while (условие для цикл СТОП) {выполняемый код} //while-пока не. Переменная счетчик задается вне тела цикла!
+
+	do {выполняемый код} while(условие СТОП); //выполняет код в любом случае 1 раз
+
+	for (задать счетчик; условие СТОП; выполняется в конце цикла) {} //Переменная счетчик задается в теле цикла!
+	for(; условие СТОП; выполняется в конце цикла) {} //можно оставлять пустым первое и третье из условий и работать как с while
+
+	continue, break (
+
+		for (let i = 0; i <= 10; i++) {
+			if (i == 5 || i == 7 || i == 9) continue; //пропускает выполнение кода если i=5 или 7 или 9
+			console.log(i);
+		}
+
+		for (let i = 0; i <= 10; i++) {
+			console.log(i);
+
+			if (i == 3) break; //остановит выполнение цикла если i=3
+		}
+
+		for (let i = 0; i <= 10; i++) {
+			if (i % 2 == 0) continue; //пропустить выполнение кода если i делится без остатка на 2 (четное число)
+
+			console.log(i); //выведутся только нечетные числа
+		}
+	)
+
+	let a = 5; // выводит в консоль сумму чисел 1, 2, 3, 4, 5. Т.е. сумма чисел числа 5 это 1+2+3+4+5=15
+	let sum = 0;
+
+	for (let i = 1; i <= a; i++) {
+		sum = 0;
+		
+		for (let j = 1; j <= i; j++) { //цикл в цикле
+			sum += j;
+		}
+
+		console.log('Sum ' + i + ' = ' + sum);
+	}
+)
+
+МАССИВЫ (
+	let arr3 = new Array(); //способ создания массива
+	let arr5 = new Array(45); //создаст 45 пустых ячеек
+
+	let fruits = ['Яблоко' , 'Груша', 'Слива']; //создание массива. можно пустые ячейки. индексация с 0. можно добавлять в массив любые строки, числа, другие массивы...
+
+	console.log(fruits[1]);// вывести конкретное значение массива
+
+	fruits[1] = 'Дыня'; //добавить значение в массив
+
+	fruits['other'] = 'Огурец'; //индекс может быть не только цифровым, но и ассоциативным. он добавится в конец массива
+
+	console.log(fruits.length); //выводит количество элементов массива. пустые тоже считает
+
+	fruits2[fruits2.length] = 'Дыня'; //способ добавить строку в конец массива
+
+	( укорачивание массива через .length
+		let arrNum = [1, 2, ,,,,,, 5, 6];
+		console.log(arrNum);
+
+		arrNum.length = 3; //укоротит массив до трех элементов
+		console.log(arrNum);
+
+		arrNum.length = 0; // очистит массив
+		console.log(arrNum);
+	)
+
+	( создание массива внутри массива МНОГОМЕРНЫЕ МАССИВЫ ИЛИ МАТРИЦЫ
+		let matrix = [
+				[1, 2, 3], // 0 индекс
+				[4, 5, 6], // 1
+				[7, 8, 9]  // 2
+			];
+
+		console.log(matrix[1]); // выведет [4, 5, 6]
+		console.log(matrix[1][1]); // обращаемся к элементу matrix с индексом 1, входим в него и обращаемся уже к элементу этого вложенного массива с индексом 1. выведет 5
+	)
+
+	_МЕТОДЫ МАССИВОВ
+
+	fruits.push('Апельсин'); //добавить элемент в конец массива
+
+	fruits.unshift('Персик'); //добавить элемент в начало массива
+
+	fruits.pop(); //вырезать последний элемент массива
+
+	fruits.shift(); //вырезать первый элемент массива
+
+	let popElem = fruits.pop(), //можно присвоить переменной значение из массива
+	shiftElem = fruits.shift();
+
+	( splice удалить один и более элемента 
+
+		let arr = ['Я', 'изучаю', 'JavaScript'];
+		console.log(arr);
+
+		arr.splice(1, 1); //удалить элемент с индексом 1, удалить один элемент
+		console.log(arr); //'Я', 'JavaScript'
+
+		arr.splice(1, 0, 'изучаю'); //добавить "изучаю" под первым индексом
+		console.log(arr); //'Я', 'изучаю', 'JavaScript'
+
+		arr.splice(2, 0, 'сложный', 'язык'); // добавит со второго индекса
+		console.log(arr); //'Я', 'изучаю', 'сложный', 'язык', 'JavaScript'
+
+		arr.splice(2, 2); //удалит начиная со второго индекса, два элемента
+		console.log(arr); //'Я', 'изучаю', 'JavaScript'
+	)
+
+	( slice скопировать массив
+
+		let arr2 = ['Почему', 'надо', 'учить', 'JavaScript'];
+		let arr22 = arr2.slice(1,3); //скопировать начиная с 1 индекса, до 3 индекса не включая
+		console.log(arr22); //['надо', 'учить']
+
+		let arr23 = arr2.slice(1);//скопировать массив начиная с 1 индекса до конца
+		console.log(arr23); //['надо', 'учить', 'JavaScript']
+
+		let arr24 = arr2.slice(); //скопировать весь массив 1 способ
+		console.log(arr24); //['Почему', 'надо', 'учить', 'JavaScript']
+
+		let arr2Copy = arr2; //скопировать весь массив 2 способ
+		console.log(arr2Copy);
+	)
+
+	( split превратить строку в массив
+
+		let names = 'Маша,Петя,Иван,Марина';
+		let namesArr = names.split(','); //принимаем запятую в качестве разделителя
+		console.log(namesArr); //выведет массив
+
+		namesArr = names.split(',', 2); //второй параметр- длина массива
+		console.log(namesArr); ["маша", "петя"]
+
+		let txt = 'текст';
+		console.log(txt.split('')); //каждая буква строки станет элементом массива
+	)
+
+	_join массив в строку
+
+	let arrNames = ["Маша", "Петя", "Иван", "Марина"];
+	let strNames = arrNames.join(', '); //превратит массив в строку с разделителем запятая пробел
+	console.log(strNames);
+
+	console.log(new Array(10).join('ля'));//выведет строку ляляляляляляляляляля
+
+	(_sort сортировка
+
+		let arrNums = [3, 1, -5, 23, 15, 8];
+		console.log(arrNums);
+
+		arrNums.sort(); //отсортирует массив от отрицательных до положительных, но не по порядку!!! т.к. он сортирует как строки, а не как числа
+		console.log(arrNums);
+
+		arrNums.sort(function(a, b) {
+			return a - b;
+		}); //лайфхак сортировки массива по порядку от меньшего к большему
+
+		console.log(arrNums);
+	)
+
+	_reverse переворот
+
+	arrNums.reverse(); //перевернет массив
+	console.log(arrNums);
+
+	_concat объединить массивы
+
+	let arrNums2 = [1, 2, 3, 4, 5, 6],
+	arrNums3 = [6, 7, 8, 9],
+	arrNums4 = [10, 11, 12, 13, 14];
+
+	let arrNums5 = arrNums2.concat(arrNums3, arrNums4); //объединит три массива в один
+	console.log(arrNums5);
+
+	_indexOf и lastIndexOf вывести индекс элемента. поиск с начала и поиск с конца
+
+	let newArrNames = ["Маша", "Петя", "Иван", "Марина", "Петя", "Ольга"];
+	console.log(newArrNames);
+
+	console.log(newArrNames.indexOf('Петя')); // 1 начинает поиск с начала
+	console.log(newArrNames.lastIndexOf('Петя')); // 4 начинает поиск с конца
+
+	_заполнить массив числами
+
+	let arr = [];
+	for(let i = 10; i <= 20; i++) {
+		arr.push(i); //заполнение начиная с начала массива
+	}
+
+	//////////////////////////////////////
+	КОПИРОВАНИЕ МАССИВА (
+
+		let dataDefault = ['Alex', 'Bob', 'Mike']
+		let data = [...dataDefault]; //копируем массив
+
+		data[0] = 'Peter'; //заменяем 0 элемент в массиве
+
+		console.log(data); //выведет измененный массив
+		console.log(dataDefault); // выведет дефолтный массив
+	)	
+)
+
+ФУНКЦИИ (
+	https://www.youtube.com/watch?v=RSHiOHptoKQ урок про функции
+	https://www.youtube.com/live/eltydaOphlg занятие по остаточным, коллбэк, методы перебора
+
+	///////////////////////////////////////////////////
+	СПОСОБЫ СОЗДАНИЯ ФУНКЦИЙ (
+
+		// 1
+		function hello(user) {
+			console.log('Привет ' + user);
+		}
+
+		// 2
+		var hello = function (user) {
+			console.log('Привет ' + user);
+		};
+
+		hello('Ольга');
+
+		// 3
+		let f3 = (user) => {
+			console.log('f3');
+		};
+
+		f3();
+	)
+
+	///////////////////////////////////////////////
+	ОБЛАСТЬ ВИДИМОСТИ ПЕРЕМЕННЫХ(
+
+		var user = 'Иван';
+
+		function helloUser() {
+			var defaultUser = 'Юзер'; //остается внутри функции
+
+			globalUser = 'Супер Юзер'; //работает во всем коде
+
+			user = 'Петя';
+
+			var message = 'Привет ' + user;
+			//alert(message); //будет Привет Петя
+		}
+
+		console.log(user); // Иван до вызова функции
+
+		helloUser();
+
+		console.log(user); // Петя после вызова
+
+		//console.log(defaultUser); //undefined
+
+		console.log(globalUser); //Супер Юзер
+	)
+
+	///////////////////////////////////////////////////
+	ПАРАМЕТРЫ ФУНКЦИИ (
+
+		function showMessage(from, text) { // from и text параметры функции
+		// Маша: Как дела?
+		// Алекс: Привет!
+			alert(from + ': ' + text);
+		}
+
+		
+		//showMessage('Маша', 'Как дела?'); // Маша(параметр 1): Как дела?(параметр 2)
+
+		//showMessage('Алекс', 'Привет');
+		//showMessage('Сергей', 'Привет всем!');
+		
+		//showMessage('Петя'); // Петя: undefined
+	)
+
+	//////////////////////////////////////////////////////
+	СОЗДАНИЕ МАССИВА (
+
+		function createArray(length) {
+			
+			length = length || 10; // По умолчанию length = 10;
+
+			var array = [];
+
+			for(var i = 1; i <= length; i++) {
+				array.push(i);
+			}
+
+			console.log(array);// выведет в консоль
+		}
+
+		createArray(3); //вызов функции создания массива с длинной 3 элемента
+		createArray(20);
+		createArray();
+	)
+
+	//////////////////////////////////////////////////////////
+	СКРЫТЫЙ ВСТРОЕННЫЙ МАССИВ ARGUMENTS( 
+		-встроенный массив arguments работает только если функция создается 1 или 2 способом!!!
+		-по факту arguments это объект
+		-arguments стал устаревшим в плане обращения к элементам функции
+
+		function test(a, b, c) { //задаем три параметра функции
+			console.log(a, b, c);
+
+			console.log(arguments); // массив arguments
+
+			if (arguments.length > 3) {
+				/*console.log(arguments[3]); //выведет 10
+				console.log(arguments[4]); //выведет 12
+				console.log(arguments[5]);*/ //выведет 8
+
+				for(var i = 0; i < arguments.length; i++) {
+					console.log(arguments[i]); //способ вытянуть все параметры функции
+				}
+			}
+		}
+
+		test(4,6,2);
+		test(4,6,2, 10, 12, 8); //параметры 10, 12, 8 сохранятся в массив arguments и их можно вытянуть
+		test(); //undefined
+	)
+
+	///////////////////////////////////////////
+	ЧТО ТАКОЕ return (
+
+		function checkAge(age) { // функция проверки возраста
+			if (age >= 18) {
+				return true; // результат выполнения функции true
+			} else {
+				return false; // результат выполнения функции false
+			}
+		}
+
+		var result = checkAge(32); //сработает функция и присвоит переменной значение true
+
+		if (result == true) console.log('Добро пожаловать'); //вывод сообщения
+		else console.log('Доступ запрещен');
+
+		function showMove(age) { 
+			if (checkAge(age) == true) { // эта функция использует результат выполнения предыдущей
+				return 'Приятного просмотра'; // возвращаем сразу сообщение
+			} else {
+				return 'Фильм не для всех';
+			}
+		}
+
+		console.log(showMove(10)); //вызываем функцию  и получаем сообщение
+		console.log(showMove(21));
+	)
+
+	////////////////////////////////////////////////////////
+	ЕЩЕ ПРО return (
+	
+		function sum(a, b) {
+			return a + b; // функция которая вычисляет выражение
+		}
+
+		var c = sum(2, 8); // 10 //присваиваем результат выполнения функции переменной
+		console.log(c); //выводим значение переменной
+
+		var sum2 = sum; //используется редко! позволяет копировать функции
+		console.log(sum2(9, 3)); // 12
+	)
+
+	///////////////////////////////////////////
+	АНОНИМНАЯ ФУНКЦИЯ (
+
+		var hello2, //объявляем переменную
+			user = prompt('Ты кто?'); //будем спрашивать имя пользователя
+
+		if (user != '') {
+			hello2 = function() { return 'Привет ' + user }; //присваиваем переменной значение анонимной функции
+		} else {
+			hello2 = function() { return 'Привет Аноним' }; //альтернативный сценарий
+		}
+
+		var result = hello2(); //обращаемся к функции, результат выполнения присваиваем переменной
+		console.log(result);
+	)
+
+	////////////////////////////////////////////////////////
+	АНОНИМНАЯ ФУНКЦИЯ В КАЧЕСТВЕ ПАРАМЕТРА ФУНКЦИИ (
+
+		function ask(question, yes, no) {
+			if (confirm(question)) yes()
+			else no();
+		}
+
+		ask(
+			'Вы согласны?',
+			function() { alert('Вы согласились'); },
+			function() { alert('Вы не согласны'); }
+		);
+	)
+
+	////////////////////////////////////////////////////
+	РЕКУРСИЯ МАТЬ ЕЁ. это когда функция вызывает саму себя! (
+
+		function printArray(array) { // пример вывода массива в консоль
+			console.log(array[i]); // выводим первый элемент массива в консоль
+			i++; //наращиваем i
+
+			if (i < array.length) printArray(array); //проверяем. если i меньше длины массива, вызываем функцию заново!
+		}
+
+		var i = 0; //объявляем переменнную вне функции!!!!!!!!!!!!
+
+		printArray([1, 89, 2, -9, 6]); //вызываем функцию. массив в качестве параметра функции
+	)
+
+	/////////////////////////////////////////////////////
+	ОСТАТОЧНЫЙ ОПЕРАТОР ...abc (три точки + любое название переменной) (
+		... - оператор остаточных элементов. Все параметры передаваемые в функцию будут попадать в массив
+
+		 let f2 = function(...args) {
+			console.log(args); //выведет массив [2, 6, 9, 'a']
+		};
+
+		f2(2, 6, 9, 'a');
+	)
+
+	/////////////////////////////////////////////////////////
+	ОПЕРАТОР РАСШИРЕНИЯ ... (
+
+		let f4 = function(a, b, c, d, ...other) { //...other оставляет возможность расширить количество параметров функции
+			console.log(a, b, c, d, other); // выведет v 2 b 4 [5,6,7,8] - 5 параметров
+			console.log(a, b, c, d, ...other); // выведет v 2 b 4 5 6 7 8 - 8 параметров
+		};
+
+		let arrParamsForF4 = ['v', 2, 'B', 4, 5, 6, 7, 8];
+
+		f4(arrParamsForF4); // без трех точек массив пройдет как параметр а
+		f4(...arrParamsForF4); //с тремя точками каждый элемент массива будет являтся параметром
+	)
+
+	///////////////////////////////////////////////////////
+	СТРЕЛОЧНАЯ ФУНКЦИЯ ОСОБЕННОСТИ (
+
+		//эти функции идентичны! 
+		let f5 = function(a, b) { 
+			return a + b;
+		};
+
+		let f6 = (a, b) => a + b; //когда операция очень простая можно записывать так
+
+		let f7 = a => a //если параметр один, скобки не нужны
+	)
+
+	///////////////////////////////////////////////////
+	КОЛЛБЭК ФУНКЦИЯ!!!!!!!!!!!!! ОБРАТНЫЙ ВЫЗОВ (
+		- это такая функция которая передается ТЕКСТОМ в качестве параметра функции и потом вызывывается внутри функции
+
+		let f1 = function(callbackFunction) {
+			/*function(a, b) { //текст который попадает в callbackFunction
+				return a + b;
+			}*/
+
+			let a = 4;
+			let b = 6;
+
+			let sum = callbackFunction(a, b); //присвоим результат вывода функции переменной и вызовем ее. ДЕЛАЕМ ИЗ ТЕКСТА ФУНКЦИЮ
+			console.log(sum); //смотрим результат выполнения коллбэк функции
+		};
+
+
+		f1(function(a, b) { //передаем функцию как текст в качестве параметра
+			return a + b;
+			});
+	)
+
+	/////////////////////////////////////////////////////
+	Планирование: setTimeout и setInterval (
+		-setTimeout позволяет вызвать функцию ОДИН раз через определённый интервал времени.
+		-setInterval позволяет вызывать функцию РЕГУЛЯРНО, повторяя вызов через определённый интервал времени.
+		-интервал в миллисекундах
+		-является стандартной коллбэк функцией. Т.е. ее код записан в базе JS
+
+		function sayHi(phrase, who) {
+			alert( phrase + ', ' + who );
+		}
+
+		setTimeout(sayHi, 1000, "Привет", "Джон"); // Привет, Джон
+
+		//Синтаксис для отмены:
+
+		let timerId = setTimeout(...); //запуск таймера
+		clearTimeout(timerId); //остановит выполнение
+
+		//пример с урока по остановке. счетчик
+
+		let count = 0;
+
+		let idSInter = setInterval(function() {
+			console.log(count++);
+
+			if (count == 15) clearInterval(idSInter); //остановит выполнение когда счетчик достигнет 15. остановит на 14
+		}, 1000);
+
+		setTimeout(function() { // или можно остановить через время. в данном случае 5 сек
+			clearInterval(idSInter);
+		}, 5000);
+	)
+
+	///////////////////////////////////////////////
+	ЗАМЫКАНИЕ ФУНКЦИИ (
+		-нужно для сохранения доступа к области видимости значений функции
+
+		/*форма записи
+
+		let f1 = function() {
+			let arr = [];
+
+			let f2 = function (item) {
+				arr.push(item);
+
+				return arr;
+			}
+
+			return f2;
+		}
+
+		let f0 = f1();
+
+		f0(item1);
+
+		*/
+
+		//добавление товара в каталог
+
+		let addCatalog = function() { //такая форма записи замыкания функции
+			let catalog = [];
+
+			let add = function(value) { 
+				catalog.push(value);
+
+				return catalog;
+			};
+
+			return add;
+		};
+
+		let addMyCatalog = addCatalog(); //в переменную записывается текст функции add и значение переменной catalog !!! Теперь переменная имеет доступ к каталогу. 
+
+		console.log(addMyCatalog('product 1')); //вернет ['product 1']  вызываем функцию с параметром value
+		console.log(addMyCatalog('product 2')); //вернет ['product 1', 'product 2'] работает! переменая помнит значение каталог. не обнуляет его как при повторном вызове функции
+		console.log(addMyCatalog('product 3')); //вернет ['product 1', 'product 2', 'product 3']
+
+		//счетчик
+
+		let counter = function() {
+			let count = 0;
+
+			return function() {
+				return count++;
+			}
+		};
+
+		let myCounter = counter();
+
+		console.log(myCounter()); // 0
+		console.log(myCounter()); // 1
+		console.log(myCounter()); // 2
+	)
+)
+
+СТРОКИ (
+	https://www.youtube.com/watch?v=Q1OAEhiROME
+
+	console.log('Работа со строками');
+
+	///////////////////////////////////
+	СПОСОБЫ СОЗДАНИЯ СТРОКИ
+
+	let a = 'Строка',
+		b = "Строка",
+		c = new String('Строка'), // очень редко
+		d = String('Строка'); // редко
+
+	console.log(a, b, c, d);
+
+	console.log(c.valueOf()); // ВЫВЕСТИ ЗНАЧЕНИЕ ОБЪЕКТА С /очень редко
+
+	console.log(a[1], a[4], a[0]); //вывести по буквам строку
+
+	a[0] = 'М'; //НЕ сработает!
+	console.log(a);
+
+	///////////////////////////////////
+	ИСКАТЬ ПОДСТРОКУ В СТРОКЕ
+
+	let str = "Hello World!";
+
+	console.log(str.indexOf('Привет')); // -1 //не нашел строку
+	console.log(str.indexOf('Hello')); // 0 // нашел строку и выводит индекс первого символа строки
+	console.log(str.indexOf('World')); // 6
+	console.log(str.indexOf('d')); // 10
+
+	console.log(str.indexOf('o', 6)); // 7 // указываем с какого индекса начать поиск. начинаем с 6 индекса
+
+	///////////////////////////////////
+	ВЗЯТИЕ ПОДСТРОКИ (ВОЗВРАТ)
+
+	// substring(start, [end]) // индекс начала поиска, ДО индекса окончания поиска*(необязательный)
+
+	console.log(str.substring(5)); // " World!"
+	console.log(str.substring(6, 11)); // World
+
+	///////////////////////////////////
+	ТОЖЕ ВОЗВРАТ СТРОКИ НО МОЖНО УКАЗАТЬ ДЛИННУ
+
+	// substr(start, [length]) // индекс начала поиска, длина выводимой строки*
+
+	console.log(str.substr(5)); // " World!"
+	console.log(str.substr(6, 6)); // World!
+
+	///////////////////////////////////
+	АНАЛОГ substring ВОЗВРАТ СТРОКИ
+
+	// slice(start, [end]) // индекс начала поиска, ДО индекса окончания поиска*(необязательный)
+
+	console.log(str.slice(5)); // " World!"
+	console.log(str.slice(6, 11)); // World
+
+	///////////////////////////////////
+	ОБЪЕДИНЕНИЕ СТРОК, КОНКАТЕНАЦИЯ
+
+	let str1 = 'Привет',
+		str2 = 'Мир',
+		str3 = '!';
+
+	console.log(str1 + ' ' + str2 + str3); //обычный способ, деревенский
+
+	console.log(''.concat(str1,' ',str2,str3)); //используя конкатенацию
+	console.log(str1.concat(' ', str2, str3));
+
+	///////////////////////////////////
+	СРАВНЕНИЕ СРОК. сравнивает коды юникода
+
+	console.log('а' > 'Я'); // true
+	console.log('А' > 'Я'); // false
+	console.log('А' > 'я'); // false
+
+	console.log('а'.charCodeAt()); // 1072 юникод
+	console.log('Я'.charCodeAt()); // 1071
+
+	console.log(String.fromCharCode(1072)); // а
+
+	for(let i = 1040; i <= 1103; i++) { //способ вывести кириллические символы
+		console.log(String.fromCharCode(i));
+	}
+)
+
+МАТЕМАТИЧЕСКИЕ ФУНКЦИИ Math (
+	https://www.youtube.com/watch?v=Hg5r4CmU2N8
+
+	console.log(Math.PI); // 3.1415926
+	console.log(Math.sqrt(9)); //найти корень квадратный
+	console.log(Math.log(4)); //логарифм натуральный
+	console.log(Math.pow(12, 3)); //число 12 в степень 3
+	console.log(Math.abs(-5)); //модуль числа
+	console.log(Math.exp(3)); //вычислить основание логарфима
+	console.log(Math.max(12, 13, 5, 56, 0, -8, 6)); //найти максимальное число из списка
+	console.log(Math.min(5, 10, 3, -8, 0)); //найти минимальное число из списка
+
+	console.log(Math.random()); // рандомное число от 0 до 1
+
+	///////////////////////////////////
+	ЛАЙФХАЦК генерации чисел в любом диапазоне
+
+	// 5..15
+	function getRandom(min, max) {
+		return Math.random() * (max - min) + min;
+	}
+
+	console.log(getRandom(5, 15)); //будет выводить рандомное число от 5 до 15 с плавающей запятой
+
+	console.log(Math.round(20.49));  // 20 //округление обычное до ближайшего целого
+	console.log(Math.round(5.09)); // 5
+	console.log(Math.round(12.51)); // 13
+
+	console.log(Math.ceil(5.09)); // 6 // округление в большую сторону
+
+	console.log(Math.floor(5.09)); // 5 // округление в меньшую сторону
+	console.log(Math.floor(12.51)); // 12
+
+	console.log(Math.round(getRandom(5, 15))); // готовое решение по выводу рандомного целого числа
+)
+
+ДАТА, ВРЕМЯ (
+	https://www.youtube.com/watch?v=-u2IpWWLEzk&t=13s
+
+	
+	let dateNow = new Date(); //обязательно создаем объект ДАТА. Без этого работать не будет
+	console.log(dateNow); // выведет дату в стандартном международном формате
+
+	console.log(dateNow.getFullYear()); //вывести год
+	console.log(dateNow.getMonth()); //выведет месяц
+	console.log(dateNow.getDay()); //выведет день недели
+	console.log(dateNow.getDate()); //выведет день месяца
+	console.log(dateNow.getHours()); //выведет текущий час
+	console.log(dateNow.getMinutes()); // выведет текущие минуты
+	console.log(dateNow.getSeconds()); //секунды
+	console.log(dateNow.getMilliseconds()); //миллисекунды
+
+	dateNow.setDate(1); //установить число месяца
+	dateNow.setMonth(11); //установить месяц. СЧЕТ ИДЕТ С 0, 11-ЭТО ДЕКАБРЬ!!! ДОЛБАНЫЙ ДЖАВАСКРИПТ!
+
+	dateNow.setHours(00); //установить часы
+	dateNow.setMinutes(00); //установить минуты
+	console.log(dateNow); 
+
+	///////////////////////////////////
+	ПОКАЗАТЬ ДАТУ В СВОЕМ формате
+
+	let opt = { //опции метода toLocaleString. Они стандартные
+		year: 'numeric',
+		month: 'numeric',
+		day: 'numeric',
+		hour: 'numeric',
+		minute: 'numeric',
+		weekday: 'long'
+	};
+
+	console.log(dateNow.toLocaleString('ru', opt));
+
+	//////////////////////////////////////
+	РАЗНИЦА МЕЖДУ ДВУМЯ ДАТАМИ
+
+	function daysBetweenDates(date1, date2) {
+		// Преобразуем строки в объекты Date
+		const startDate = new Date(date1);
+		const endDate = new Date(date2);
+		
+		// Получаем разницу в миллисекундах
+		const differenceInTime = endDate - startDate;
+		
+		// Преобразуем миллисекунды в дни
+		const differenceInDays = differenceInTime / (1000 * 3600 * 24);
+		
+		// Возвращаем абсолютное значение разницы, чтобы избежать отрицательных значений
+		return Math.abs(Math.round(differenceInDays));
+	}
+
+	// Пример использования
+	const date1 = '2023-10-01';
+	const date2 = '2023-10-15';
+	console.log(daysBetweenDates(date1, date2)); // Вывод: 14
+)
+
+РЕГУЛЯРНЫЕ ВЫРАЖЕНИЯ (
+	https://www.youtube.com/watch?v=kI6PCL6r8oY
+
+	//ШПАРГАЛКА ПО НАПИСАНИЮ
+	https://medium.com/nuances-of-programming/%D1%88%D0%BF%D0%B0%D1%80%D0%B3%D0%B0%D0%BB%D0%BA%D0%B0-%D0%BF%D0%BE-%D1%80%D0%B5%D0%B3%D1%83%D0%BB%D1%8F%D1%80%D0%BD%D1%8B%D0%BC-%D0%B2%D1%8B%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F%D0%BC-%D0%B2-%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D1%80%D0%B0%D1%85-53820a5f3435
+
+	///////////////////////////////////
+	Регулярные выражения позволяют вести ПОИСК по ШАБЛОНУ в любой строке
+
+
+	//.search поиск по шаблону. только до первого совпадения
+
+	let str = 'Я люблю JavaScript'; //задаем строку
+	console.log(str);
+
+	console.log(str.search(/лю/)); // будет искать "лю" в строке до первого совпадения. выведет позицию первого элемента - "2"
+	console.log(str.search(/ly/)); // не найдет. выведет "-1"
+
+	// Флаги (типо фильтры поиска)
+	
+	g - глобальный поиск
+	i - поиск без учета регистра
+	m - многострочный поиск (когда текст в несколько строк)
+	
+	console.log(str.search(/лю/gi)); //выведет 2, как в прошлый раз
+
+	// .match тоже поиск но показывает все совпадения. Возвращает массив
+
+	console.log(str.match(/лю/gi)); // вернет массив с двумя элементами лю ["лю";"лю"]
+
+	console.log(str.match(/лю/).index); //позволяет получить индекс первого вхождения - "2". Используется редко, флаги нельзя использовать
+
+	// .replace Как найти и заменить
+
+	console.log('12-53-46'.replace('-', ':')); // выведет 12:53-46
+	console.log('12-53-46'.replace(/-/g, ':')); // выведет 12:53:46
+
+	// ЛАЙФХАК изменения ПОРЯДКА слов в строке
+
+	let str2 = 'Иван Иванов';
+	console.log(str2.replace(/(Иван) (Иванов)/, '$2 $1')); // выведет Иванов Иван.
+	console.log(str2.replace(/(Иван)( )(Иванов)/, '$3$2$1')); // выведет Иванов Иван. каждая () имеет порядковый номер указываемый через $.
+
+	console.log(str2.replace(/(Иван)( )(Иванов)/, 'Великий $&')); выведет Великий Иван Иванов. & амперсант символ который подставляет все найденные совпадения по группам (включает в себя все индексы)
+
+	// .test проверка на наличие совпадений в строке
+
+	console.log(/лю/gi.test(str)); // true
+	console.log(/ly/gi.test(str)); // false
+
+	// проверка email
+
+	let email = 'info@myitschool.by'; //задаем мыло
+
+	let regexp = /[a-z]@[a-z].[a-z]{2,6}/gi; //условия прохождения проверки адресом. до и после @ должны быть лат буквы. [a-z]{2,6} - должны быть лат символы от 2 до 6
+
+	console.log(regexp.test(email)); // true
+
+	email = '98@.asd.h';
+	console.log(regexp.test(email)); // false
+
+	email = 'alex1987@gmail.com';
+	regexp = /[0-9a-z]@[a-z].[a-z]{2,6}/gi; // добавим цифры в область до @
+
+	console.log(regexp.test(email)); // true
+
+	////////////////////////////////////////
+	ПРОВЕРКА ТЕЛЕФОНА
+
+	/^\+?375 ?\(?(?:44|29|33|25)\)? ?[1-9]\d{2} ?-?\d{2} ?-?\d{2}$/
+
+	^ - означает что поиск ведем с начала строки
+	\ - экранирование искомого символа. + это жадность, чтобы читать его как просто спецсимвол ставим \
+	+ - это жадность. ищет все повторы символа (не останавливает поиск на первом повторе). тут не используется
+	? - означает что символ может быть, а может и и не быть в строке
+	375 - должно идти 375
+	 ? - пробел и вопросик, значит что может быть пробел а может и нет
+	\(? - значит что может быть скобка а может и нет
+
+		(?:44|29|33|25) - это группа, она в скобках () 
+		?: - не показывать группу в поиске как отдельный элемент group, будут только match 
+		| - логика или
+
+	\)? - опять проверяем закрытие скобки
+	 ? - пробел и вопросик
+	[1-9] - интервал цифр от 1 до 9. номер не может начинатся с 0. проверяем в интервале от 1 до 9
+	\d - сокращение от [0-9]. тоже самое. все цифры
+	\d{2} - любая цифра в количестве 2шт
+	 ? - пробел шредингера
+	-? - тире шредингера
+	$ - знак окончания поиска в строке
+
+	. - это поиск любого символа
+	\s - все пробелы, переносы, табуляция
+	\w - все буквы, цифры, ниж подчерк
+	[^#] - означает все кроме #
+	
+	/////////////////////////////////////////
+	ПРОВЕРКА ЕМАИЛА
+
+
+	/^[a-z0-9][a-z0-9._-]{0,28}[a-z0-9]@[a-z0-9][a-z0-9.-]{1,11}\.[a-z]{2,11}$/gi
+
+	^ - поиск от начала строки
+	[a-z0-9] - первый символ почты любая буква латинская или цифра
+	[a-z0-9._-]{0,28} - от 0 до 28 символов длина имени почты. может включать лат буквы, цифры, ниж подчерк, точки, тире. при чем спецсимволы в неограниченном количестве(недоработка)
+	[a-z0-9] - последний символ имени почты перед @ только лат буква или цифра. НЕ спецсимвол
+	@ - дальше должна идти собачка
+	[a-z0-9] - проверка начала имени сайта с лат буквы или цифры
+	[a-z0-9.-]{1,11} - имя сайта может содержать лат буквы, цифры, точки, тире. всего от 1 (от двух) до 11 символов
+	\. - потом идет точка обязательно
+	[a-z]{2,11} - сам домен состоит только из букв. от 2 до 11 символов
+	$ - конец строки
+
+	g - глобальный поиск
+	i - поиск не строгий к регистру
+)
+
+ОБЪЕКТЫ (
+	https://www.youtube.com/watch?v=acEMAY5t3R4
+	https://www.youtube.com/watch?v=oxoAMralWnM
+
+	// как ассоциативный массив
+
+	console.log('Объекты');
+
+	let arr = [123, 'Строка', [1, 2, 3], { name: 'Alex'}];
+
+	console.log(arr);
+
+	let arr2 = [];
+	arr2['name'] = 'Alex';
+	arr2[0] = 123;
+
+	console.log(arr2);
+
+
+	let user = {}; // пустой объект
+	console.log(user, typeof user);
+
+	user = {
+		name: 'Alex',
+		age: 28,
+		gender: 'Male'
+	};
+
+	console.log(user);
+
+	console.log(user.name); // Alex
+	console.log(user.gender); // Male
+
+	user.email = 'name@gmail.com'; //добавит емаил в объект
+	console.log(user);
+
+	delete user.age; //удалит свойство age из объекта
+	console.log(user);
+
+	user.name = 'Bob'; //переопределит имя Алекс на Боб
+	console.log(user);
+
+
+	if ('name' in user) { //проверка если есть свойство name в объекте. ИСПОЛЬЗОВАТЬ ЭТУ ПРОВЕРКУ!
+		console.log('Св-во name существует'); //true
+	} else {
+		console.log('Св-во name не существует'); //false
+	}
+
+	if ('blablabla' in user) {
+		console.log('Св-во blablabla существует');
+	} else {
+		console.log('Св-во blablabla не существует'); //true
+	}
+
+	if (user.blablabla === undefined) { // та же самая проверка как выше
+		console.log('Св-во blablabla undefined');
+	}
+
+	user.phone = undefined;
+
+	if (user.phone === undefined) {
+		console.log('Св-во phone undefined');
+	}
+
+	// Верный способ проверки св-ва в объекте
+	if ('phone' in user) {
+		console.log('Св-во phone существует'); //undefined но существует!
+	}
+
+	console.log(user);
+
+	console.log(user['email']); //вывести значение свойства емаил.АЛЬТЕРНАТИВНЫЙ СПОСОБ
+
+	// user.last-name
+	user['last-name'] = 'Ivanov'; //добавит свойство last-name. ЧЕРЕЗ ТОЧКУ УЖЕ НЕЛЬЗЯ БУДЕТ ОБРАТИТСЯ. НЕ ИСПОЛЬЗОВАТЬ!
+	console.log(user);
+
+	user['Отчество пользователя'] = 'Иванович'; //можно использовать кириллицу, но НЕ РЕКОМЕНДУЕТСЯ
+	console.log(user);
+
+	let key = 'gender'; //используется в случае когда значение переменной ДИНАМИЧЕСКОЕ
+	console.log(user[key]); // Male
+
+
+	user.size = { // вложенный объект!
+		top: 90,
+		middle: 60,
+		bottom: 90
+	};
+
+	console.log(user);
+	console.log(user.size.middle); // 60 обращаемся к свойству вложенного объекта
+	console.log(user['size']['middle']); // 60 .АЛЬТЕРНАТИВА
+
+	/////////////////////////////////////////////
+	ПЕРЕБОР СВОЙСТВ В объекте
+
+	for(let keyName in user) { //временная переменная keyName
+		console.log(keyName + ': ' + user[keyName]); //выведет свойства и их значения по порядку
+	}
+
+	/////////////////////////////////////////////
+	КЛОНИРУЕМ (ДЕЛАЕМ ССЫЛКУ НА ОРИГИНАЛ) ОБЪЕКТ
+
+	let userClone = user;
+
+	console.log(userClone);
+
+	userClone.name = 'Ivan'; //меняем свойство в оригинальном объекте
+	console.log(userClone); // в клоне имя тоже поменяется!
+
+	console.log(user);
+
+	//правильное КОПИРОВАНИЕ циклом
+
+	userClone = {};
+	for(let keyName in user) {
+		userClone[keyName] = user[keyName];
+	}
+
+	console.log(userClone);
+	userClone.name = 'Dmitriy';
+
+	console.log(userClone);
+	console.log(user);
+
+	/////////////////////////////////////////////
+	МЕТОДЫ ОБЪЕКТОВ. УРОК 7.2
+	когда свойство объекта содержит функцию оно называется МЕТОДОМ
+
+	let user = { //создаем объект для экспериментов
+		name: 'Ivan',
+		email: 'name@gmail.com',
+		age: 28,
+		hello: function(){ //можно даже функцию впихнуть. 
+			alert('Привет');
+		}
+	};
+
+	console.log(user);
+	console.log(user.email);
+
+	// user.hello(); //ВЫЗЫВАЕМ МЕТОД
+
+	user.bye = function() { //добавляем метод в объект
+		alert('Пока');
+	};
+
+	// user.bye();
+
+	user.hello = function() {
+		alert('Привет! Меня зовут ' + user.name);
+	};
+
+	// user.hello();
+
+	user.setName = function(name) { //добавляем новый метод. вызывая функцию будем менять свойство name на новое значение
+		user.name = name;
+	};
+
+	console.log(user); // Иван
+
+	user.setName('Alex'); //поменяем имя косвенно через функцию
+
+	console.log(user);// Алекс
+
+	// user.hello();
+
+	/////////////////////////////////////////////
+	ИСПОЛЬЗОВАНИЕ this (в этом объекте, собственное я, обращение к себе). самый правильный способ обращения
+	
+	user.hello = function() {
+		alert('Привет! Меня зовут ' + this.name);
+	};
+
+	user.setName = function(name) {
+		this.name = name;
+	};
+
+	user.setName('Dmitriy');
+	// user.hello();
+
+	/////////////////////////////////////////////
+	ФУНКЦИЯ ПРОТОТИП. ОБЪЕКТЫ КАК АБСТРАКТНЫЕ СУЩНОСТИ СТРУКТУРЫ. 
+
+	let User = function() { //создаем прототип для новых объектов
+		this.name = 'NoName';
+		this.age = 0;
+		this.canWalk = false;
+	};
+
+	let userAlex = new User(), //создаем новый объект на основании прототипа. три новых юзера
+		userBob = new User(),
+		userMike = new User();
+
+	console.log(userAlex);
+	console.log(userBob);
+	console.log(userMike);
+
+	userAlex.name = 'Alex'; //задаем имена объектам
+	userBob.name = 'Bob';
+	userMike.name = 'Mike';
+
+	console.log(userAlex);
+	console.log(userBob);
+	console.log(userMike);
+
+
+	let Animal = function(name, walk) { //другой прототип обекта
+		this.name = name;
+		this.canWalk = walk;
+	};
+
+	let cat = new Animal('Кот', true), //создаем животных
+		dog = new Animal('Собака', true);
+
+	console.log(cat);
+	console.log(dog);
+
+	cat.canTalk = 'Meow-meow'; //добавляем свойства объектам
+	dog.canTalk = 'Gaw-gaw!!!';
+
+	console.log(cat);
+	console.log(dog);
+
+	/////////////////////////////////////////////
+	КАЛЬКУЛЯТОР
+
+	let Calc = function() { //создаем функцию калькулятора. сам объект ниже
+		this.get = function() {
+			this.a = +prompt('Введите число a'); //запрашиваем данные у пользователя
+			this.b = +prompt('Введите число b');
+			this.oper= prompt('Введите операцию: +, -, *, /');
+			
+			this.operation(); // вызываем следующий метод
+		};
+
+		this.operation = function() { //производим операцию
+			switch(this.oper) {
+				case '+':
+					this.result = this.a + this.b;
+				break;
+				case '-':
+					this.result = this.a - this.b;
+				break;
+				case '*':
+					this.result = this.a * this.b;
+				break;
+				case '/':
+					this.result = this.a / this.b;
+				break;
+				default: this.result = 0;
+			}
+
+			this.show(); //вызывам следующий метод
+		};
+
+		this.show = function() {
+			alert(this.a + ' ' + this.oper + ' ' + this.b + ' = ' + this.result); //выведем результат
+		};
+	};
+
+	let calc = new Calc(); //создаем сам объект калькулятор
+	calc.get(); //у объекта calc вызываем метод get
+
+	///////////////////
+	ПОНЯТИЕ ОТКРЫТОГО метода
+
+	function F1 () { //какая-то функция конструктор
+
+		let a = function() { //этот метод будет закрытым. К нему нельзя будет обратится из консоли
+
+		};
+
+		this.b = function () { //этот метод будет открытым. Его можно вызвать через консоль
+
+		};
+	}
+
+	///////////////////
+	КОНТАКТЫ
+
+	https://www.youtube.com/live/GTc5MB8r--Q
+
+	/*Контакты. Возм. методы: добавление нового контакта (ввод ФИО, возраст, телефон, эл.почта), проверка введенной информации, например: проверить возраст – должен быть целым неотрицательным числом больше 18, вывод информации о конкретном контакте, вывод всех контактов.*/
+
+	function Contacts() {
+		
+		this.data = [];
+
+		this.add = function(name, phone, age, email) {
+			if (!name || name.length < 2) return false;
+			if (!phone && !email) return false;
+
+			let obj = { id: 0, name: name };
+
+			if (phone.length >= 6) obj.phone = phone;
+			if (email.length >= 8 ) obj.email = email;
+
+			this.data.push(obj);
+		}
+
+		this.edit = function(index, name, phone, age, email) {
+			let contact = this.data[index];
+
+			if (name && name.length > 2) contact.name = name;
+			if (phone) contact.phone = phone;
+			if (age) contact.age = age;
+			if (email) contact.email = email;
+
+			this.data[index] = contact;
+		}
+
+		this.remove = function(index) {
+			this.data.splice(index, 1);
+		}
+
+		this.show = function() {
+			console.log(this.data);
+		}
+	}
+
+	let mycontacts = new Contacts();
+
+	let viderContacts = new Contacts();
+)
+
+МЕТОДЫ ПЕРЕБОРА ЗНАЧЕНИЙ forEach filter find map includes keys values (
+	https://www.youtube.com/live/eltydaOphlg
+
+	
+
+	//////////////////////////////////
+	forEach перебор значений массива (
+		-forEach не работает с arguments
+		-return отсутствует. не сохраняет значения
+
+		let arr = ['Alex', 'Bob', 'Peter', 'Mike'];
+
+		for (let i = 0; i < arr.length; i++) { //аналог на for
+			console.log(arr[i]);
+		}
+
+		arr.forEach(function(item) { //вывод значений в консоль. Записывается как коллбэк функция
+			console.log(item);
+		});
+	)
+
+	//////////////////////////////////
+	find поиск элемента в массиве (
+		-выводит только один элемент!!!
+
+		let arr2 = ['A', 32, '0', 'R', 3, 'A', '2', 0, 3];
+
+		//аналог на indexOf но выводит индекс элемента
+		console.log(arr2.indexOf(3)); // 4
+		console.log(arr2.lastIndexOf(3)); // 8
+		console.log(arr2.indexOf('3')); // -1
+
+
+		let findElem = arr2.find(function(item) { //сохраняем результат поиска в переменную
+			// code
+			return item === 3; // ищем тройку в массиве
+		});
+
+		console.log(findElem); //выведет 3, не индекс, а сам элемент! если не нашел выведет undefined
+	)
+
+	/////////////////////////////////////
+	filter поиск элементов в массиве (
+		-ищет все элементы в массиве
+
+		let findAllElems = arr2.filter(function(item) {
+			// code
+
+			return item === 3;
+		});
+
+		console.log(findAllElems); // [3, 3] выведет все тройки массивом. если не нашел вернет пустой массив []
+	)
+
+	///////////////////////////////////////
+	map перебор значений массива с возможностью изменять их (
+		-отличается от forEach тем что может сразу изменять элементы массива
+
+		let arr3 = [56, 1, 34, 0, 3];
+
+		arr3.forEach(function(item, index) { // выведет индексы и элементы построчно
+			// code
+
+			console.log(index, item);
+		});
+
+
+		let newArr3 = arr3.map(function(item, index) { //сохраним результат в переменную
+			// code
+
+			console.log(index, item);
+
+			return item + 2; //прибавим каждому элементу +2
+		});
+
+		console.log(newArr3); //выведем значение переменной [58, 3, 36, 2, 5]
+
+		//пример по замене элементов в массиве
+
+		let arr5 = [2, 3, 5, 0, -1, 5, 89];
+
+		let newArr5 = arr5.map(function(item) { // найдет и заменит все 5 на *. вернет массив
+			if (item == 5) item = '*';
+
+			return item;
+		});
+
+		console.log(newArr5);
+	)
+
+	////////////////////////////////////////
+	includes проверка на наличие элемента в массиве (
+		-возвращает true/false
+
+		let arr3 = [56, 1, 34, 0, 3];
+
+		console.log(newArr3.includes(78)); //false
+		console.log(newArr3.includes(56)); //true
+	)
+
+	////////////////////////////////////////
+	keys, values возвращает индексы/свойства и элементы/значения свойств (
+		-работает с объектами и массивами
+
+		console.log(Object.keys(newArr3)); // выведет индексы массивом
+		console.log(Object.values(newArr3)); //выведет элементы массивом
+
+
+		let alex = { //какой-то объект
+			name: 'Alex',
+			phone: 1235676,
+			email: 'alex@gmail.com'
+		};
+
+		let alexKeys = Object.keys(alex);
+		let alexValues = Object.values(alex);
+
+		console.log(alexKeys); //выведет свойства массивом
+		console.log(alexValues); // выведет значения свойств массивом
+	)
+)
+
+BOM и DOM (
+	-Browser Object Model
+	-Document Object Model
+
+	////////////////////////
+	САМОЕ ГЛАВНОЕ (
+		list.firstChild //первый дочерний
+		list.laststChild //последний дочерний
+		li:nth-child(1) //выбрать дочерний через querySelector
+		
+		//универсальный метод поиска по тэгу, классу или id
+		document.querySelector('p'); //ищет один элемент
+		document.querySelectorAll('.link'); //ищет все элементы. вернет псевдомассив
+		elements2 = document.querySelectorAll('h2 span em'); // поиск по вложенным селекторам
+		elements2 = document.querySelectorAll('a[href="#hash2"]'); // поиск по атрибутам
+		document.querySelectorAll('ul')[0]; //выбрать первый элемент массива
+
+		.hasAttribute() // проверка на наличие атрибута
+		.getAttribute() // получить значение атрибута
+		.setAttribute() // добавить атрибут
+		.removeAttribute() // удалить
+		.attributes // список псевдомассивом
+
+		.classList.contains() //проверка содержит ли класс
+		.classList.add() //добавит класс
+		.classList.remove() // удалит
+		.classList.toggle() // решит самостоятельно
+
+		//задаем стили элементу
+		header.style.backgroundColor = 'green'; //.style имеет ограничения и не очень удобен
+		header.style.color = 'white';
+		header.style.padding = '10px 20px';
+		header.style.textTransform = 'uppercase';
+		header.style.cssText = 'background-color: #c00; color: #fff; text-align: left;'; //предпочтительный вариант
+
+		//создаем элементы HTML на JS
+		let title = document.createElement('title'); // создаем элемент title (создать элемент)
+		title.innerHTML = 'New html document'; // задаем ему содержимое
+		document.body.appendChild(title); // добавляем его в head (добавить дитёнка). можно прописывать несколько раз перемещая элемент
+
+		formElem.append(inputWordRus, inputWordEn, btnAdd);//добавляем дочерние элементы div элементу formElem('div')
+
+		let ul1 = document.createElement('ul'); // создание списка
+			ul1.innerHTML = ` // обратные кавычки
+			<li>Item 1</li>
+			<li>Item 2</li>
+			<li>Item 3</li>
+			<li>Item 4</li>
+			<li>Item 5</li>
+			<li>Item 6</li>`;
+
+		document.body.insertBefore(h2, document.querySelector('.block')); // добавить элемент ПЕРЕД другим элементом.(элемент который добавляем / элемент перед которым добавляем)
+
+		//клонирование элементов
+		let ul1Clone = ul1.cloneNode(true); //без флага true копирует только родителя без дочерних
+		document.body.insertBefore(ul1Clone, div1); //вставляем в дерево
+
+		//удаление элементов
+		elem.remove() //метод удаления родителя
+		.removeChild(elemChild) //метод удаления дочерних
+
+		ul1Clone.removeChild(ul1Clone.querySelector('li:nth-child(3)')); //удалит дочерний
+		ul1Clone.remove(); //удалит родителя
+
+		//добавление событий
+		let clickme = document.querySelector('.clickme button'); // ищем элемент
+			clickme.addEventListener('click', function() { // добавляем слушателя событий (событие / колбэк функция)
+				alert('Hello hello hello');
+			});
+
+		//запуск функции после загрузки html css
+		window.addEventListener('load', function() {});
+
+
+	)
+
+	////////////////////////////////////////////
+	Перемещение по элементам (узлам) HTML (
+		https://www.youtube.com/watch?v=G2EqDJnL02I
+
+		console.log('DOM');
+
+		console.log(document.body);
+
+		let body = document.body;
+
+		console.log(body.childNodes);
+		console.log(body.childNodes[1]);
+
+		console.dir(body.childNodes[1]);
+
+		console.log(document.body.h1); // undefined
+		console.log(document.body.p); // undefined
+
+		document.body.style.backgroundColor = '#fff';
+		body.style.padding = '5%';
+
+		for(let i = 0; i < body.childNodes.length; i++) {
+			console.log(body.childNodes[i]);
+		}
+
+		console.log(body.childNodes[3].childNodes[0]); // Page header
+		console.log(body.childNodes[3].childNodes[2].childNodes[0].childNodes[0]); // Some text
+
+		let list = body.childNodes[17];
+		console.log(list);
+
+		console.log(list.previousSibling.previousSibling);
+		console.log(list.nextSibling);
+
+		console.log(list.firstChild);
+		console.log(list.lastChild);
+
+		console.log(body.children); //возвращает дочерние элементы без пустышек
+		console.log(list.children);
+
+		for(let i = 0; i < list.children.length; i++) {
+			console.log(list.children[i]);
+		}
+
+		console.log(list.firstElementChild);
+		console.log(list.lastElementChild);
+
+		let lastListItem = list.lastElementChild;
+
+		console.log(lastListItem.parentElement); // ul
+		console.log(lastListItem.parentElement.parentElement); // body
+
+		console.log(body.parentElement); // html
+		console.log(body.parentElement.parentElement); // null
+		console.dir(body.parentElement.parentNode); // #document
+
+		console.log(list.previousElementSibling);
+		console.log(list.nextElementSibling);
+	)
+
+	/////////////////////////////////////////////////
+	Поиск элементов HTML (getElement*, querySelector*) (
+		https://www.youtube.com/watch?v=1KcAH_PNx44
+
+		console.log('Поиск элементов');
+
+		/*
+		.getElementById()
+
+		.getElementsByTagName()
+		.getElementsByClassName()
+
+		.querySelector()
+		.querySelectorAll()
+		*/
+
+		let h2 = document.getElementById('header2');
+		console.log(h2);
+
+		let item5 = document.getElementById('listItem5');
+		console.log(item5);
+
+		console.log(document.getElementById('text')); // null
+
+
+		let listP = document.getElementsByTagName('p');
+		console.log(listP);
+
+		let classLink = document.getElementsByClassName('link');
+		console.log(classLink);
+
+		let elements = document.getElementsByClassName('bgc-green');
+		console.log(elements);
+
+		console.log(document.getElementsByClassName('class')); []
+
+		// поиск по селектору тегов
+		let elements2  = document.querySelector('p');
+		console.log(elements2);
+
+		elements2  = document.querySelector('h2');
+		console.log(elements2);
+
+		// ... идентификаторов
+		elements2  = document.querySelector('#listItem5');
+		console.log(elements2);
+
+		// ... классов
+		elements2  = document.querySelector('.link');
+		console.log(elements2);
+
+		elements2 = document.querySelectorAll('.link');
+		console.log(elements2);
+
+		elements2 = document.querySelectorAll('p');
+		console.log(elements2);
+
+		// поиск по вложенным селекторам
+		elements2 = document.querySelectorAll('h2 span em');
+		console.log(elements2);
+
+		// поиск по любым CSS селекторам, например
+		elements2 = document.querySelectorAll('a[href="#hash2"]');
+		console.log(elements2);
+
+		console.log(document.querySelectorAll('*'));
+
+
+		/*
+		.querySelector()
+		.querySelectorAll()
+		*/
+
+		let list = document.querySelectorAll('ul')[0];
+		console.log(list);
+
+		let listA = list.querySelectorAll('a');
+		console.log(listA);
+
+		let subList = list.querySelector('ul');
+		console.log(subList);
+
+		console.log(subList.querySelectorAll('.item3'));
+	)
+
+	///////////////////////////////////////////////////
+	Методы для работы с элементами HTML (
+		https://www.youtube.com/watch?v=7gNxBj7ah64
+
+		console.log('Работа с элементами');
+
+		let listA = document.querySelectorAll('a');
+		console.log(listA);
+
+		for(let i = 0; i < listA.length; i++) {
+			//console.log(listA[i]);
+
+			// .matches()
+			// true / false
+			if (listA[i].matches('a[href="#hash3"]')) console.log(listA[i]); //поиск в элементе атрибута a[href="#hash3"]
+		}
+
+		// .closest() ближайший родитель с условием
+
+		let hash3 = document.querySelector('a[href="#hash3"]');
+		console.log(hash3);
+
+		console.log(hash3.closest('li'));
+		console.log(hash3.closest('ul'));
+		console.log(hash3.closest('body'));
+
+		console.log(hash3.closest('.class')); // null
+
+
+		let p1 = document.querySelector('#p1');
+		console.log(p1);
+
+		/*
+		.innerHTML //содержимое тэга
+		.outerHTML //содержимое тэга + сам тэг
+		.textContent //только текст содержимого
+		*/
+
+		console.log(p1.innerHTML);
+		console.log(p1.outerHTML);
+		console.log(p1.textContent);
+
+		p1.innerHTML = 'New content'; //можно изменить содержимое в тэге
+		p1.innerHTML = '<b>Text text</b>';
+		p1.outerHTML = '<div id="div1">New content</div>';
+
+		// .hidden = true / false // скрыть элемент на странице
+		document.querySelector('img.align-left').hidden = true;
+
+		/* зависит от элемента
+		.value
+		.id
+		.href
+		...
+		*/
+
+		console.dir(p1);
+		console.log(p1.id);
+
+		console.log(document.querySelector('[name="email"]').value);
+		console.log(hash3.href);
+
+
+		/* работа с атрибутами
+		.hasAttribute() // проверка на наличие 
+		.getAttribute() // получить значение атрибута
+		.setAttribute() // добавить атрибут
+		.removeAttribute() // удалить
+		.attributes // список псевдомассивом
+		*/
+
+		console.log(hash3.hasAttribute('href')); // true
+		console.log(hash3.hasAttribute('class')); // false
+		console.log(hash3.getAttribute('href')); // #hash3
+		console.log(hash3.getAttribute('class')); // null
+
+		// name, value
+		hash3.setAttribute('class', 'link link3'); //добавит класс class= "link link3"
+		hash3.setAttribute('id', 'link3');
+
+		hash3.setAttribute('style', "background-color: blue; color: #fff;");
+
+		hash3.removeAttribute('id');
+		hash3.removeAttribute('style');
+
+		console.log(hash3.attributes);
+
+
+		/* работа чисто с классами
+		.className //вернет классы текстом
+		.classList //вернет классы псевдомассивом
+
+		методы
+		.classList.contains() //проверка содержит ли класс
+		.classList.add() //добавит класс
+		.classList.remove() // удалит
+		.classList.toggle() // решит самостоятельно
+		*/
+
+		console.log(hash3.className);
+		console.log(hash3.classList);
+
+		console.log(hash3.classList.contains('text')); // false
+		console.log(hash3.classList.contains('link3')); // true
+
+		hash3.classList.add('some-class');
+		hash3.classList.add('class-name');
+		hash3.classList.remove('some-class');
+		hash3.classList.remove('class-name');
+
+		hash3.classList.toggle('active');
+		hash3.classList.toggle('link');
+
+
+		let header = document.querySelector('h1');
+		console.log(header.style);
+
+		header.style.backgroundColor = 'green';
+		header.style.color = 'white';
+		header.style.padding = '10px 20px';
+		header.style.textTransform = 'uppercase';
+
+		header.style.cssText = 'background-color: #c00; color: #fff; text-align: left;';
+
+
+		/* window.getComputedStyle(element) */
+
+		console.log(window.getComputedStyle(document.body));
+		console.log(window.getComputedStyle(header));
+
+		let stylesHeader = window.getComputedStyle(header);
+
+		console.log(stylesHeader.backgroundColor);
+		console.log(stylesHeader.margin);
+
+		header.style.margin = '0 20px 40px 0';
+		console.log(stylesHeader.margin);
+
+		console.dir(header);
+	)
+
+	///////////////////////////////////////////////////
+	Создание новых элементов. Изменение содержимого. Вставка. Удаление. Клонирование (
+		https://www.youtube.com/watch?v=T4Mq9OJ7fXA
+
+		document.head.innerHTML = ''; //лайфхак по очистке содержимого head и body
+		document.body.innerHTML = '';
+
+		/*
+		.createElement()
+		.appendChild()
+		*/
+
+		let title = document.createElement('title');
+		title.innerHTML = 'New html document';
+
+		let metaUtf8 = document.createElement('meta');
+		metaUtf8.setAttribute('charset', 'UTF-8');
+
+		console.log(title);
+		console.log(metaUtf8);
+
+		document.head.appendChild(title);
+		document.head.appendChild(metaUtf8);
+
+		let h1 = document.createElement('h1');
+		h1.innerHTML = 'Page header';
+
+		let p1 = document.createElement('p');
+		p1.innerHTML = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum ad ipsum nostrum voluptatibus obcaecati iste laborum! Possimus beatae officiis quia amet natus magnam eveniet, eaque aspernatur. Nostrum quibusdam similique deleniti?';
+
+		document.body.appendChild(h1);
+		document.body.appendChild(p1);
+
+		let div1 = document.createElement('div');
+		// div1.innerHTML = 'Text'
+		div1.classList.add('block');
+
+		document.body.appendChild(div1);
+
+		let p2 = document.createElement('p');
+		p2.innerHTML = 'Cum at labore sint voluptates enim doloribus maxime, fuga earum modi ab veritatis nihil dolorum esse unde amet porro ducimus, laudantium blanditiis? Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum ad ipsum nostrum voluptatibus obcaecati iste laborum! Possimus beatae officiis quia amet natus magnam eveniet, eaque aspernatur. Nostrum quibusdam similique deleniti?';
+
+		div1.appendChild(p2);
+
+		let span1 = document.createElement('span');
+		span1.innerHTML = 'Some text';
+
+		p2.appendChild(span1);
+
+		let ul1 = document.createElement('ul');
+		ul1.innerHTML = `
+		<li>Item 1</li>
+		<li>Item 2</li>
+		<li>Item 3</li>
+		<li>Item 4</li>
+		<li>Item 5</li>
+		<li>Item 6</li>`;
+
+		document.body.appendChild(ul1);
+
+		/*
+		element.insertBefore(elem, next)
+		*/
+
+		let h2 = document.createElement('h2');
+		h2.innerHTML = 'Header 2';
+
+		document.body.insertBefore(h2, document.querySelector('.block'));
+
+		let li7 = document.createElement('li');
+		li7.innerHTML = 'New Item 7';
+
+		ul1.insertBefore(li7, ul1.querySelector('li:nth-child(3)'));
+
+
+		let banner = document.createElement('div');
+		banner.innerHTML = 'Купи Слона недорого с доставкой по РБ';
+		banner.classList.add('banner-adv');
+
+		document.body.insertBefore(banner, document.body.firstElementChild);
+
+		banner.style.backgroundColor = 'yellow';
+		banner.style.fontSize = '48px';
+		banner.style.fontWeight = 'bold';
+		banner.style.padding = '40px';
+		banner.style.width = '500px';
+
+		let style = document.createElement('style'); //пример использования вставки тэга style в index.html
+		style.innerHTML = `
+			.banner-adv { // пишем сам стиль на css
+				position: fixed;
+				top: 10%;
+				left: 50%;
+				margin-left: -290px;
+				border-radius: 20px;
+				box-shadow: 0 0 20px #ccc;
+			}
+		`;
+
+		document.head.appendChild(style);
+
+
+		/* .cloneNode(true) */
+
+		let ul1Clone = ul1.cloneNode(true);
+
+		document.body.insertBefore(ul1Clone, div1);
+
+
+		/* перемещение эл-тов */
+
+		document.body.appendChild(p1);
+		document.body.appendChild(ul1Clone);
+
+
+		/* удаление эл-тов 
+		.remove()
+		.removeChild(elemChild)
+		*/
+
+		ul1Clone.removeChild(ul1Clone.querySelector('li:nth-child(3)'));
+		ul1Clone.removeChild(ul1Clone.querySelector('li:nth-child(4)'));
+		ul1Clone.removeChild(ul1Clone.querySelector('li:nth-child(1)'));
+
+		ul1Clone.remove();
+	)
+
+	/////////////////////////////////////////////////
+	Обработка событий в DOM (события мыши и клавиатуры) (
+		https://www.youtube.com/watch?v=FE_nT09gBbQ
+
+		//
+		добавление событий элементу (
+			- альтернативные устарели не поддерживают новые события
+
+			let clickme = document.querySelector('.clickme button');//использовать ЭТО
+			clickme.addEventListener('click', function() { // событие / колбэк функция
+				alert('Hello hello hello');
+			});
+
+			<button onclick="alert('Hello');">Click me!</button> //альтернатива 1, через атрибут on..
+
+			document.querySelector('.clickme button').onclick = function() { //альтернатива 2
+			    alert('Hello World!');
+			};
+		)
+
+		//
+		события мышки mouse (
+			let block = document.querySelector('.block'); //обращаемся к элементу
+
+			block.addEventListener('mouseover', function() { //навели курсор на элемент
+				console.log('Курсор на .block'); //сообщение в консоль
+				console.log(this); //выведет элемент <div class="block"></div>
+
+				this.style.backgroundColor = 'red'; //меняем цвет фона 
+			});
+
+			block.addEventListener('mouseout', function() { //курсор убрали с элемента
+				console.log('Курсор покинул .block');
+				this.style.backgroundColor = 'blue';
+			});
+
+			block.addEventListener('mousemove', function() { //курсор перемещается по элементу
+				console.log('Курсор перемещается по .block');
+			});
+
+			block.addEventListener('mousedown', function() { //нажали ЛКМ и держим
+				console.log('Ты на меня нажал!');
+				this.style.backgroundColor = 'yellow';
+			});
+
+			block.addEventListener('mouseup', function() { //отпустили ЛКМ
+				console.log('Спасибо, чтоб отпустил');
+				this.style.backgroundColor = '';
+			});
+
+			let bgchangeButton = document.querySelector('.bgchange button'), //меняем цвет фона на рандомный по клику мыши
+				bgChange = function() {
+					let r = Math.floor(Math.random() * 256),
+						g = Math.floor(Math.random() * 256),
+						b = Math.floor(Math.random() * 256);
+
+					document.body.style.backgroundColor = 'rgb(' + r + ', ' + g + ', ' + b + ')'
+				};
+			
+			bgchangeButton.addEventListener('click', bgChange); //по клику на кнопочку меняем фон body
+		)
+
+		//
+		пример применения событий к однотипным элементам (
+			-JS не умеет добавлять обработчик событий ко всем однотипным элементам. нужно перебирать элементы через foeEach
+
+			let links = document.querySelectorAll('.links a'); //находим все ссылки в списке
+			console.log(links);
+
+			links.forEach(function(element) { // сделаем активной (добавим класс active) ссылку на которую кликнули. 
+				
+				element.addEventListener('click', function() { //через forEach перебираем все элементы и добавляем им слушателя
+					links.forEach(function(element) { //удаляем класс со всех элементов
+						element.classList.remove('active');
+					});
+
+					this.classList.add('active'); // добавляем класс только на нажатую ссылку
+				});
+
+				let hover = function() { // делаем эффект ховера на JS. создаем функцию. hover класс прописываем в style.css
+					this.classList.toggle('hover'); //toogle объединяет add и remove
+				};
+
+				element.addEventListener('mouseover', hover); //при наведении срабатывает добавление класса hover ссылке
+				element.addEventListener('mouseout', hover);
+			});
+		)
+
+		//
+		пример подменна href в ссылке ПРЕРАДРЕСАЦИЯ event (
+			-при нажатии на ссылку будет переходить не на то что записано в href, а на то что записано в функции
+
+			let articleA = document.querySelector('.post a.google'); //находим нужную ссылку
+
+			articleA.addEventListener('click', function(event) { //добавляем обработчика событий. event - стандартный параметр, отслеживает события
+
+				event.preventDefault(); //прерываем выполнение перехода по ссылке
+
+				console.log(event.target); // обращаемся к свойству target объекта event
+
+				console.log(event); //event является стандартным объектом, его свойства можно посмотреть в консоли
+
+				event.target.setAttribute('href', 'https://myitschool.by'); // производим замену адреса в атрибуте ссылки
+
+				window.location.href = event.target.href; //выполняем непосредственно переход по ссылке
+			});
+		)
+
+		//
+		понятие ВСПЛЫТИЯ событий (
+			-всплытие событий происходит от дочерних элементов к родительскому
+
+			let article = document.querySelector('.post'), //находим блок article с текстом и ссылкой
+				content = article.querySelector('.content'),
+				p = content.querySelector('p'),
+				link = p.querySelector('.link');
+			
+			article.addEventListener('click', function() { //задаем событие при клике. 
+				alert('Click: article'); //выведется в конце если кликнуть на ссылку
+			});
+
+			content.addEventListener('click', function() {
+				alert('Click: content'); //выведет третьим если кликнуть на ссылку
+			});
+
+			p.addEventListener('click', function() {
+				alert('Click: p'); //выведет вторым если кликнуть на ссылку
+			});
+
+			link.addEventListener('click', function() {
+				alert('Click: link'); //выведет первым если кликнуть на ссылку
+			});
+		)
+
+		//
+		понятие ПОГРУЖЕНИЯ (
+			-тоже самое что и всплытие только в обратном порядке. за счт добавления третьего параметра true для слушателя
+
+			let article = document.querySelector('.post'), //находим блок article с текстом и ссылкой
+				content = article.querySelector('.content'),
+				p = content.querySelector('p'),
+				link = p.querySelector('.link');
+			
+			article.addEventListener('click', function() { //задаем событие при клике. 
+				alert('Click: article'); //выведется первым если кликнуть на блок article
+			}, true);
+
+			content.addEventListener('click', function() {
+				alert('Click: content'); //выведет вторым если кликнуть на блок article
+			}, true);
+
+			p.addEventListener('click', function() {
+				alert('Click: p'); //выведет третьим если кликнуть на блок article
+			}, true);
+
+			link.addEventListener('click', function() {
+				alert('Click: link'); //выведет последним если кликнуть на блок article
+			}, true);
+		)
+
+		//
+		ФОРМА отслеживание отправки (
+
+			let form = document.querySelector('.form form'); //находим нашу форму
+
+			form.addEventListener('submit', function(event) { //отслеживаем отправку submit
+				if (!confirm('Отправить форму?')) { //если сообщение об отправке отменяется
+					event.preventDefault(); //прерываем отправку
+
+				} else {
+					alert('Спасибо за отправку'); //если жмем ОК форма отправляется и выводится сообщение
+				}
+			});
+		)
+
+		//
+		отслеживание нажатий клавиш (
+			let input = form.querySelector('input[name="email"]'); //экспериментируем на форме
+
+			input.addEventListener('keydown', function(event) { //когда клавиша нажата и удерживается
+				console.log(event.key); //выведет клавишу
+			});
+
+			input.addEventListener('keyup', function(event) { //когда клавиша отпущена
+				console.log(event.key);//выведет клавишу
+
+				console.log(event.target.value);// удобнее отслеживать текст в форме (отоброжаются все символы)
+			});
+
+			input.addEventListener('keypress', function(event) { //отслеживает нажатие только букв и цифр
+				console.log(event.key); //выведет клавишу
+
+				onsole.log(event.target.value); //будет выводится текст в input без последнего символа
+			});
+		)
+	)
+)
