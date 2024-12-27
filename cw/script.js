@@ -11,7 +11,7 @@ function Word(word, translate) { //сущность Слова
 	};
 }
 
-function App() { //сущность. код самого приложения
+function App() { //сущность. код самого приложения. функционал
 	let id = 0;
 
 	this.data = [];
