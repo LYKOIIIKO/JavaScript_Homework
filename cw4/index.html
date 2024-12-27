@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <!-- https://www.youtube.com/live/UqOVdq2rl1M -->
+
+     <div id="gallery001" class="gallery"> <!--используем id  -->
+         <div class="gallery__filter"> <!--дивы и кнопки просто для примера -->
+            <button class="gallery__filter_btn active">All</button> <!-- кнопка All без data-filter -->
+            <button data-filter="red" class="gallery__filter_btn">Red</button>
+            <button data-filter="green" class="gallery__filter_btn">Green</button>
+            <button data-filter="gray" class="gallery__filter_btn">Gray</button>
+            <button data-filter="blue" class="gallery__filter_btn">Blue</button>
+            <button data-filter="yellow" class="gallery__filter_btn">Yellow</button>
+        </div>
+        <div class="gallery__list">
+            <div data-filter="red" class="gallery__item" style="background-color: #e04545;">Photo 1</div>
+            <div data-filter="yellow" class="gallery__item" style="background-color: #e9e60e;">Photo 2</div>
+            <div data-filter="green" class="gallery__item" style="background-color: #33b240;">Photo 3</div>
+            <div data-filter="blue" class="gallery__item" style="background-color: #83c7de;">Photo 4</div>
+            <div data-filter="gray" class="gallery__item" style="background-color: #ccc;">Photo 5</div>
+            <div data-filter="red" class="gallery__item" style="background-color: #e04545;">Photo 6</div>
+            <div data-filter="gray" class="gallery__item" style="background-color: #ccc;">Photo 7</div>
+            <div data-filter="red" class="gallery__item" style="background-color: #e04545;">Photo 8</div>
+            <div data-filter="green" class="gallery__item" style="background-color: #33b240;">Photo 9</div>
+            <div data-filter="green" class="gallery__item" style="background-color: #33b240;">Photo 10</div>
+        </div>
+    </div>
+
+    <hr>
+
+     <div data-tabs class="services"> <!--data-tabs нужен для последующего поиска всех табов на странице через querySelector -->
+        <ul class="services__tabs">
+            <li class="services__tabs_item active">Lorem.</li>
+            <li class="services__tabs_item ">Voluptas.</li>
+            <li class="services__tabs_item">Ea?</li>
+            <li class="services__tabs_item">Aut?</li>
+        </ul>
+        <ul class="services__content">
+            <li class="services__content_item active">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero consectetur temporibus inventore laudantium ut repellat sint id, quo obcaecati ducimus aliquam quidem reprehenderit facilis ab delectus suscipit! Repellendus, tempore tempora.</li>
+            <li class="services__content_item ">Beatae, quis facilis itaque natus sint quam repellat illo libero. Id doloribus aut dignissimos asperiores vero reprehenderit consequatur minima quisquam ut, veritatis tenetur autem, iste sint aliquid, magni quaerat expedita?</li>
+            <li class="services__content_item">Consectetur voluptatum quibusdam nesciunt deserunt error eos ipsum, necessitatibus accusamus odio ab eveniet quo consequatur asperiores officia molestiae optio, velit id sunt esse amet sequi porro pariatur magni. Expedita, impedit!</li>
+            <li class="services__content_item">Officia, tenetur ea neque repellat temporibus iure. Nemo earum, fuga temporibus excepturi cumque ut. Harum dolores aliquid pariatur! Numquam, fugiat! Suscipit quod debitis ab dolor iure placeat corporis ea illum.</li>
+        </ul>
+    </div>
+
+    <hr>
+
+    <div data-tabs class="services">
+        <ul class="services__tabs">
+            <li class="services__tabs_item active">Lorem.</li>
+            <li class="services__tabs_item ">Voluptas.</li>
+            <li class="services__tabs_item">Ea?</li>
+            <li class="services__tabs_item">Aut?</li>
+        </ul>
+        <ul class="services__content">
+            <li class="services__content_item active">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero consectetur temporibus inventore laudantium ut repellat sint id, quo obcaecati ducimus aliquam quidem reprehenderit facilis ab delectus suscipit! Repellendus, tempore tempora.</li>
+            <li class="services__content_item ">Beatae, quis facilis itaque natus sint quam repellat illo libero. Id doloribus aut dignissimos asperiores vero reprehenderit consequatur minima quisquam ut, veritatis tenetur autem, iste sint aliquid, magni quaerat expedita?</li>
+            <li class="services__content_item">Consectetur voluptatum quibusdam nesciunt deserunt error eos ipsum, necessitatibus accusamus odio ab eveniet quo consequatur asperiores officia molestiae optio, velit id sunt esse amet sequi porro pariatur magni. Expedita, impedit!</li>
+            <li class="services__content_item">Officia, tenetur ea neque repellat temporibus iure. Nemo earum, fuga temporibus excepturi cumque ut. Harum dolores aliquid pariatur! Numquam, fugiat! Suscipit quod debitis ab dolor iure placeat corporis ea illum.</li>
+        </ul>
+    </div>
+
+    <script src="/script.js"></script>
+</body>
+</html>

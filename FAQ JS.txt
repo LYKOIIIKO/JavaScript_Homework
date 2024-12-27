@@ -40,7 +40,7 @@
 	=== // если равняется С учетом типов данных
 )
 
-Условия if else switch (
+Условия if else switch тернарники(
 	if(условие) {код}
 	if(условие) {код} else {код}
 	if() {} else if() {}
@@ -1386,7 +1386,7 @@ BOM и DOM (
 		li:nth-child(1) //выбрать дочерний через querySelector
 		
 		//универсальный метод поиска по тэгу, классу или id
-		document.querySelector('p'); //ищет один элемент
+		document.querySelector('p'); //ищет один элемент. ВОЗВРАЩАЕТ МАССИВ УЗЛОВ. МОЖНО перебирать forEach
 		document.querySelectorAll('.link'); //ищет все элементы. вернет псевдомассив
 		elements2 = document.querySelectorAll('h2 span em'); // поиск по вложенным селекторам
 		elements2 = document.querySelectorAll('a[href="#hash2"]'); // поиск по атрибутам
@@ -1447,8 +1447,6 @@ BOM и DOM (
 
 		//запуск функции после загрузки html css
 		window.addEventListener('load', function() {});
-
-
 	)
 
 	////////////////////////////////////////////
@@ -1488,14 +1486,14 @@ BOM и DOM (
 		console.log(list.firstChild);
 		console.log(list.lastChild);
 
-		console.log(body.children); //возвращает дочерние элементы без пустышек
+		console.log(body.children); //возвращает дочерние элементы без пустышек HTMLCollection
 		console.log(list.children);
 
 		for(let i = 0; i < list.children.length; i++) {
 			console.log(list.children[i]);
 		}
 
-		console.log(list.firstElementChild);
+		console.log(list.firstElementChild); //возвращает дочерние тэгами
 		console.log(list.lastElementChild);
 
 		let lastListItem = list.lastElementChild;
