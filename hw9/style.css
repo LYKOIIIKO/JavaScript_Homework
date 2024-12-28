@@ -12,6 +12,12 @@ ul,ol {
 	list-style: none;
 }
 
+input, button {
+    background-color: transparent;
+    font-family: arial;
+    font-size: 16px;
+}
+
 body {
 	font-family:Arial, Helvetica, sans-serif;
 	font-size: 18px;
@@ -25,7 +31,7 @@ body {
 	align-items: center;
 
 	min-width: 500px;
-	max-width: 900px;
+	max-width: 600px;
 	margin: 50px auto;
 
 	box-shadow: 0 0 10px #666;
@@ -46,5 +52,83 @@ body {
 }
 
 .app__content {
-	padding: 10px;
+	align-self: baseline;
+
+	width: 100%;
+}
+
+.app__input {
+	margin: 10px;
+}
+
+.app__input input {
+	border: 1px solid #ccc;
+	box-shadow: 0 0 1px #666;
+
+	width: 100%;
+	padding: 0 15px;
+
+	line-height: 40px;
+	font-style: italic;
+}
+
+
+
+.app__item {
+	display: flex;
+	gap: 50px;
+	padding: 10px 30px;
+
+	border-bottom: 1px solid #ccc;
+
+	cursor: pointer;
+}
+
+.app__item.active .btn_primary {
+	background-color: #96b99e;
+}
+
+.app__item.active .btn_primary::after {
+	content: "\2714";
+	font-size: 25px;
+	color: #093f15;
+}
+
+.app__item.active .app__item_task {
+	text-decoration: line-through;
+}
+
+.app__item:hover .btn_primary{
+	background-color: #999;
+}
+
+.btn_primary {
+	width: 35px;
+	height: 35px;
+	border: 0;
+
+	background-color: #ccc;
+}
+
+.app__item_task {
+	position: relative;
+
+	text-transform: uppercase;
+	font-weight: 600;
+	color: #111;
+	text-shadow: 1px 1px 4px #666;
+
+	padding: 15px;
+	border: 1px solid black;
+}
+
+
+
+.app__item_task::before {
+	position: absolute;
+	content: "";
+	width: 100%;
+	height: 50%;
+	border-bottom: 1px solid black;
+
 }
