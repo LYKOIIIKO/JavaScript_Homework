@@ -4,10 +4,6 @@
 	box-sizing: border-box;
 }
 
-html, body {
-	height: 100%;
-}
-
 ul,ol {
 	list-style: none;
 }
@@ -30,7 +26,7 @@ body {
 	flex-direction: column;
 	align-items: center;
 
-	min-width: 500px;
+	min-width: 300px;
 	max-width: 600px;
 	margin: 50px auto;
 
@@ -39,16 +35,40 @@ body {
 }
 
 .app__title {
-	color: #fff;
-	text-shadow: 1px 1px 3px #000;
-	font-size: 22px;
-	line-height: 60px;
 	text-align: center;
 
 	width: 100%;
 	background-color: #4e72ba;
 	border-radius: 3px 3px 0 0;
 	box-shadow: 0 2px 10px #666;
+
+	position: relative;
+}
+
+.app__btnRemoveAll {
+	border: none;
+	background-color: red;
+	width: 35px;
+	height: 35px;
+	border-radius: 50%;
+	box-shadow: 0 0 2px #000;
+
+	cursor: pointer;
+
+	position: absolute;
+	left: 10px;
+	top: 20%;
+}
+
+.app__btnRemoveAll:hover {
+	background-color: #440707;
+}
+
+.app__name {
+	color: #fff;
+	text-shadow: 1px 1px 3px #000;
+	font-size: 22px;
+	line-height: 60px;
 }
 
 .app__content {
@@ -58,6 +78,7 @@ body {
 }
 
 .app__input {
+	position: relative;
 	margin: 10px;
 }
 
@@ -66,13 +87,27 @@ body {
 	box-shadow: 0 0 1px #666;
 
 	width: 100%;
-	padding: 0 15px;
+	padding: 0 45px 0 15px;
 
 	line-height: 40px;
 	font-style: italic;
 }
 
+.app__input_btn {
+	display: none;
+	position: absolute;
+	right: 0;
 
+	width: 42px;
+	height: 42px;
+
+	border: 0;
+
+	font-size: 30px;
+	color: #333;
+	text-shadow: 1px 1px 2px #666;
+	cursor: pointer;
+}
 
 .app__item {
 	display: flex;
@@ -85,41 +120,52 @@ body {
 	cursor: pointer;
 }
 
-.app__item.active .btn_primary {
-	background-color: #96b99e;
+.app__item.active {
+	background-color: #ddd;
 }
 
-.app__item.active .btn_primary::after {
+.app__item.active .app__item_btn {
+	background-color: #40da64;
+}
+
+.app__item.active .app__item_btn::after { /*галочка на кнопке*/
 	content: "\2714";
 	font-size: 25px;
-	color: #093f15;
+	color: #027a1c;
 }
 
-.app__item.active .app__item_task::before {
+.app__item.active .app__item_task {
+	color: #666;
+	text-shadow: none;
+}
+
+.app__item.active .app__item_task::before { /*зачеркивающая полоса*/
 	position: absolute;
 	left: 0;
 	top: 50%;
 
 	content: "";
 	width: 100%;
-	border-bottom: 1px solid black;
-
+	border-bottom: 1px solid #666;
 }
 
-.app__item:hover .btn_primary{
+.app__item:hover .app__item_btn{
 	background-color: #999;
 }
 
-.btn_primary {
+.app__item_btn {
 	width: 35px;
 	height: 35px;
 	border: 0;
 
 	background-color: #ccc;
+	cursor: pointer;
 }
 
 .app__item_task {
 	position: relative;
+	flex: 1 1;
+	word-wrap: break-word;
 
 	text-transform: uppercase;
 	font-weight: 600;
@@ -127,8 +173,5 @@ body {
 	text-shadow: 1px 1px 4px #666;
 
 	padding: 15px;
+	width: 80%;
 }
-
-
-
-

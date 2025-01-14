@@ -174,7 +174,7 @@ function accordion() {
 
     elems.forEach(function(elem) {
         let titles = elem.querySelectorAll('h3');
-
+       
         titles.forEach(function(title) {
             title.addEventListener('click', function(event) {
                let parentLi = event.target.closest('li');
