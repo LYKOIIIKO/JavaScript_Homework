@@ -40,6 +40,14 @@
 	=== // если равняется С учетом типов данных
 )
 
+СОВЕТЫ (
+	-использовать только стрелочные функции, чтобы не терять контекст
+	-использовать функциональное наследование
+	-background-size: 18px auto; //можно менять размер bg
+	-стандартные методы create()- создание html элементов, init() - для отображения html элементов, onAdd(event) - метод для событий
+	-
+)
+
 Условия if else switch тернарники(
 	if(условие) {код}
 	if(условие) {код} else {код}
@@ -279,7 +287,7 @@
 
 		hello('Ольга');
 
-		// 3
+		// 3 стрелочная функция предпочтительнее т.к. не теряется контекст, больше область видимости
 		let f3 = (user) => {
 			console.log('f3');
 		};
@@ -2059,3 +2067,473 @@ BOM и DOM (
 		)
 	)
 )
+
+ООП (
+	Объектно-ориентированное програмирование
+	Главные признаки: Наследование -прототипое и функциональное, расширяет возможности объектов
+	инкапсуляция -закрытие, оставляем доступ к значениям переменных только внутри объекта и которые используются только в методах этого объекта,
+	полиморфизм - процесс при котором переопределяется один и тот же метод, сохраняя функционал родительского объекта, сохраняя и расширяя его возможности.
+
+	///////////////////////////////
+	Наследование, заимствование (
+		
+		Прототипное применяется только к объектам (
+
+			/////////////////
+			__proto__ и bind. через __proto__ не все браузеры поддерживают
+
+			let animal = {
+				name: 'Animal',
+				showName: function() {
+					alert(this.name);
+				}
+			};
+
+			let dog = {
+				talk: 'Gaw-gaw'
+			};
+
+			dog.__proto__ = animal; //прототипное наследование. dog получит свойства и методы animal. используется редко
+
+			animal.showName.bind(dog)(); //заимствование метода. dog заимствует от animal метод showName
+
+			dog.showName = animal.showName //заимствование метода (копирование). если нужен только один метод от другого объекта
+
+			let cat = {
+				name: 'Boris',
+				talk: 'Meow'
+			}
+
+			cat.__proto__ = animal;
+			cat.showName(); //alert выведет Boris!
+			dog.showName(); //alert выведет Animal!
+
+			/////////////////
+			Пример с функцией конструктором
+			
+			let Animal = function() { //функция конструктор
+				this.name = 'Animal';
+
+				this.showName = function() {
+					alert(this.name);
+				}
+			}
+
+			animal = new Animal; //создаем объект от функции конструктора
+
+			let Rabbit = function(name) {
+				this.__proto__ = animal; //прототипное наследование!
+				this.name = name;
+			}
+
+			let rabbit = new Rabbit('Peter');
+
+			rabbit.showName(); //покажет Peter
+
+			////////////////
+			.prototype применяется только к функциям-конструкторам. Правильный и кроссбраузерный способ прототипного наследования
+
+			function Transport() {
+				this.setInfo = function(brand, model) { //оборачиваем в функцию чтобы принимать параметры от дочернего объекта
+					this.brand = brand;
+					this.model = model;
+				}
+			}
+
+			function Car(wheels, engine) {
+				this.wheels = wheels;
+				this.engine = engine;
+			}
+
+			Car.prototype = new Transport(); //наследуем родительские свойства и методы
+
+			let opel = new Car(4, 'diesel');
+			opel.setInfo('Opel', 'Astra'); //таким образом передаем параметры родительскому методу
+		)
+
+		Функциональное применяется для функций-конструкторов (
+
+			///////
+			.apply(this, arguments) и .call(this, ...arguments)
+
+			let Animal = function() { //функция конструктор
+				this.name = 'Animal';
+				this.eats = eats;
+				this.walk = walk;
+
+				this.showName = function() {
+					alert(this.name);
+				};
+			}
+
+			let Dog = function(name) {
+				Animal.apply(this, arguments); //функциональное наследование. this передает контекст. arguments передает параметры функции Dog в Animal
+
+				this.name = name;
+
+				this.showName = function() {
+					alert('Dog name is' + this.name);
+				}
+			}
+
+			let animal = new Animal(); //создаем объект от функции конструктора
+
+			let dog = new Dog('Bob', true, true);
+			dog.showName(); // выведет Dog name is Bob. Значит будет применен собственный метод Dog а не Animal 
+		)
+	)
+
+	//////////////////////////////
+	Инкапсуляция и полиморфизм (
+
+		-создавая свойства через this мы делаем их открытыми, к ним можно получить доступ из консоли.
+		-создавая свойства (переменные) через let мы делаем их закрытыми! инкапсулируем - оставляем доступ к значениям переменных только внутри объекта и которые используются только в методах этого объекта
+
+		-полиморфизм - процесс при котором переопределяется один и тот же метод, сохраняя функционал родительского объекта, сохраняя и расширяя его возможности. 
+		
+		/симулятор чайника и кофемашины
+
+		let Tech = function(power) { //какое-то устройство
+			power = power || 1000; //значение по умолчанию 1000
+			let status = false;
+
+			this.enable = function() { //включение устройства в сеть
+				status = true;
+			}
+
+			this.disable = function() { //выключение устройства из сети
+				status = false;
+			}
+
+			this.getStatus = function() { //поскольку свойства закрыты создаем метод чтобы получать доступ к значениям переменных
+				return status;
+			}
+
+			this.getPower = function() {
+				return power;
+			}
+		}
+		
+		let Teapot = function(power, size) { //чайник
+			Tech.apply(this, arguments); // наследуем свойства и методы от Tech
+
+			size = size || 1000;
+
+			let waterAmount = 0;
+
+			let status = false; // статус нажатия кнопки чайника
+
+			let sT = null; //для управления кипячением
+
+			let parentGetStatus = this.getStatus; // сохраняем родительский метод getStatus
+
+			this.setWater = function(amount) { //наливаем воду в чайник
+				if(amount > 0 && amount <= size) waterAmount = amount;
+				else waterAmount = 0;
+			};
+
+			this.getWater = function() { //получаем информацию о количестве воды в чайнике
+				return waterAmount;
+			};
+
+			this.on = function() { //нажатие кнопки чайника
+				if(parentGetStatus() == true && waterAmount > 0)	{
+					status = true;
+
+					boiling();
+				}
+			}
+
+			this.off = function() { //выключение чайника
+				status = false;
+
+				clearTimeout(sT);
+			}
+
+			let boiling = function() { //метод кипячения воды
+				sT = setTimeout(() => { //таймер. возвращает значение после выполнения
+					alert('The water is boiled!');
+					
+					this.off();
+				}, 5000);
+			}
+
+			this.getStatus = function() { //переопределение метода объекта Tech! Полиморфизм
+				parentGetStatus.call(this); //переопределили метод
+
+				if (status == true && parentGetStatus == true) return true;
+				return false;
+			}
+
+			let parentDisable = this.disable; // сохраняем родительский метод disable
+
+			this.disable = function() { // метод выключения чайника после выдергивания из розетки
+				parentDisable.call(this);
+				parentDisable();
+
+				if (parentGetStatus() == false) this.off(); 
+			}
+
+			this.showInfo = function() { //типо дисплей чайника
+				return 'Power ' + power + ', volume ' + size + '. Water inside ' + waterAmount + '. ' + (this.getStatus() ? 'Teapot is on' : 'Teapot is off');
+			}
+		}
+
+		let CoffeeMachine = function(power, size, coffee) { //кофемашина
+			Teapot.apply(this, arguments);
+
+			coffee = coffee || 100;
+
+			this.on = function() {
+				alert('Coffee is done!');
+			};
+		}
+
+		let teapot = new Teapot(3500, 3000);
+
+		let coffeeMachine = new CoffeeMachine(8000, 2000, 500);
+	)
+
+	/////////////////////////////
+	Пример кофемашины с урока 13.01.2025 (
+		
+		let Keetle = function(volume = 1, power = 1) {
+			this.status = false;
+			this.volume = volume;
+			this.power = power;
+			this.done = false;
+
+			this.timeBoil = Number(((0.00117 * this.volume * (100-98)/this.power) * 60).toFixed(1)); //округляем
+
+			this.on = function() {
+				this.status = true;
+
+				setTimeout(() => {
+					this.done = true;
+					
+					this.off();
+
+					console.log('Water is boiled');
+				}, this.timeBoil * 60 * 1000);
+			};
+
+			this.off = function() {
+				this.status = false;
+			};
+
+			this.get = function(count) {
+				if (this.done && (this.volume - count) >= 0) {
+					this.volume -= count;
+					return count;
+				}
+			}
+		};
+
+		let CoffeeGrinder = function(volume = 100, time = 5) {
+			this.coffeeGrinderStatus = false;
+			this.coffeeGrinderVolume = volume;
+			this.coffeeGrinderTime = time;
+
+			this.coffeeGrinderOn = function() {
+				setTimeout(() => {
+					this.coffeeGrinderOff();
+
+					console.log('Coffee is ground');
+				}, this.coffeeGrinderTime * 1000);
+			};
+
+			this.coffeeGrinderOff = function() {
+				this.coffeeGrinderStatus = false;
+			};
+
+			this.coffeeGrinderGet = function(count) {
+				if ((this.coffeeGrinderVolume - count) >= 0) {
+					this.coffeeGrinderVolume -= count;
+					return count;
+				}
+			}
+		};
+
+		let CoffeeMaker = function() {
+			Keetle.apply(this, arguments);
+
+			CoffeeGrinder.call(this); //call используется реже
+
+			this.coffeeMakerStatus = false;
+			this.coffeeMakerDone = false;
+			this.programm = 0;
+			
+			this.milkVolume = 0;
+			this.coffeeVolume = 0;
+
+			this.coffeeMakerOn = function() {
+				this.coffeeMakerStatus = true;
+			};
+
+			this.coffeeMakerOff = function() {
+				this.coffeeMakerStatus = false;
+				this.programm = 0;
+			};
+
+			this.setWaterVolume = function(volume) {
+				this.volume = volume;
+			};
+
+			this.setMilkVolume = function(volume) {
+				this.milkVolume = volume;
+			};
+
+			this.setCoffeeVolume = function(volume) {
+				this.coffeeVolume = volume;
+				this.coffeeGrinderVolume = volume;
+			};
+
+			this.setProgramm = function(number) {
+				if (this.volume <= 0) {
+					this.programm = 0;
+					console.log('Add water!');
+					return;
+				}
+
+				if (this.coffeeVolume <= 0) {
+					this.programm = 0;
+					console.log('Add coffee!');
+					return;
+				}
+
+				this.programm = number;
+
+				if (this.programm > 1 && this.milkVolume <= 0) {
+					console.log('Add milk!');
+					this.programm = 0;
+				}
+
+				this.coffeeGrinderTime = 5;
+			};
+
+			this.start = function() {
+				if (!this.coffeeMakerOn || !this.coffeeMakerStatus) return;
+
+				this.on();
+				this.coffeeGrinderOn();
+
+				setTimeout(() => {
+					this.coffeeMakerDone = true;
+					this.coffeeMakerOff();
+					console.log('Coffee is done');
+				}, 10000);
+			};
+		}
+
+		let delonghi = new CoffeeMaker();
+		console.log(delonghi);
+	)
+)
+
+Классы в JS (
+		-шаблон, который предоставляет расширенные возможности по созданию объектов
+		-отличается от функции конструктора, имеет более расширенные возможности
+		-для создания сложных и современных объектов
+
+		let Car = function(data) {
+			this.model = data.model;
+			this.color = data.color;
+			this.doors = data.doors;
+
+			this.showModel = () => {
+				return this.model;
+			}
+		}
+
+		class Car2 { //создание класса
+			constructor(data) { //встроенный метод
+				this.model = data.model;
+				this.color = data.color;
+				this.doors = data.doors;
+			}
+
+			showModel() { //метод создается так
+				return this.model;
+			}
+		}
+
+		let carBMW = new Car({ //создание объекта на основе функции-конструктора
+			model: 'BMW',
+			color: 'Black',
+			doors: '4'
+		});
+
+		let carMersedes = new Car2({ //создание объекта на основе класса
+			model: 'Mersedes',
+			color: 'White',
+			doors: '2'
+		});
+
+		for(let key in carBMW) {
+			console.log(key); //выведет все значения свойств и методы
+		}
+
+		for(let key in carMersedes) {
+			console.log(key); //выведет только все значения свойств БЕЗ методов, т.к. они спрятаны в prototype
+		}
+
+		///
+		пример библиотеки функций
+
+		function f1() {
+			console.log('f1');
+		}
+
+		function f2() {
+			console.log('f2');
+		}
+
+		function f3() {
+			console.log('f3');
+		}
+
+
+		class DOM {
+			static create(type) { //static позволяет обращаться непосредственно к методам класса
+				return document.createElement(type);
+			} 
+
+			static search(selector) {
+				return document.querySelectorAll(selector);
+			}
+
+			static insert(to, element, beforeElement) {
+				if(!to || !element) return false;
+
+				if(!beforeElement) to.appendChild(element);
+				else to.insertBefore(element, beforeElement);
+			}
+		}
+
+		DOM.create() ; //это обращение становится возможным благодаря static
+
+		console.log(DOM.create('h1')); //создаст заголовок h1 на странице!
+
+		console.log(DOM.search('body')); //найдет body на странице и вернет nodelist
+
+		let elemH1 = DOM.create('h1');
+		elemH1.innerHTML = 'Main header';
+		DOM.insert(document.body, elemH1); //проверка метода. вставит заголовок в body
+
+		let container = DOM.create('div');
+		container.classList.add('container');
+		container.innerHTML = '<p>Some text</p>';
+		DOM.insert(document.body, container); //проверка метода. вставит div в body
+
+		let elemH2 = DOM.create('h2');
+		elemH2.innerHTML = 'Header 2';
+		DOM.insert(container, elemH2, DOM.search('.container > p')[0]); //проверка метода. вставит h2 в div перед текстовым абзацем
+
+
+
+
+
+		
+
+		
+	)
