@@ -163,16 +163,40 @@ ul {
     min-height: 150px;
 }
 
-.note__form_edit button {
-    background-color: #ccc;
+.note__btn_close {
+    align-self: flex-end;
+    background-image: url(/assets/images/ico_close.png);
+    display: block;
+    width: 24px;
+    height: 24px;
+    background-repeat: no-repeat;
+    background-size: 24px auto;
+    background-position: center;
     border: 0;
-    padding: 12px 24px;
+    background-color: transparent;
+    opacity: 0.8;
     cursor: pointer;
-    text-transform: uppercase;
-    font-size: 12px;
 }
 
-.note__form_edit button:hover {
-    background-color: #666;
-    color: #fff;
+.note__btn_close:hover {
+    opacity: 1;
+}
+
+.note__btn_save {
+    align-self: center;
+    background-image: url(/assets/images/ico_checked.png);
+    display: block;
+    width: 32px;
+    height: 32px;
+    background-repeat: no-repeat;
+    background-size: 32px auto;
+    background-position: center;
+    border: 0;
+    background-color: transparent;
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.note__btn_save:hover {
+    background-image: url(/assets/images/ico_checked_hover.png);
 }

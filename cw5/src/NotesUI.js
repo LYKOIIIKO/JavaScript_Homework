@@ -1,5 +1,5 @@
 let NotesUI = function() {
-    Notes.apply(this);
+    Notes.apply(this, arguments); //наследуем Notes
 
     let elems = null;
 
@@ -88,7 +88,6 @@ let NotesUI = function() {
 
         this.add(titleValue, contentValue);
         update();
-        
     };
 
     let onEdit = (id) => {
@@ -96,22 +95,23 @@ let NotesUI = function() {
     };
 
     let onRemove = (id) => {
+
        this.remove(id);
        update();
     };
 
     let update = () => {
-        elems.list.innerHTML = '';
+        elems.list.innerHTML = ''; //очищаем список чтобы не дублировались заметки
 
-        let data = this.get();
+        let data = this.get(); //забираем базу
 
-        data.forEach((item) => {
+        data.forEach((item) => { //делаем createItem для каждой заметки
             let itemElem = createItem(item.title || '', item.content || '', item.id);
             if (itemElem) elems.list.append(itemElem);
-        })
+        });
     }
 
-    let showFormEdit = (id) => {
+    let showFormEdit = (id) => { //создание модального окна
         let noteData = this.get(id);
 
         if (!noteData) return;
@@ -119,25 +119,23 @@ let NotesUI = function() {
         let modalElem = document.createElement('div');
         modalElem.classList.add('note__form_edit');
 
-        let fieldTitle = document.createElement('input');
-        fieldTitle.classList.add('note__field_title');
-        fieldTitle.type = 'text';
+            let fieldTitle = document.createElement('input');
+            fieldTitle.classList.add('note__field_title');
+            fieldTitle.type = 'text';
 
-        let fieldContent = document.createElement('textarea');
-        fieldContent.classList.add('note__field_content');
-        
-        let itemBtnSave = document.createElement('button');
-        itemBtnSave.classList.add('note__btn_save');
-        itemBtnSave.innerHTML = 'Save';
+            let fieldContent = document.createElement('textarea');
+            fieldContent.classList.add('note__field_content');
+            
+            let itemBtnSave = document.createElement('button');
+            itemBtnSave.classList.add('note__btn_save');
 
-        let itemBtnClose = document.createElement('button');
-        itemBtnClose.classList.add('note__btn_close');
-        itemBtnClose.innerHTML = 'Close';
+            let itemBtnClose = document.createElement('button');
+            itemBtnClose.classList.add('note__btn_close');
 
         fieldTitle.value = noteData.title || '';
         fieldContent.value = noteData.content || '';
 
-        modalElem.append(fieldTitle, fieldContent, itemBtnSave, itemBtnClose);
+        modalElem.append(itemBtnClose, fieldTitle, fieldContent, itemBtnSave);
         document.body.append(modalElem);
 
         itemBtnSave.addEventListener('click', () => {
