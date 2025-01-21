@@ -1,5 +1,7 @@
 window.addEventListener('load', () => {
 
-    new NotesUI();
+    new NotesUI(); //structure creation
 
 });
+
+//let mynotes = new Notes();

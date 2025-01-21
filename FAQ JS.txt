@@ -45,7 +45,7 @@
 	-использовать функциональное наследование
 	-background-size: 18px auto; //можно менять размер bg
 	-стандартные методы create()- создание html элементов, init() - для отображения html элементов, onAdd(event) - метод для событий
-	-
+	-кнопка закрыть 40х40px удобно для мобильников
 )
 
 Условия if else switch тернарники(
@@ -2070,9 +2070,9 @@ BOM и DOM (
 
 ООП (
 	Объектно-ориентированное програмирование
-	Главные признаки: Наследование -прототипое и функциональное, расширяет возможности объектов
-	инкапсуляция -закрытие, оставляем доступ к значениям переменных только внутри объекта и которые используются только в методах этого объекта,
-	полиморфизм - процесс при котором переопределяется один и тот же метод, сохраняя функционал родительского объекта, сохраняя и расширяя его возможности.
+	Главные признаки: Наследование -прототипое и функциональное, расширяет возможности объектов за счет заимствования свойств и методов объекта-родителя
+	инкапсуляция -закрытие, оставляем доступ к значениям переменных только внутри объекта и которые используются только в методах этого объекта. ограничение доступа к значениям свойств и методов объекта
+	полиморфизм - процесс при котором переопределяется один и тот же метод, сохраняя функционал родительского объекта, сохраняя и расширяя его возможности. переопределение и расширение возможностей метода объекта родителя
 
 	///////////////////////////////
 	Наследование, заимствование (
@@ -2431,10 +2431,18 @@ BOM и DOM (
 )
 
 Классы в JS (
-		-шаблон, который предоставляет расширенные возможности по созданию объектов
-		-отличается от функции конструктора, имеет более расширенные возможности
-		-для создания сложных и современных объектов
+	-шаблон, который предоставляет расширенные возможности по созданию объектов
+	-отличается от функции конструктора, имеет более расширенные возможности
+	-для создания сложных и современных объектов
+	-позволяет обращаться напрямую к методу класса без создания объекта на его основе ТОЛЬКО если добавить static к свойству или методу
+	- #elem решетка делает закрытым свойство класса. метод должен обращаться к this.#elem. не все браузеры поддерживают. метод нельзя инкапсулировать
+	- constructor срабатывает всегда в момент инициализации объекта этого класса. можно сувать только свойства. может принимать параметры
+	-class ChildClass extends ParentClass{} наследование идет через extends
+	-constructor(){super();} //super() функция для обращения к родителю. обязательно использовать при добавлении новых свойств чтобы сохранить родительские. можно обращаться к методам родителя showName() {super.showName();} 
+	- objectName instanceof Class// проверка принадлежности к классу 
 
+	///////////////////////////
+	Создание. статические методы. сравнение с функциями конструкторами (
 		let Car = function(data) {
 			this.model = data.model;
 			this.color = data.color;
@@ -2446,7 +2454,7 @@ BOM и DOM (
 		}
 
 		class Car2 { //создание класса
-			constructor(data) { //встроенный метод
+			constructor(data) { //встроенный метод для создания свойств объекта которые нужно инициализировать сразу!
 				this.model = data.model;
 				this.color = data.color;
 				this.doors = data.doors;
@@ -2478,7 +2486,7 @@ BOM и DOM (
 		}
 
 		///
-		пример библиотеки функций
+		пример библиотеки (объединения) функций
 
 		function f1() {
 			console.log('f1');
@@ -2528,12 +2536,217 @@ BOM и DOM (
 		let elemH2 = DOM.create('h2');
 		elemH2.innerHTML = 'Header 2';
 		DOM.insert(container, elemH2, DOM.search('.container > p')[0]); //проверка метода. вставит h2 в div перед текстовым абзацем
-
-
-
-
-
-		
-
-		
 	)
+
+	//////////////////////////
+	геттеры сеттеры классов(
+		https://www.youtube.com/watch?v=FrqdYQjT2kA
+
+		class Admin {
+			#type = 'Admin';
+
+			showType() {
+				console.log(this.#type);
+			}
+
+			get info() {
+				return this.name + '(' + this.email + ')';
+			}
+
+			set info(data) {
+				this.name = data.name;
+				this.email = data.email;
+			}
+		}
+
+		let admin = new Admin();
+
+		admin.info ={ name:'Alex', email:'alex@gmail.com' }; //геттер устанавливаем 
+
+		console.log(admin.info); //сеттер получаем
+	)
+
+	//////////////////////////
+	геттеры сеттеры функций-конструкторов(
+
+		let User = function() {
+			let type = 'User';
+
+			this.showType = function() {
+				console.log(type);
+			}
+		}
+
+		let user = new User();
+
+		Object.defineProperty(user, 'info', { //добавляем геттер и сеттер info к объекту user
+			get: function() {
+				return this.name + '(' + this.email + ')';
+			}
+
+			set: function(data) {
+				this.name = data.name;
+				this.email = data.email;
+			}
+		});
+
+		user.info ={ name:'Bob', email:'bob@gmail.com' }; //геттер устанавливаем 
+
+		console.log(user.info); //сеттер получаем
+	)
+
+	/////////////////////////////
+	Наследование классов extends (
+		https://www.youtube.com/watch?v=V8_twa-8rws
+
+		class Animal {
+			constructor(data) {
+				this.name = data.name;
+				this.eat = data.eat;
+			}
+
+			showName() {
+				console.log(this.name);
+			}
+		}
+
+		class Dog extends Animal { // наследуем через extends
+			constructor(data) {
+				super(data); //функция для обращения к родительскому constructor.обязательно использовать при добавлении новых свойств чтобы сохранить родительские. 
+
+				this.speak = true;
+				this.walk = true;
+			}
+
+			bark() {
+				console.log('Gaw!');
+			}
+
+			showName() { //переопределит родительский метод
+				console.log('Dog: ' + this.name);
+			}
+
+			//showName() { //дополнит родительский метод
+			//	super.showName(); //выполнит родительский метод
+			//
+			//	console.log('Dog: ' + this.name); //затем выполнит дочерний метод
+			//}
+		}
+
+		let dogBob = new Dog({ name: 'Dog Bob', eat: true });
+
+		//пример с пользователями сайта
+
+		class User { //простой пользователь
+			constructor(data) {
+				this.name = data.name;
+				this.email = data.email;
+
+				thid.permisions = {
+					view: true,
+					buy: false,
+					create: false,
+					update: false,
+					delete: false
+				}
+			}
+
+			get info() {
+				return this.name + ' (' + this.email + ')';
+			}
+
+			set info() {
+				this.name = data.name;
+				this.email = data.email;
+			}
+
+			view() {
+				if(this.permisions.view) console.log(this.name + ': Просмотр страниц'); // ограничиваем доступ
+			}
+
+			create() {
+				if(this.permisions.create) console.log(this.name + ': Создание страниц');
+			}
+
+			update() {
+				if(this.permisions.update) console.log(this.name + ': Обновление страниц');
+			}
+
+			delete() {
+				if(this.permisions.delete) console.log(this.name + ': Удаление страниц');
+			}
+
+			buy() {
+				if(this.permisions.buy) console.log(this.name + ': Покупка товаров/услуг');
+			}
+
+			getPermissions() {
+				return this.permisions;
+			}
+		}
+
+		class Buyer extends User {
+			constructor(data) {
+				super(data);
+
+				this.permisions.buy = true; // переопределили свойство родителя. пример полиморфизма
+			}
+		}
+
+		class Editor extends User {
+			constructor(data) {
+				super(data);
+
+				this.permisions.create = true; // переопределили свойство родителя. пример полиморфизма
+				this.permisions.update = true;
+			}
+		}
+
+		class Admin {
+			constructor(data) {
+				super(data);
+
+				this.permisions.buy = true;
+				this.permisions.create = true; 
+				this.permisions.update = true;
+				this.permisions.delete = true;
+			}
+
+			create() {
+				super.create();
+
+				console.log(this.name + ': Доп. возможности по созданию страниц');
+			}
+
+			update() {
+				super.update();
+
+				console.log(this.name + ': Доп. возможности по обновлению страниц');
+			}
+
+			delete() {
+				super.delete();
+
+				console.log(this.name + ': Доп. возможности по удалению страниц');
+			}
+		}
+
+		let alex = new User({ name: 'Alex', email: 'alex@gmail.com' });
+
+		let bob = new Buyer({ name: 'Bob', email: 'bob@gmail.com' });
+
+		let mike = new Editor({ name: 'Mike', email: 'mike@gmail.com'});
+
+		let robert = new Admin({ name: 'Robert', email: 'robert@gmail.com'});
+
+		//
+		проверка принадлежности к классу instanceof
+
+		console.log(alex instanseof User); //true
+
+		console.log(alex instanseof Editor); //false
+
+		console.log(robert instanseof User); //true
+	)
+
+)

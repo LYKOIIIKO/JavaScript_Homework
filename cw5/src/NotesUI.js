@@ -1,7 +1,9 @@
 let NotesUI = function() {
+    Notes.apply(this);
+
     let elems = null;
 
-    let create = () => {
+    let create = () => { //basic interface creation
         let notesElem = document.createElement('div');
         notesElem.classList.add('notes');
 
@@ -25,8 +27,8 @@ let NotesUI = function() {
 
         notesElem.append(formElem, listElem);
 
-        // return [notesElem, fieldTitle, fieldContent, listElem];
-        return {
+        // return [notesElem, fieldTitle, fieldContent, listElem]; //requires reference to id
+        return { //preferred way to return an object
             main: notesElem,
             fieldTitle: fieldTitle,
             fieldContent: fieldContent,
@@ -34,7 +36,7 @@ let NotesUI = function() {
         };
     };
 
-    let createItem = (title, content) => {
+    let createItem = (title, content, id) => { //note structure creation
         if (!title && !content) return;
 
         let itemElem = document.createElement('li');
@@ -60,13 +62,17 @@ let NotesUI = function() {
         itemElem.append(itemTitle, itemContent, itemBtns);
 
 
-        itemBtnRemove.addEventListener('click', onRemove);
-        itemElem.addEventListener('dblclick', onEdit);
+        itemBtnRemove.addEventListener('click', () => {
+            onRemove(id);
+        });
+        itemElem.addEventListener('dblclick', () => {
+            onEdit(id);
+        });
 
         return itemElem;
     };
 
-    let onAdd = (event) => {
+    let onAdd = (event) => { //creating a note by pressing ctrl+enter
         if (!event.ctrlKey || event.code != 'Enter') return false;
 
         let titleValue = elems.fieldTitle.value;
@@ -75,20 +81,87 @@ let NotesUI = function() {
         elems.fieldTitle.value = '';
         elems.fieldContent.value = '';
 
-        // симуляция добавления
-        let itemElem = createItem(titleValue, contentValue);
-        elems.list.append(itemElem);
+        // test
+        //let itemElem = createItem(titleValue, contentValue);
+        //if(titleValue || contentValue) elems.list.append(itemElem);
+        //else return false;
+
+        this.add(titleValue, contentValue);
+        update();
+        
     };
 
-    let onEdit = (event) => {
-        console.log('edit');
+    let onEdit = (id) => {
+        showFormEdit(id);
     };
 
-    let onRemove = (event) => {
-        console.log('remove');
+    let onRemove = (id) => {
+       this.remove(id);
+       update();
     };
 
-    let init = () => {
+    let update = () => {
+        elems.list.innerHTML = '';
+
+        let data = this.get();
+
+        data.forEach((item) => {
+            let itemElem = createItem(item.title || '', item.content || '', item.id);
+            if (itemElem) elems.list.append(itemElem);
+        })
+    }
+
+    let showFormEdit = (id) => {
+        let noteData = this.get(id);
+
+        if (!noteData) return;
+
+        let modalElem = document.createElement('div');
+        modalElem.classList.add('note__form_edit');
+
+        let fieldTitle = document.createElement('input');
+        fieldTitle.classList.add('note__field_title');
+        fieldTitle.type = 'text';
+
+        let fieldContent = document.createElement('textarea');
+        fieldContent.classList.add('note__field_content');
+        
+        let itemBtnSave = document.createElement('button');
+        itemBtnSave.classList.add('note__btn_save');
+        itemBtnSave.innerHTML = 'Save';
+
+        let itemBtnClose = document.createElement('button');
+        itemBtnClose.classList.add('note__btn_close');
+        itemBtnClose.innerHTML = 'Close';
+
+        fieldTitle.value = noteData.title || '';
+        fieldContent.value = noteData.content || '';
+
+        modalElem.append(fieldTitle, fieldContent, itemBtnSave, itemBtnClose);
+        document.body.append(modalElem);
+
+        itemBtnSave.addEventListener('click', () => {
+            let title = fieldTitle.value;
+            let content = fieldContent.value;
+
+            let newData = {
+                title: title,
+                content: content
+            }
+
+            this.edit(id, newData);
+            modalElem.remove();
+
+            update();
+        })
+
+        itemBtnClose.addEventListener('click', () => {
+            modalElem.remove();
+        })
+
+    }
+
+    let init = () => { //initializing and adding events to the main element
         elems = create();
 
         document.body.append(elems.main);
