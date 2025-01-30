@@ -1,0 +1,52 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    padding: 50px;
+
+    font-family: arial;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+ul {
+    list-style: none;
+}
+
+.list {
+    border: 1px solid lightcoral;
+    border-radius: 10px;
+    padding: 20px;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    position: relative;
+}
+
+.item {
+    background-color: lightblue;
+    padding: 20px;
+    border-radius: 10px;
+    width: 200px;
+    text-align: center;
+}
+
+.item.selected {
+    background-color: #d7e8ee;
+    border: 1px dashed #5693a8;
+    opacity: .6;
+    transform: scale(0.9);
+}
+
+.item.hover {
+    border: 1px dashed #3e6c7b;
+}

@@ -46,12 +46,16 @@
 	-background-size: 18px auto; //можно менять размер bg
 	-стандартные методы create()- создание html элементов, init() - для отображения html элементов, onAdd(event) - метод для событий
 	-кнопка закрыть 40х40px удобно для мобильников
+	-пробел нулевой ширины HTML &#8203; 
 )
 
 Условия if else switch тернарники(
 	if(условие) {код}
 	if(условие) {код} else {код}
 	if() {} else if() {}
+
+	//
+	Оператор switch
 
 	switch(условие) {
 		case(условие):
@@ -61,6 +65,36 @@
 			code;
 		break;
 	}
+
+	Пример:
+
+		let day = 3;
+
+		switch (day) {
+			case 1:
+				console.log("Понедельник");
+			break;
+			case 2:
+				console.log("Вторник");
+			break;
+			case 3:
+				console.log("Среда");
+			break;
+			default:
+				console.log("День недели не определен");
+
+		}
+
+	//
+	Тернарный ?
+
+	условие ? выражение1 : выражение2
+	Пример:
+		let age = 20;
+
+		let message = (age < 18) ? "Вы несовершеннолетний" : "Вы совершеннолетний";
+
+		console.log(message);
 )
 
 Циклы for while (
@@ -1513,8 +1547,8 @@ BOM и DOM (
 		console.log(body.parentElement.parentElement); // null
 		console.dir(body.parentElement.parentNode); // #document
 
-		console.log(list.previousElementSibling);
-		console.log(list.nextElementSibling);
+		console.log(list.previousElementSibling); //предыдущий элемент списка
+		console.log(list.nextElementSibling); //следующий элемент списка
 	)
 
 	/////////////////////////////////////////////////
