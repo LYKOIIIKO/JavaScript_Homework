@@ -80,7 +80,7 @@ list.forEach((item) => {
 	});
 	
 	item.addEventListener('dragover', (event) => { //перемещение элемента
-		event.preventDefault();
+		event.preventDefault(); //этим мы убираем выделение текста на item
 	
 		currentItem = event.target;
 

@@ -38,7 +38,7 @@ list.addEventListener('dragend', (event) => { //отпускание перем�
 });
 
 list.addEventListener('dragover', (event) => { //перемещение элемента
-    event.preventDefault();
+    event.preventDefault(); //этим мы убираем выделение текста на item
 
     currentItem = event.target;
 

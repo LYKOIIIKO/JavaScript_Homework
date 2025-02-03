@@ -90,6 +90,8 @@ ul {
     max-width: 33.3%;
 
     background-color: #f9f0d6;
+
+    cursor: pointer;
 }
 
 .notes__item:hover {
@@ -102,8 +104,7 @@ ul {
 }
 
 .notes__item.hover {
-    border: 1px dashed #db5000;
-    transform: rotate(2deg);
+    border: 1px dashed #7f611c;
 }
 
 .notes__item.move {

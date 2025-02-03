@@ -167,63 +167,44 @@ let NotesUI = function() {
         elems.list.addEventListener('dragstart', (event) => {
             dragItemSelected = event.target;
             dragItemSelected.classList.add('selected');
-
-            let imgElem = document.createElement('img');
-            imgElem.src = '/assets/images/ghost.png';
-
-            event.dataTransfer.setDragImage(imgElem, 0, 0);
-        });
-
-        elems.list.addEventListener('dragend', (event) => {
-            dragItemSelected.classList.remove('selected');
-
-            dragItemSelected.classList.remove('move');
-
-            if (!dragItemCurrent || !dragItemCurrent.draggable) return;
-
-            let itemOffsetLeft = dragItemCurrent.offsetLeft;
-            let itemOffsetCenter = dragItemCurrent.offsetLeft + dragItemCurrent.offsetWidth / 2;
-            let x = event.clientX - 50;//добавить 
-
-            let dir = x <= itemOffsetCenter ? 'l' : 'r';
-
-            if (dir == 'l') elems.list.insertBefore(dragItemSelected, dragItemCurrent);
-            else elems.list.insertBefore(dragItemSelected, dragItemCurrent.nextElementSibling);
-
-            dragItemCurrent.classList.remove('hover');
-
-            dragItemCurrent = undefined;
-            dragItemSelected = undefined;
-
-        });
+        })
 
         elems.list.addEventListener('dragover', (event) => {
             event.preventDefault();
 
-            dragItemCurrent = event.target;
+            dragItemCurrent = event.target.closest('li');
 
-            dragItemSelected.classList.add('move');
-
-            let x = event.clientX;
-
-            let y = event.clientY;
-
-            dragItemSelected.style.left = `${x}px`;
-            dragItemSelected.style.top = `${y}px`;
-        
             if (dragItemSelected == dragItemCurrent) return;
-        
-            dragItemCurrent.classList.add('hover');
-        });
+
+            if (dragItemCurrent) dragItemCurrent.classList.add('hover');
+        })
 
         elems.list.addEventListener('dragleave', (event) => {
-            if (event.target.classList.content('.notes__list')) event.target.classList.remove('hover');
+           
             dragItemCurrent = undefined;
-        });
+            event.target.classList.remove('hover');
+        })
 
-        elems.list.addEventListener('dragenter', (event) => {
-            console.log(event);
-        });
+        elems.list.addEventListener('dragend', (event) => {
+            dragItemSelected.classList.remove('selected');
+
+            if (!dragItemCurrent || !dragItemCurrent.draggable) return;
+
+            let dragItemCurrentOffsetCenter = dragItemCurrent.offsetLeft + dragItemCurrent.offsetWidth / 2;
+            let x = event.clientX;
+
+            let dir = x <= dragItemCurrentOffsetCenter ? 'l' : 'r';
+            
+
+            if (dir == 'l') elems.list.insertBefore(dragItemSelected, dragItemCurrent);
+            else elems.list.insertBefore(dragItemSelected, dragItemCurrent.nextElementSibling);
+            
+            dragItemCurrent.classList.remove('hover');
+            
+            dragItemSelected = undefined;
+            dragItemCurrent = undefined;
+
+        })
     }
 
     let init = () => { //initializing and adding events to the main element
