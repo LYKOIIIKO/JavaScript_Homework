@@ -3,6 +3,9 @@ let NotesUI = function() {
 
     let elems = null;
 
+    let dragItemSelected;
+    let dragItemCurrent;
+
     let create = () => { //basic interface creation
         let notesElem = document.createElement('div');
         notesElem.classList.add('notes');
@@ -41,6 +44,7 @@ let NotesUI = function() {
 
         let itemElem = document.createElement('li');
             itemElem.classList.add('notes__item', 'note');
+            itemElem.draggable = true;
 
                 let itemTitle = document.createElement('h3');
                 itemTitle.classList.add('note__title');
@@ -159,6 +163,69 @@ let NotesUI = function() {
 
     }
 
+    let onDrag = () => {
+        elems.list.addEventListener('dragstart', (event) => {
+            dragItemSelected = event.target;
+            dragItemSelected.classList.add('selected');
+
+            let imgElem = document.createElement('img');
+            imgElem.src = '/assets/images/ghost.png';
+
+            event.dataTransfer.setDragImage(imgElem, 0, 0);
+        });
+
+        elems.list.addEventListener('dragend', (event) => {
+            dragItemSelected.classList.remove('selected');
+
+            dragItemSelected.classList.remove('move');
+
+            if (!dragItemCurrent || !dragItemCurrent.draggable) return;
+
+            let itemOffsetLeft = dragItemCurrent.offsetLeft;
+            let itemOffsetCenter = dragItemCurrent.offsetLeft + dragItemCurrent.offsetWidth / 2;
+            let x = event.clientX - 50;//добавить 
+
+            let dir = x <= itemOffsetCenter ? 'l' : 'r';
+
+            if (dir == 'l') elems.list.insertBefore(dragItemSelected, dragItemCurrent);
+            else elems.list.insertBefore(dragItemSelected, dragItemCurrent.nextElementSibling);
+
+            dragItemCurrent.classList.remove('hover');
+
+            dragItemCurrent = undefined;
+            dragItemSelected = undefined;
+
+        });
+
+        elems.list.addEventListener('dragover', (event) => {
+            event.preventDefault();
+
+            dragItemCurrent = event.target;
+
+            dragItemSelected.classList.add('move');
+
+            let x = event.clientX;
+
+            let y = event.clientY;
+
+            dragItemSelected.style.left = `${x}px`;
+            dragItemSelected.style.top = `${y}px`;
+        
+            if (dragItemSelected == dragItemCurrent) return;
+        
+            dragItemCurrent.classList.add('hover');
+        });
+
+        elems.list.addEventListener('dragleave', (event) => {
+            if (event.target.classList.content('.notes__list')) event.target.classList.remove('hover');
+            dragItemCurrent = undefined;
+        });
+
+        elems.list.addEventListener('dragenter', (event) => {
+            console.log(event);
+        });
+    }
+
     let init = () => { //initializing and adding events to the main element
         elems = create();
 
@@ -166,6 +233,10 @@ let NotesUI = function() {
 
         elems.fieldTitle.addEventListener('keypress', onAdd);
         elems.fieldContent.addEventListener('keypress', onAdd);
+
+        onDrag();
+
+        update();
     };
 
     init();

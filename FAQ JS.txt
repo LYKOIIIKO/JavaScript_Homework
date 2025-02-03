@@ -47,6 +47,7 @@
 	-стандартные методы create()- создание html элементов, init() - для отображения html элементов, onAdd(event) - метод для событий
 	-кнопка закрыть 40х40px удобно для мобильников
 	-пробел нулевой ширины HTML &#8203; 
+	-в начале пути к файлу ставим слэш /. это необходимо чтобы путь к файлу был от корня сайта (доменного имени)! для правильной работы веб-сервера
 )
 
 Условия if else switch тернарники(
@@ -178,6 +179,11 @@
 	)
 
 	_МЕТОДЫ МАССИВОВ
+
+	JSON.stringify(arrayName) //превратит массив в строку как есть, со скобками
+
+	JSON.parse(arrayName) //обратное превращение из строки в массив
+
 
 	fruits.push('Апельсин'); //добавить элемент в конец массива
 
@@ -2782,5 +2788,143 @@ BOM и DOM (
 
 		console.log(robert instanseof User); //true
 	)
+)
 
+Клиент-сервер (
+	-127.0.0.1 локальный адрес любого компьютера где загружается локальный сервер
+	-Здесь важно понять то, что ни одно приложение с большим функционалом не может работать "просто так", как мы его запускаем в браузере. 
+	-Обязательно нужен веб-сервер - это без исключений.
+	-Есть два понятия: клиент и сервер. Обе стороны общаются между собой через специальные запросы и ответы.
+	-веб-сервер (хостинг) - это программное обеспечение, которое управляет данными и доставляет их пользователям на веб-браузер. срок действия любой
+	-доменное имя - это имя сайта в сети. срок действия минимум 1 год
+	-http-сервер - это то самое ПО сервера. Есть 2 популярных apache и nginx. apache работает на всех платформах, но медленнее в 2 раза. nginx работает только на macOS/linux
+	-http-протокол - Это протокол который позволяет пользователю отправить запрос на получение данных с сервера и позволяет серверу эти данные пользователю вернуть
+	-база данных - хранит большую часть данных сайта/приложения
+
+	https://www.youtube.com/watch?v=r81agu4B1JY //локальный веб сервер на NodeJS
+
+	https://www.youtube.com/watch?v=oLJEfeaKxpo // Локальный сервер XAMPP. Настройка домена
+
+	https://www.youtube.com/watch?v=5MSqP7uNqMg //Веб-сервер. REST API. JSON
+
+	https://www.youtube.com/watch?v=l8mc6DR-9VQ //Postman. Приложение для проверки и тестирования API
+)
+
+Работа с памятью браузера. Cookies, localStorage, sessionStorage (
+
+	/////////////////////////
+	Все про Cookies
+		https://www.youtube.com/watch?v=SjMsjOdP0bs
+
+		-Максимальный размер 4 килобайта;
+		-стандартный срок жизни одна сессия, Как только закроется браузер куки будут удалены;
+		-Хранится как строка;
+
+
+		document.cookie = 'auth=true'; //добавить куку
+
+		document.cookie = 'auth='; max-age=-1; //удалить куку
+
+		document.cookie = 'info=' + encodeURIComponent('Какая-то строка на кириллице'); //правильный способ добавления куки содержащей латиницу для отображения во всех браузерах. decodeURIComponent() - декодер
+
+		document.cookie = 'user2=Peter; path=/news/post/post1'; //добавить куку дял конкретной страницы сайта
+
+		document.cookie = 'user3=Mike; domain=*.localhost'; //добавить куку дял всех доменов и поддоменов сайта
+
+		let date = new Date(Date.now() + 20000);//в миллисекундах
+		date = date.toUTCString();
+		document.cookie = 'user4=Vasya; expires=' + date; //установить срок жизни куки через expires
+
+		document.cookie = 'user5=Maxim; max-age=20'; //установить таймер жизни куки. В секундах!
+
+		document.cookie = 'user6=Sergey; secure'; // защита куки. к данной куке смогут обращаться только если протокол сайта https
+
+		// возвращает куки с указанным name или undefined, если ничего не найдено
+		function getCookie(name) {
+			let matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"));
+			return matches ? decodeURIComponent(matches[1]) : undefined;
+		}
+
+		//Устанавливает куки с именем name и значением value, с настройкой path=/ по умолчанию (можно изменить, чтобы добавить другие значения по умолчанию):
+			function setCookie(name, value, options = {}) {
+				options = {
+					path: '/',
+					// при необходимости добавьте другие значения по умолчанию
+					...options
+				};
+
+				if (options.expires instanceof Date) {
+					options.expires = options.expires.toUTCString();
+				}
+
+				let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+
+				for (let optionKey in options) {
+					updatedCookie += "; " + optionKey;
+					let optionValue = options[optionKey];
+					if (optionValue !== true) {
+					updatedCookie += "=" + optionValue;
+					}
+				}
+
+				document.cookie = updatedCookie;
+			}
+
+			// Пример использования:
+			setCookie('user', 'John', {secure: true, 'max-age': 3600});
+
+		//Чтобы удалить куки, мы можем установить отрицательную дату истечения срока действия:
+			function deleteCookie(name) {
+				setCookie(name, "", {'max-age': -1});
+			}
+
+	////////////////////////
+	localStorage / sessionStorage
+		https://www.youtube.com/watch?v=JGXM0UU8mFE Добавляем приложению контакты возможность по кнопке добавить отправлять контакты в локальное хранилище и отображать их на странице
+
+		-localStorage - хранит данные постоянно
+		-sessionStorage - чранит данные до перезапуска браузера
+		-размер 2 мб
+		-не имеют срока жизни
+		-привязаны к домену
+		-тип данных Storage
+		-хранит данные только как строку
+		-можно обращаться через window.localStorage можно и напрямую localStorage
+
+		- методы работы setItem(); //установить ключ и значение. Можно добавлять только строку!
+						getItem(); //получить  значение ключа
+						removeItem(); //удалить ключ и значение
+						clear(); //удалить все ключи
+						length; //узнать количество ключей в хранилище
+						JSON.stringify(arrayName) //превратит массив в строку как есть, со скобками
+						JSON.parse(arrayName) //обратное превращение из строки в массив
+
+		window.sessionStorage.setItem('user', 'Bob');
+		window.localStorage.setItem('user', 'Alex');
+
+		window.localStorage.getItem('user');
+
+		window.localStorage.removeItem('user');
+
+		window.localhost.clear();
+		
+		//выведем все ключи и их значения
+		let keys = Object.keys(localStorage);
+		for (let key of keys) {
+			console.log(`${key}: ${localStorage.getItem(key)}`);
+		}
+
+	/////////////////
+	JSON 
+		https://www.youtube.com/watch?v=hHBUN4uE704
+
+		-формат данных .json
+		-fake api https://reqres.in/
+		-https://json-generator.com/ создаст объект для проверки кода
+
+		JSON.stringify(arrayName) //превратит массив в строку как есть, со скобками
+
+		JSON.parse(arrayName) //обратное превращение из строки в массив
+
+		
 )

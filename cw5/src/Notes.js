@@ -1,5 +1,31 @@
 let Notes = function() { //app core
-	let data = []; //notes storages 
+	let data = [ //notes storages 
+		{
+			id: 1,
+			title: '1111111111111111',
+			content: 'asdasdasdas',
+			create: Date.now()
+		},
+		{
+			id: 2,
+			title: '222222222222222222',
+			content: 'asdasdasdas',
+			create: Date.now()
+		},
+		{
+			id: 3,
+			title: '333333333333333333333',
+			content: 'asdasdasdas',
+			create: Date.now()
+		},
+		{
+			id: 4,
+			title: '44444444',
+			content: 'asdasdasdas',
+			create: Date.now()
+		},
+	]; 
+
 	let lastId = 0;
 
 	this.add = (title, content, color) => {

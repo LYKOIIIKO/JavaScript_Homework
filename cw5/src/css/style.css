@@ -96,6 +96,21 @@ ul {
     box-shadow: 0 0 5px #999;
 }
 
+.notes__item.selected {
+    box-shadow: 0 0 10px #6b5843;
+    opacity: .9;
+}
+
+.notes__item.hover {
+    border: 1px dashed #db5000;
+    transform: rotate(2deg);
+}
+
+.notes__item.move {
+    position: absolute;
+    z-index: 1;
+}
+
 .note__title {
     font-size: 16px;
     line-height: 22px;
