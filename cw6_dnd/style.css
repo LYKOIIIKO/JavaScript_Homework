@@ -1,0 +1,116 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    color: #222;
+
+    position: relative;
+}
+
+.section {
+    border-radius: 10px;
+    border: 1px solid #369;
+    padding: 20px;
+    margin: 50px;
+
+    display: flex;
+    gap: 20px;
+}
+
+.box {
+    width: 33.3%;
+    min-height: 120px;
+    background-color: #ededed;
+    border-radius: 5px;
+    padding: 10px;
+
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.box.enter {
+    border: 1px dashed #999;
+}
+
+.item {
+    width: 50px;
+    height: 50px;
+    background-color: #52a2ab;
+    border-radius: 5px;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.item.selected {
+    background-color: #369;
+}
+
+.item.cloned {
+    opacity: .5;
+}
+
+.notes {
+    background-color: #ededed;
+    padding: 50px;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.note {
+    background-color: lightgoldenrodyellow;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #ccc;
+
+    flex: none;
+    width: 25%;
+    max-width: 300px;
+    min-width: 250px;
+    
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.note > * {
+    pointer-events: none;
+}
+
+.note-btns {
+    display: flex;
+    gap: 5px;
+}
+
+.note-btns button {
+    background-color: transparent;
+    border: 0;
+    font-size: 12px;
+    text-decoration: underline;
+    cursor: pointer;
+
+    pointer-events: all;
+}
+
+.note.selected {
+    box-shadow: 10px 10px 30px #999;
+}
+
+.note.cloned {
+    opacity: .5;
+}
