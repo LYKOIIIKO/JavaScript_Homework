@@ -113,6 +113,12 @@ let NotesUI = function() {
             let itemElem = createItem(item.title || '', item.content || '', item.id);
             if (itemElem) elems.list.append(itemElem);
         });
+
+        onDnD({
+            items: elems.list.querySelectorAll('.notes__item'),
+            zones: [elems.list],
+            zoneOver: document.body
+        })
     }
 
     let showFormEdit = (id) => { //создание модального окна
@@ -163,50 +169,6 @@ let NotesUI = function() {
 
     }
 
-    let onDrag = () => {
-        elems.list.addEventListener('dragstart', (event) => {
-            dragItemSelected = event.target;
-            dragItemSelected.classList.add('selected');
-        })
-
-        elems.list.addEventListener('dragover', (event) => {
-            event.preventDefault();
-
-            dragItemCurrent = event.target.closest('li');
-
-            if (dragItemSelected == dragItemCurrent) return;
-
-            if (dragItemCurrent) dragItemCurrent.classList.add('hover');
-        })
-
-        elems.list.addEventListener('dragleave', (event) => {
-           
-            dragItemCurrent = undefined;
-            event.target.classList.remove('hover');
-        })
-
-        elems.list.addEventListener('dragend', (event) => {
-            dragItemSelected.classList.remove('selected');
-
-            if (!dragItemCurrent || !dragItemCurrent.draggable) return;
-
-            let dragItemCurrentOffsetCenter = dragItemCurrent.offsetLeft + dragItemCurrent.offsetWidth / 2;
-            let x = event.clientX;
-
-            let dir = x <= dragItemCurrentOffsetCenter ? 'l' : 'r';
-            
-
-            if (dir == 'l') elems.list.insertBefore(dragItemSelected, dragItemCurrent);
-            else elems.list.insertBefore(dragItemSelected, dragItemCurrent.nextElementSibling);
-            
-            dragItemCurrent.classList.remove('hover');
-            
-            dragItemSelected = undefined;
-            dragItemCurrent = undefined;
-
-        })
-    }
-
     let init = () => { //initializing and adding events to the main element
         elems = create();
 
@@ -214,8 +176,6 @@ let NotesUI = function() {
 
         elems.fieldTitle.addEventListener('keypress', onAdd);
         elems.fieldContent.addEventListener('keypress', onAdd);
-
-        onDrag();
 
         update();
     };

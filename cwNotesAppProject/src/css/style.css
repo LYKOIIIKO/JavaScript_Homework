@@ -90,12 +90,24 @@ ul {
     max-width: 33.3%;
 
     background-color: #f9f0d6;
-
-    cursor: pointer;
 }
 
 .notes__item:hover {
     box-shadow: 0 0 5px #999;
+}
+
+.notes__item > * {
+    pointer-events: none;
+}
+
+.notes__item.selected {
+    background-color: lightcyan;
+    box-shadow: 0 0 30px #ccc;
+}
+
+.notes__item.cloned {
+    background-color: #ededed;
+    opacity: 0.5;
 }
 
 .note__title {
@@ -105,6 +117,10 @@ ul {
 
 .note__btns {
     margin-top: auto;
+}
+
+.note__btns > * {
+    pointer-events: all;
 }
 
 .note__btn_remove {
@@ -165,40 +181,16 @@ ul {
     min-height: 150px;
 }
 
-.note__btn_close {
-    align-self: flex-end;
-    background-image: url(/assets/images/ico_close.png);
-    display: block;
-    width: 24px;
-    height: 24px;
-    background-repeat: no-repeat;
-    background-size: 24px auto;
-    background-position: center;
+.note__form_edit button {
+    background-color: #ccc;
     border: 0;
-    background-color: transparent;
-    opacity: 0.8;
+    padding: 12px 24px;
     cursor: pointer;
+    text-transform: uppercase;
+    font-size: 12px;
 }
 
-.note__btn_close:hover {
-    opacity: 1;
-}
-
-.note__btn_save {
-    align-self: center;
-    background-image: url(/assets/images/ico_checked.png);
-    display: block;
-    width: 32px;
-    height: 32px;
-    background-repeat: no-repeat;
-    background-size: 32px auto;
-    background-position: center;
-    border: 0;
-    background-color: transparent;
-    opacity: 0.8;
-    cursor: pointer;
-}
-
-.note__btn_save:hover {
-    background-image: url(/assets/images/ico_checked_hover.png);
+.note__form_edit button:hover {
+    background-color: #666;
+    color: #fff;
 }
