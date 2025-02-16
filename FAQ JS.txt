@@ -317,23 +317,38 @@
 	СПОСОБЫ СОЗДАНИЯ ФУНКЦИЙ (
 
 		// 1
-		function hello(user) {
-			console.log('Привет ' + user);
-		}
+			function hello(user) {
+				console.log('Привет ' + user);
+			}
 
 		// 2
-		var hello = function (user) {
-			console.log('Привет ' + user);
-		};
+			var hello = function (user) {
+				console.log('Привет ' + user);
+			};
 
-		hello('Ольга');
+			hello('Ольга');
 
 		// 3 стрелочная функция предпочтительнее т.к. не теряется контекст, больше область видимости
-		let f3 = (user) => {
-			console.log('f3');
-		};
+			let f3 = (user) => {
+				console.log('f3');
+			};
 
-		f3();
+			f3();
+
+		// 4 анонимная самовывызвающаяся
+			(() => {//code})();
+			
+			(function() {// code})();
+
+			let f6 = () => {
+				// code
+			};
+
+			(f6)();
+
+			((a, b, c) => {
+				console.log(a, b, c);
+			})(4, 56, 'A');
 	)
 
 	///////////////////////////////////////////////
@@ -583,6 +598,7 @@
 		-setInterval позволяет вызывать функцию РЕГУЛЯРНО, повторяя вызов через определённый интервал времени.
 		-интервал в миллисекундах
 		-является стандартной коллбэк функцией. Т.е. ее код записан в базе JS
+		-срабатывает последним! после выполнения синхронных функций и Promise. тема event loop
 
 		function sayHi(phrase, who) {
 			alert( phrase + ', ' + who );
@@ -1496,6 +1512,9 @@ BOM и DOM (
 
 		//запуск функции после загрузки html css
 		window.addEventListener('load', function() {});
+
+		//удаление addEventListener
+		elem.removeEventListener()
 	)
 
 	////////////////////////////////////////////
@@ -2932,7 +2951,7 @@ BOM и DOM (
 		JSON.parse(arrayName) //обратное превращение из строки в массив		
 )
 
-Отправка запросов на веб-сервер (
+Отправка запросов на веб-сервер. Асинхронные функции. Promise, async/await, fetch (
 	https://www.youtube.com/watch?v=WMfWQR5DxAw //AJAX. Асинхронные запросы к серверу. Работа с XMLHttpRequest. УСТАРЕВШИЙ способ
 
 	-синхронный запрос (последовательный) к серверу блокирует перемещение пользователя по сайту пока с сервера не придет положительный ответ (останавливает загрузку кода дальше). асинхронный (параллельный) наоборот грузит все подряд не дожидаясь ответа (предпочтительнее).
@@ -2953,11 +2972,12 @@ BOM и DOM (
 		-5хх ошибка сервера
 
 	////////////
-	Promise. Ожидание выполнения всех событий. Задержка
+	Promise. async/await. Ожидание выполнения всех событий. Задержка
 		https://www.youtube.com/watch?v=r-3KfkxL83Q - Асинхронное выполнение функций. Работа с Promise
 		https://www.youtube.com/watch?v=EtJVOnN32DU -  Асинхронное выполнение функций. Работа с Async / Await
 
-		- resolve выполняется когда Promise выполняется успешно. reject когда промис выполняется с ошибкой
+		-Promise является частью WEBAPI браузера. В самом JS нету Promise
+		- resolve выполняется когда Promise выполняется успешно. reject когда промис выполняется с ошибкой. Что является успешным выполнением или выполнением кода с ошибкой определяет сам программист!
 		- когда выполнится resolve будет выполняться .then(). когда выполнится reject() будет выполнятся .catch()
 		-.then(() => {}) выполняется когда выполнится код Promise
 		-.then(() => {}).catch(() => {}) //catch ожидает ошибку или исключение т.е. reject(). 
@@ -2967,7 +2987,10 @@ BOM и DOM (
 			//code
 			await f2();
 		}
+		-let f1 = async () => {} //другая запись
+		- (async () => {//code})() //другая запись. сразу с самовывозом. оборачивается весь код
 		-async возвращает Promise. 
+		-await должен находится внутри async функции или в модуле!!
 
 		const promise = new Promise((resolve, reject) => {
 			//code
@@ -2975,6 +2998,74 @@ BOM и DOM (
 		}).then(() => {
 			//code
 		})
+
+		///
+		пример с урока Promise
+
+			let f3 = (resolve) => { //сама функция которую делаем асинхронной
+				console.log('f3');
+
+				let startTime = Date.now();
+
+				for (let currentTime = startTime; //просто цикл чтобы замедлить выполнение функции на секунду и проверить ее асинхронность
+					currentTime < startTime + 1000;
+					currentTime = Date.now()
+				);
+
+				return resolve('f3 ended');
+			};
+
+			let promiseF3 = new Promise((resolve, reject) => { //сам промис функции
+				return f3(resolve); //запускает выполнение функции
+			})
+			.then((result) => { //забираем результат выполнения функции f3
+				console.log(result);
+			});
+
+		///
+		async/await пример с урока
+
+			//
+			первый, без await
+
+				let f4 = async () => { //одного async недостаточно чтобы сделать функцию асинхронной
+					console.log('async f4');
+
+					let startTime = Date.now();
+
+					for (let currentTime = startTime; 
+						currentTime < startTime + 1000;
+						currentTime = Date.now()
+					);
+
+					return 'async f4 ended';
+				};
+				
+				f4()
+				.then((result) => { //нужен then, тогда функция станет асинхронной. можно и в одну строчку писать
+					console.log(result); //асинхронный вывод результата выполнения функции
+				});
+
+			//
+			второй, с await
+
+				(async () => { //самовывызвающаяся анонимная функция
+					let f5 = async () => {
+						console.log('async f5');
+					
+						let startTime = Date.now();
+					
+						for (let currentTime = startTime; 
+							currentTime < startTime + 1000;
+							currentTime = Date.now()
+						);
+					
+						return 'async f5 ended';
+					};
+
+					    let resultF5 = await f5(); //ждем выполнения функции
+    					console.log(resultF5);   					
+				})();						
 
 		///
 		пример использования одного общего промиса
@@ -3006,7 +3097,7 @@ BOM и DOM (
 
 		///
 		пример async/await
-
+			
 			const f1 = function() {
 				return new Promise((resolve, reject) => {
 					//code
@@ -3054,4 +3145,14 @@ BOM и DOM (
 					//code
 				})
 			}
+)
+
+Event loop. Очередь выполнения (
+
+	https://www.youtube.com/live/Zu_tZbJ_Zjc // 1:17:00 разбираем event loop
+
+	- в первую очередь выполняется синхронный код и функции(сразу в очередь выполнения)
+	- во вторую очередь выполняются Promise(микротаски)
+	- в третью выполняются setTimeout и все события!(макротаски)
+	- следующая очередь начинает выполнятся только после завершения предыдущей
 )
