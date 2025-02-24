@@ -49,6 +49,8 @@
 	-пробел нулевой ширины HTML &#8203; 
 	-в начале пути к файлу ставим слэш /. это необходимо чтобы путь к файлу был от корня сайта (доменного имени)! для правильной работы веб-сервера
 	- можно отделить код, создать локальную область видимости если записать код в ();
+	- CSS запрещает выделение текста пользователем user-select: none;
+	-для github pages нужно использовать ./ вместо / для обращения к корню каталога
 )
 
 Условия if else switch тернарники(
@@ -1449,6 +1451,8 @@ BOM и DOM (
 		list.firstChild //первый дочерний
 		list.laststChild //последний дочерний
 		li:nth-child(1) //выбрать дочерний через querySelector
+
+		.childNodes[1] //обратится к дочернему 
 		
 		//универсальный метод поиска по тэгу, классу или id
 		document.querySelector('p'); //ищет один элемент. ВОЗВРАЩАЕТ МАССИВ УЗЛОВ. МОЖНО перебирать forEach
@@ -3136,15 +3140,76 @@ BOM и DOM (
 		https://www.youtube.com/watch?v=XTKxXAvs5jU AJAX. Асинхронные запросы к серверу. Работа с fetch
 
 		-fetch возвращает promise. к нему применимы .then() / .catch()
+		-должен работать только с асинхронными функциями
 
 		///
 		пример
-			const f1 = async function() {
-				let url = 'link';
-				await fetch(url).then(() => {
-					//code
-				})
+			let getPhotos = async function(){
+				let url = 'https://reqres.in/api/users';
+
+				await fetch (url).then(function(response){
+					//response это объект
+					//return response.text(); //вернет тело запроса в текстовом варианте	
+					return response.json();//вернет тело запроса в формате json
+				}).then(function(textData){
+					console.log(textData);
+				}) 
+			}()
+		///
+		пример 2 короче запись
+			let getPhotos = async function(){
+				
+				await fetch('https://reqres.in/api/users')
+				.then(response => response.json())
+				.then(data => console.log(data))	
+	
+			}()
+
+		///
+		пример 3 позволяет более детально обрабатывать ответы от сервера
+			let getPhotos = async function(){
+
+				let url = 'https://reqres.in/api/users';
+				
+				let response = await fetch(url),
+					data;
+
+				//выведет информацию о заголовке
+				console.log(response.headers.get('Content-Type'));
+
+				if (response.status == 200 && response.ok) {
+					data = await response.json();
+				}
+				console.log(data)
+			}()
+
+		///
+		пример 4 разные запросы
+
+			async function lol() {
+
+				let userData = { //создали объект user для передачи
+					name:'Alex',
+					jod:'CEO'
+				};
+
+				let response = await fetch('https://reqres.in/api/users', {
+					method: 'POST',
+					headers: {  //необязательно
+						'Content-Type': 'application/json;charset=utf-8'
+					},
+					body: JSON.stringify(userData) //отправляем в теле запроса наши данные пользователя
+
+				});
+
+				if (!response.ok) return;
+
+				let data = await response.json();
+				console.log(data);
+
 			}
+			lol();
+
 )
 
 Event loop. Очередь выполнения (
