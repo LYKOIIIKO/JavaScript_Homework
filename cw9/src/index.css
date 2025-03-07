@@ -9,8 +9,105 @@ ul {
 }
 
 body {
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: "Roboto", sans-serif;
 	font-size: 16px;
 	line-height: 22px;
+}
+
+a {
+	text-decoration: none;
+	color: #000;
+}
+
+.header {
+	margin: 0 auto;
+	padding: 20px 130px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.header__logo {
+	display: flex;
+	align-items: center;
+}
+
+.header__logo img {
+	width: 100%;
+}
+
+.header__nav {
+	display: flex;
+	width: 50%;
+}
+
+.nav__list {
+	display: flex;
+	gap:35px;
+}
+
+.nav__link,
+.cart_widget__total {
+	text-shadow: 0 0 2px #999;
 	color: #333;
+}
+
+.header__cart {
+	display: flex;
+	gap: 15px;
+	align-items: center;
+}
+
+.cart_widget__item {
+	display: flex;
+	align-items: flex-start;
+}
+
+.cart_widget__count {
+	display: inline-block;
+	width: 22px;
+	height: 22px;
+	color: #fff;
+	background-color: #000;
+	border-radius: 50%;
+	font-size: 14px;
+	text-align: center;
+}
+
+.main__title {
+	text-align: center;
+	padding: 60px 0;
+	background-image: url(/src/images/main_bg.jpg);
+	background-size: cover;
+	background-position: center;
+}
+
+.footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 70px 130px;
+
+	background-color: #000;
+	
+}
+
+.footer__logo {
+	filter: invert(1); /*инверсия цвета картинки */
+	
+}
+
+.footer__contacts {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+
+.footer__contacts_item {
+	display: flex;
+	gap: 15px;
+}
+
+.footer__contacts_link {
+	color: #aaa;
 }

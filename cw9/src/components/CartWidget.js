@@ -13,7 +13,7 @@ class CartWidget {
 
 		elem.innerHTML = `
 		<div class="cart_widget__item">
-			<img src="https://placehold.co/24x24/EEE/31343C" alt="#">
+			<img src="/src/images/ico_cart.png" alt="cart">
 			${counterElem.outerHTML}
 		</div>
 		<div class="cart_widget__item">

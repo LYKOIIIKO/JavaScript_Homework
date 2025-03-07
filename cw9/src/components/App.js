@@ -30,11 +30,16 @@ class App {
 		linkElem.rel = 'stylesheet';
 		linkElem.href = '/src/index.css';
 
+		let linkFontElem = document.createElement('link');
+		linkFontElem.rel = 'stylesheet';
+		linkFontElem.href = 'https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap';
+
 		return {
 			charset: metaCharsetElem,
 			view: metaVPElem,
 			title: titleElem,
-			css: linkElem
+			css: linkElem,
+			font: linkFontElem
 		};
 	}
 
@@ -54,7 +59,7 @@ class App {
 
 		if (footer) this.elem.append(footer);
 
-		document.head.append(headElems.charset, headElems.view, headElems.title, headElems.css);
+		document.head.append(headElems.charset, headElems.view, headElems.title, headElems.css, headElems.font);
 		document.body.append(this.elem);
 	}
 

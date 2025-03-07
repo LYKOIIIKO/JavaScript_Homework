@@ -14,7 +14,7 @@ class Header {
 		elem.classList.add('header__logo');
 
 		elem.innerHTML = `
-		<a href="/"><img src="https://placehold.co/100x50/EEE/31343C" alt="#"></a>
+		<a href="/"><img src="/src/images/logo_black.png" alt="logo"></a>
 		`;
 
 		return elem;

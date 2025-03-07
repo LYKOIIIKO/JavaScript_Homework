@@ -11,7 +11,7 @@ class Footer {
 		elem.classList.add('footer__logo');
 
 		elem.innerHTML = `
-		<a href="/"><img src="https://placehold.co/100x50/333/eee" alt="#"></a>
+		<a href="/"><img src="/src/images/logo_black.png" alt="#"></a>
 		`;
 
 		return elem;
@@ -23,16 +23,16 @@ class Footer {
 
 		elem.innerHTML = `
 		<li class="footer__contacts_item">
-			<img class="footer__contacts_ico" src="https://placehold.co/24x24/333/eee" alt="#">
-			<a class="footer__contacts_link" href="/">asdadasdasdasdasdasdadasd</a>
+			<img class="footer__contacts_ico" src="/src/images/ico_location.svg" alt="location">
+			<a class="footer__contacts_link" href="/">59 Street, Newyork City, Rose Town, 05 Rive House</a>
 		</li>
 		<li class="footer__contacts_item">
-			<img class="footer__contacts_ico" src="https://placehold.co/24x24/333/eee" alt="#">
-			<a class="footer__contacts_link" href="/">222222222222222222222222</a>
+			<img class="footer__contacts_ico" src="/src/images/ico_phone.svg" alt="phone">
+			<a class="footer__contacts_link" href="/">+123 456 7890</a>
 		</li>
 		<li class="footer__contacts_item">
-			<img class="footer__contacts_ico" src="https://placehold.co/24x24/333/eee" alt="#">
-			<a class="footer__contacts_link" href="/">3333333333333333333333333333333333333333333</a>
+			<img class="footer__contacts_ico" src="/src/images/ico_letter.svg" alt="letter">
+			<a class="footer__contacts_link" href="/">info@example.com</a>
 		</li>
 		`;
 
