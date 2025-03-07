@@ -1,0 +1,161 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+
+body, input, button {
+    font-family: arial;
+}
+
+body {
+    font-size: 16px;
+    line-height: 24px;
+    color: #333;
+}
+
+ul {
+    list-style: none;
+}
+
+.contacts {
+	max-width: 650px;
+	margin: 0 auto;
+	
+	padding: 50px 20px;
+}
+
+.app__title {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+
+	padding: 10px 0;
+	border-bottom: 1px solid #aaa;
+}
+
+.app__amount {
+	padding-left: 15px;
+}
+
+.app__btnAdd {
+	position: fixed;
+	left: calc(50% + 200px);
+	border-radius: 50%;
+	border: 1px solid #ddd;
+	background-color: #fff;
+	background-image: url(/assets/images/ico_add.svg);
+	width: 60px;
+	height: 60px;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 80%;
+	cursor: pointer;
+}
+
+.app__btnAdd:hover {
+	border: 1px solid #333;
+}
+
+.app__users {
+	padding: 20px 0;
+}
+
+.app__item {
+	border-bottom: 1px solid #ccc;
+}
+
+.app__item.active .app__user_footer {
+	display: flex;
+}
+
+
+.app__user_head {
+	background-color: #ededed;
+	cursor: pointer;
+	padding: 5px 15px;
+}
+
+.app__user_footer {
+	padding: 15px 15px;
+	display: none;
+	flex-direction: column;
+	gap: 5px;
+	word-wrap: break-word;
+	background-color: #fdfdfd;
+}
+
+.app__user_btns {
+	display: flex;
+	gap: 10px;
+}
+
+.app__user_btnEdit,
+.app__user_btnRemove {
+	border: none;
+	width: 30px;
+	height: 30px;
+	background-position: center;
+	background-size: contain;
+	background-color: transparent;
+	cursor: pointer;
+}
+
+.app__user_btnEdit:hover,
+.app__user_btnRemove:hover {
+	background-color: #ededed;
+}
+
+.app__user_btnEdit {
+	background-image: url(/assets/images/ico_edit.svg);
+}
+
+.app__user_btnRemove {
+	background-image: url(/assets/images/ico_remove.svg);
+}
+
+.app__form_edit {
+    background-color: #fff;
+    box-shadow: 0 0 5px #666;
+    display: inline-flex;
+    gap: 12px;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px;
+    border: 8px;
+
+    position: fixed;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.app__form_edit input{
+    width: 100%;
+
+    outline: none;
+    border: 1px solid #ccc;
+    padding: 4px;
+
+	font-weight: bold;
+}
+
+.app__form_edit button {
+    background-color: #ccc;
+    border: 0;
+    padding: 12px 24px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+.note__form_edit button:hover {
+    background-color: #666;
+    color: #fff;
+}
