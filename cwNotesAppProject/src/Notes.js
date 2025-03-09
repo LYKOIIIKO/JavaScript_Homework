@@ -3,9 +3,7 @@ class Notes extends Storage {
 
     constructor(args) {
         super(args);
-
         this.key = 'notes';
-
         this.#data = this.data || []; //вызываем сеттер
 
         this.lastId = 5;
@@ -13,6 +11,7 @@ class Notes extends Storage {
 
     add(title, content, color) {
         if (!title && !content) return;
+        
 
         this.lastId++;
 
@@ -28,7 +27,6 @@ class Notes extends Storage {
 
         this.#data.push(note);
         this.data = this.#data; // вызываем сеттер хранилища
-
         return true;
     }
 

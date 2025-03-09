@@ -1,13 +1,13 @@
 class Storage {
 	constructor(key) {
 		if(!key || typeof key != 'string') return;
-
 		this.key = key;
-
+		
 		//this.data = this.get() || null; //чтобы каждый раз не выполнять get
 
 		this.value = null;
 	}
+	
 
 	set data(value) {
 		if(!value) return;
@@ -15,6 +15,7 @@ class Storage {
 		value = JSON.stringify(value);
 
 		if(!value || typeof value != 'string') return;
+		console.log(this.key, value)
 
 		window.localStorage.setItem(this.key, value);
 	}

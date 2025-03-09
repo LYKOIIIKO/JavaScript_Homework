@@ -1,0 +1,51 @@
+@media (max-width: 641px) {
+	.app__form_edit {
+		width: 300px;
+	}
+}
+
+
+@media (max-width: 481px) {
+	.contacts {
+		max-width: 460px;
+	}
+
+	.app__btnAdd {
+		position: fixed;
+		left: calc(50% + 130px);
+		
+	}
+}
+
+@media (max-width: 376px) {
+	.contacts {
+		max-width: 360px;
+	}
+
+	.app__btnAdd {
+		position: fixed;
+		left: calc(50% + 100px);
+		
+	}
+
+	.app__form_edit {
+		width: 250px;
+	}
+}
+
+
+@media (max-width: 321px) {
+	.contacts {
+		max-width: 300px;
+	}
+
+	.app__btnAdd {
+		position: fixed;
+		left: calc(50% + 70px);
+		
+	}
+
+	.app__form_edit {
+		width: 250px;
+	}
+}
