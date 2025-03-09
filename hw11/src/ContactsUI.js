@@ -40,6 +40,8 @@ class ContactsApp extends Contacts {
 		contactsElem.append(titleElem, usersElem);
 
 		titleAddElem.addEventListener('click', () => {
+			let check = document.querySelector('.app__form_edit');
+			if(check) return;
 			this.showFormEdit();
 		})
 
