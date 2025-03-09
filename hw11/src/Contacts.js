@@ -1,10 +1,9 @@
 class User {
 	constructor(user) {
 		this.data = user;
-
 	}
 
-	get() {
+	getUser() {
 		return this.data;
 	}
 }
@@ -27,8 +26,7 @@ class Contacts extends User {
 			phone: phone || ''
 		}
 
-		this.data.push(new User(user).get());
-		console.log(this.data)
+		this.data.push(new User(user).getUser());
 	}
 
 	edit(id, obj) {
@@ -45,12 +43,10 @@ class Contacts extends User {
             user[key] = value;
         }
 
-		// if (!user.name && !user.phone) {
-        //     this.remove(id);
-        //     return false;
-        // }
-
-        //this.data = this.#data;
+		if (!user.name && !user.phone) {
+            this.remove(id);
+            return false;
+        }
 
         return true;
 	}
@@ -63,11 +59,19 @@ class Contacts extends User {
         });
 
         this.data = dataTmp;
-        //this.data = this.#data;
 		return true;
 	}
 
-	get() {
+	getContacts(id) {
+		if (id > 0) {
+            let user = this.data.find((item) => {
+                return item.id == id;
+            });
+
+            if (user) return user;
+            return false;
+        }
+
 		return this.data;
 	}
 }

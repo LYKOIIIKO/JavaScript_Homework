@@ -5,11 +5,9 @@ class ContactsApp extends Contacts {
 		if (!id) return;
 
 		this.id = id;
-		
         this.elems = null;
 
 		this.init();
-        //this.update();
 	}
 
 	create() {
@@ -24,7 +22,7 @@ class ContactsApp extends Contacts {
 
 				let titleAmountElem = document.createElement('span');
 				titleAmountElem.classList.add('app__amount');
-				titleAmountElem.innerHTML = 'Contacts amount:';
+				titleAmountElem.innerHTML = 'Contacts amount: 0';
 
 				let titleAddElem = document.createElement('button');
 				titleAddElem.classList.add('app__btnAdd');
@@ -53,10 +51,8 @@ class ContactsApp extends Contacts {
 		}
 	}
 
-	createItem(name, phone, email, adress) {
+	createItem(name, phone, email, adress, id) {
 		if (!name && !phone) return;
-
-		this.add(name, phone, email, adress);
 
 		let usersItemElem = document.createElement('li');
 		usersItemElem.classList.add('app__item');
@@ -95,13 +91,10 @@ class ContactsApp extends Contacts {
 		usersItemElem.append(usersHeadElem, usersFooterElem);
 
 		this.elems.list.append(usersItemElem);
-		
 
-		//this.accordion();
-
-		// usersBtnEditElem.addEventListener('click', () => {
-		// 	this.add(name, phone, email, adress);
-		// });
+		usersBtnEditElem.addEventListener('click', () => {
+			this.onEdit(id);
+		});
 
 		usersBtnRemoveElem.addEventListener('click', () => {
 			this.onRemove(id);
@@ -127,9 +120,9 @@ class ContactsApp extends Contacts {
 			let titles = elem.querySelectorAll('.app__user_head');
 		   
 			titles.forEach(function(title) {
+
 				title.addEventListener('click', function(event) {
 				   let parentLi = event.target.closest('li');
-				   console.log(parentLi)
 				   if(!parentLi) return;
 	
 					//if(!parentLi.classList.contains('active')) closeAll(elem);
@@ -140,17 +133,34 @@ class ContactsApp extends Contacts {
 	}
 
 	onAdd(name, phone, email, adress) {
-		this.createItem(name, phone, email, adress);
+		this.add(name, phone, email, adress);
+		this.update();		
 	}
 		
-	onEdit() {}
+	onEdit(id) {
+		this.showFormEdit(id);
+	}
 
-	onRemove() {}
+	onRemove(id) {
+		this.remove(id);
+        this.update();
+	}
+
+	onSave(name, phone, email, adress, id, modalElem) {
+		let newData = {
+            name: name,
+            phone: phone,
+			email: email,
+			adress: adress
+        };
+
+        this.edit(id, newData);
+        modalElem.remove();
+        this.update();
+	}
 	
 	showFormEdit(id) {
-        let userData = this.get(id);
-
-       	// if (!userData) return;
+        let userData = this.getContacts(id);
 
         let modalElem = document.createElement('div');
         modalElem.classList.add('app__form_edit');
@@ -183,26 +193,34 @@ class ContactsApp extends Contacts {
 			itemBtnClose.classList.add('app__btnClose');
 			itemBtnClose.innerHTML = 'Close';
 
-		// if (id) {
-		// 	fieldName.value = userData.name || '';
-		// 	fieldPhone.value = userData.phone || '';
-		// 	fieldEmail.value = userData.email || '';
-		// 	fieldAdress.value = userData.adress || '';
-		// }
+		if (id) {
+			fieldName.value = userData.name || '';
+			fieldPhone.value = userData.phone || '';
+			fieldEmail.value = userData.email || '';
+			fieldAdress.value = userData.adress || '';
+		}
 
-        modalElem.append(fieldName, fieldPhone, fieldEmail, fieldAdress, itemBtnSave, itemBtnClose);
+       	modalElem.append(fieldName, fieldPhone, fieldEmail, fieldAdress, itemBtnSave, itemBtnClose);
 
         document.body.append(modalElem);
 
         itemBtnSave.addEventListener('click', () => {
-            let name = fieldName.value,
+			if (id) {
+				let name = fieldName.value,
+					phone = fieldPhone.value,
+					email = fieldEmail.value,
+					adress = fieldAdress.value;
+
+				this.onSave(name, phone, email, adress, id, modalElem);
+			} else {
+				let name = fieldName.value,
 				phone = fieldPhone.value,
 				email = fieldEmail.value,
 				adress = fieldAdress.value;
             
-
-           	this.onAdd (name, phone, email, adress);
-			//modalElem.remove();
+				this.onAdd (name, phone, email, adress);
+				modalElem.remove();
+			}
         });
 
         itemBtnClose.addEventListener('click', () => {
@@ -210,11 +228,21 @@ class ContactsApp extends Contacts {
         });
     }
 
-	update() {}
+	update() {
+		this.elems.list.innerHTML = '';
 
+        let data = this.getContacts();
+		
+		this.elems.amount.innerHTML = 'Contacts amount: ' + data.length;
 
-	get(id) {
+        data.forEach((item) => {
+            let itemElem = this.createItem(item.name || '', item.phone || '', item.email || '', item.adress || '', item.id);
+			
+            if (itemElem) this.elems.list.append(itemElem);
+			
+        });
 
+		this.accordion();
 	}
 
 	init() {
@@ -224,7 +252,5 @@ class ContactsApp extends Contacts {
         this.elems = this.create();
 
         rootElem.append(this.elems.main);
-
-		
 	}
 }

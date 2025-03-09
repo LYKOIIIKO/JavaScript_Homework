@@ -1518,7 +1518,7 @@ BOM и DOM (
 		window.addEventListener('load', function() {});
 
 		//удаление addEventListener
-		elem.removeEventListener()
+		elem.removeEventListener('click', onEat);
 	)
 
 	////////////////////////////////////////////
