@@ -6,7 +6,12 @@ class Header {
 		let elem = document.createElement('header');
 		elem.classList.add('header');
 
-		return elem;
+		let elemContainer = document.createElement('div');
+		elemContainer.classList.add('container');
+
+		elem.append(elemContainer);
+
+		return [elem, elemContainer];
 	}
 
 	createLogo() {
@@ -21,15 +26,15 @@ class Header {
 	}
 
 	init() {
-		let elem = this.create();
+		let elems = this.create();
 
 		let logoElem = this.createLogo();
 
-		if (logoElem) elem.append(logoElem);
-		if (nav) elem.append(nav);
-		if (cartWidget) elem.append(cartWidget);
+		if (logoElem) elems[1].append(logoElem);
+		if (nav) elems[1].append(nav);
+		if (cartWidget) elems[1].append(cartWidget);
 
-		return elem;
+		return elems[0];
 	}
 }
 

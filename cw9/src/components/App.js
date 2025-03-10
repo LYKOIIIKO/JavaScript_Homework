@@ -1,5 +1,5 @@
 import { header } from '../layouts/Header.js';
-//import { main } from '../layouts/Main.js';
+import { main, mainContainer, mainTitle } from '../layouts/Main.js';
 import { footer } from '../layouts/Footer.js';
 
 
@@ -43,29 +43,72 @@ class App {
 		};
 	}
 
+	router() {
+		let getPage = async () => {
+			let page;
+
+			let hash = location.hash;
+
+			if (!hash) {
+				page = 'home';
+			} else {
+				hash = hash.slice(1);
+				
+				let hashItems = hash.split('/');
+
+				if (hashItems[0]) page = hashItems[0];
+			}
+			
+			if (!page) page = '404';
+
+			let elem = await import(`../pages/${page}.js`)
+			.then(module => {
+				mainTitle.innerHTML = '';
+				mainContainer.innerHTML = '';
+
+				document.title = module.pageTitle;
+
+				mainTitle.innerHTML = module.pageTitle;
+				mainContainer.append(module.page);
+			})
+		}
+
+		let links = document.querySelectorAll('a[href="/"]');
+
+		if (links) links.forEach((link) => {
+			link.addEventListener('click', (e) => {
+				e.preventDefault();
+
+				history.pushState(null, null, '/'); //при нажатии на ссылку на домашнюю страницу очищает адресную строку!
+				getPage();
+			})
+		});
+
+		window.addEventListener('hashchange', (e) => {
+			getPage();
+		})
+
+		getPage();		
+	}
+
 	async render() {
 		if (!this.elem) return;
 
 		let headElems = this.createHead();
 
 		if (header) this.elem.append(header);
-		//if (main) this.elem.append(main);
-
-		await import('../layouts/Main.js')
-		.then(module => module.main)
-		.then(content => {
-			this.elem.append(content);
-		});
-
+		if (main) this.elem.append(main);
 		if (footer) this.elem.append(footer);
 
 		document.head.append(headElems.charset, headElems.view, headElems.title, headElems.css, headElems.font);
 		document.body.append(this.elem);
 	}
 
-	init() {
+	async init() {
 		this.elem = this.create();
-		this.render();
+		await this.render();
+
+		this.router();
 	}
 }
 

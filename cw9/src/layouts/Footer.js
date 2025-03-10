@@ -3,7 +3,12 @@ class Footer {
 		let elem = document.createElement('footer');
 		elem.classList.add('footer');
 
-		return elem;
+		let elemContainer = document.createElement('div');
+		elemContainer.classList.add('container');
+
+		elem.append(elemContainer);
+
+		return [elem, elemContainer];
 	}
 
 	createLogo() {
@@ -24,15 +29,15 @@ class Footer {
 		elem.innerHTML = `
 		<li class="footer__contacts_item">
 			<img class="footer__contacts_ico" src="/src/images/ico_location.svg" alt="location">
-			<a class="footer__contacts_link" href="/">59 Street, Newyork City, Rose Town, 05 Rive House</a>
+			<a class="footer__contacts_link" target="_blank" href="https://maps.google.com/">59 Street, Newyork City, Rose Town, 05 Rive House</a>
 		</li>
 		<li class="footer__contacts_item">
 			<img class="footer__contacts_ico" src="/src/images/ico_phone.svg" alt="phone">
-			<a class="footer__contacts_link" href="/">+123 456 7890</a>
+			<a class="footer__contacts_link" href="tel:375291111111">+123 456 7890</a>
 		</li>
 		<li class="footer__contacts_item">
 			<img class="footer__contacts_ico" src="/src/images/ico_letter.svg" alt="letter">
-			<a class="footer__contacts_link" href="/">info@example.com</a>
+			<a class="footer__contacts_link" href="mailto:info@example.com">info@example.com</a>
 		</li>
 		`;
 
@@ -40,15 +45,15 @@ class Footer {
 	}
 
 	init() {
-		let elem = this.create();
+		let elems = this.create();
 
 		let logoElem = this.createLogo();
 		let contactsElem = this.createContacts();
 
-		if (logoElem) elem.append(logoElem);
-		if (contactsElem) elem.append(contactsElem);
+		if (logoElem) elems[1].append(logoElem);
+		if (contactsElem) elems[1].append(contactsElem);
 
-		return elem;
+		return elems[0];
 	}
 }
 

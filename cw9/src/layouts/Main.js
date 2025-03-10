@@ -3,57 +3,46 @@ class Main {
 		let elem = document.createElement('main');
 		elem.classList.add('main');
 
-		return elem;
+		let elemContainer = document.createElement('div');
+		elemContainer.classList.add('container');
+
+		elem.append(elemContainer);
+
+		return [elem, elemContainer];
 	}
 
-	createTitle(value) {
-		if (!value) return;
-
+	createTitle() {
 		let elem = document.createElement('h1');
 		elem.classList.add('main__title');
 
-		elem.innerHTML = value;
-
 		return elem;
 	}
 
-	createContent(content) {
+	createContent() {
 		let elem = document.createElement('div');
 		elem.classList.add('main__content');
 
-		if (content) elem.append(content);
-		else elem.innerHTML = 'Content not found';
-
 		return elem;
 	}
 
-	async getPageContent() {
-		let namePage = location.pathname;
+	init() {
+		let elems = this.create();
 
-		if (namePage == '/') namePage = 'Home';
-		else namePage = namePage.replaceAll('/', '');
+		let titleElem = this.createTitle('');
 
-		let elem = await import(`../pages/${namePage}.js`)
-		.then(module => module.page);
+		let contentElem = this.createContent();
 
-		return elem || null;
-	}
+		if (titleElem) elems[0].prepend(titleElem);
+		if (contentElem) elems[1].append(contentElem);
 
-	async init() {
-		let elem = this.create();
+		elems.push(titleElem);
 
-		let titleElem = this.createTitle('Home page');
-
-		let content = await this.getPageContent();
-
-		let contentElem = this.createContent(content);
-
-		if (titleElem) elem.append(titleElem);
-		if (contentElem) elem.append(contentElem);
-
-		return elem;
+		return elems;
 	}
 }
 
-let main = new Main().init();
-export {main};
+let mainElems = new Main().init();
+let main = mainElems[0];
+let mainContainer = mainElems[1];
+let mainTitle = mainElems[2];
+export {main, mainContainer, mainTitle};

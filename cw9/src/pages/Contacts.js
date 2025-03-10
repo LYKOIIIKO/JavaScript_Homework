@@ -1,4 +1,7 @@
-class Contacts {
+class Page {
+	constructor() {
+		this.title = 'Contacts page';
+	}
 	create() {
 		let elem = document.createElement('div');
 		elem.classList.add('main__content','content');
@@ -15,5 +18,7 @@ class Contacts {
 	}
 }
 
-let contacts = new Contacts().init();
-export {contacts as page};
+let obj = new Page();
+let elem = obj.init();
+let elemTitle = obj.title;
+export {elem as page, elemTitle as pageTitle};

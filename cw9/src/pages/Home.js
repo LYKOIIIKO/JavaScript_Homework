@@ -1,4 +1,8 @@
-class Home {
+class Page {
+	constructor() {
+		this.title = 'Home page';
+	}
+
 	create() {
 		let elem = document.createElement('div');
 		elem.classList.add('main__content','content');
@@ -15,5 +19,7 @@ class Home {
 	}
 }
 
-let home = new Home().init();
-export {home as page};
+let obj = new Page();
+let elem = obj.init();
+let elemTitle = obj.title;
+export {elem as page, elemTitle as pageTitle};

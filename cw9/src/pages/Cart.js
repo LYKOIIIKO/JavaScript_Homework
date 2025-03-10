@@ -1,22 +1,19 @@
-import { products } from '../components/Products.js';
-
 class Page {
 	constructor() {
-		this.title = 'Products';
+		this.title = 'Cart page';
 	}
+
 	create() {
 		let elem = document.createElement('div');
 		elem.classList.add('main__content','content');
 
-		elem.innerHTML = 'Catalog page';
+		elem.innerHTML = 'Cart page';
 
 		return elem;
 	}
 
 	init() {
 		let elem = this.create();
-
-		if (products) elem.append(products);
 
 		return elem;
 	}

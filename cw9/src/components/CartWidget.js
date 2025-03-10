@@ -13,8 +13,10 @@ class CartWidget {
 
 		elem.innerHTML = `
 		<div class="cart_widget__item">
-			<img src="/src/images/ico_cart.png" alt="cart">
-			${counterElem.outerHTML}
+			<a class="cart_widget__link" href="/#cart/">
+				<img src="/src/images/ico_cart.png" alt="cart">
+				${counterElem.outerHTML}
+			</a>
 		</div>
 		<div class="cart_widget__item">
 			${totalElem.outerHTML}

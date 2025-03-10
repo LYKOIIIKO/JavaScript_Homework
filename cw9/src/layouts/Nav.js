@@ -9,10 +9,10 @@ class Nav {
 				<a class="nav__link" href="/">Home</a>
 			</li>
 			<li class="nav__item">
-				<a class="nav__link" href="/catalog/">Shop</a>
+				<a class="nav__link" href="/#catalog/">Shop</a>
 			</li>
 			<li class="nav__item">
-				<a class="nav__link" href="/contacts/">Contacts</a>
+				<a class="nav__link" href="/#contacts/">Contacts</a>
 			</li>
 		</ul>
 		`;

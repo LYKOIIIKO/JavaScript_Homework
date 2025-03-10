@@ -2706,7 +2706,7 @@ BOM и DOM (
 				this.name = data.name;
 				this.email = data.email;
 
-				thid.permisions = {
+				this.permisions = {
 					view: true,
 					buy: false,
 					create: false,
