@@ -8,7 +8,7 @@ class Page {
 		let elem = document.createElement('div');
 		elem.classList.add('main__content','content');
 
-		elem.innerHTML = 'Catalog page';
+		//elem.innerHTML = 'Catalog page';
 
 		return elem;
 	}

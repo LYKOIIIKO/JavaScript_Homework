@@ -1,0 +1,38 @@
+@media (max-width: 641px) {
+	.header .container,
+	.footer .container {
+		flex-direction: column;
+		gap: 30px;
+	}
+
+	.header__nav {
+		width: auto;
+	}
+
+	.catalog__products {
+		gap: 15px;
+	}
+	.products__item {
+		width: 25%;
+	}
+}
+
+@media (max-width: 481px) {
+
+	.catalog__products {
+		gap: 15px;
+	}
+	.products__item {
+		width: 40%;
+	}
+}
+
+@media (max-width: 385px) {
+
+	.catalog__products {
+		gap: 15px;
+	}
+	.products__item {
+		width: 100%;
+	}
+}
