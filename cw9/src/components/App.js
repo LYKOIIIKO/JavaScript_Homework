@@ -2,6 +2,8 @@ import { header } from '../layouts/Header.js';
 import { main, mainContainer, mainTitle } from '../layouts/Main.js';
 import { footer } from '../layouts/Footer.js';
 
+import { cartUpdate } from './Cart.js';
+
 
 class App {
 	constructor() {
@@ -66,7 +68,9 @@ class App {
 			
 			if (!page) page = '404';
 
-			let elem = await import(`../pages/${page}.js`)
+			let timestamp = new Date().getTime();
+
+			let elem = await import(`../pages/${page}.js?v=${timestamp}`) // чистим хэш браузера при обновлении страницы
 			.then(module => {
 				mainTitle.innerHTML = '';
 				mainContainer.innerHTML = '';
@@ -112,6 +116,8 @@ class App {
 	async init() {
 		this.elem = this.create();
 		await this.render();
+
+		cartUpdate();
 
 		this.router();
 	}

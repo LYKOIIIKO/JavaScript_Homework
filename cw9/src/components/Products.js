@@ -1,3 +1,5 @@
+import { cartAdd } from "./Cart.js";
+
 class Products {
 	create() {
 		let elem = document.createElement('div');
@@ -10,20 +12,9 @@ class Products {
 		let elem = document.createElement('div');
 		elem.classList.add('products__item', 'product');
 
-		// elem.innerHTML = `
-		// 	<div class="products__container_img">
-		// 		<img class="products__image" src="${data.image}" alt="${data.title}">
-		// 	</div>
-				
-		// 	<div class="products__container_content">
-		// 		<a class="products__title" href="/#product/${data.id}">${data.title}</a>
-		// 		<div class="products__price">$${data.price}</div>
-		// 		<button class="products__btn_add">Add to cart</button>
-		// 	</div>
-		// `;
-
 		let containerImg = document.createElement('div');
 		containerImg.classList.add('products__container_img');
+		
 			let imgElem = document.createElement('img');
 			imgElem.classList.add('products__image');
 			imgElem.src = data.image;
@@ -31,6 +22,7 @@ class Products {
 
 		let containerContent = document.createElement('div');
 		containerContent.classList.add('products__container_content');
+
 			let titleElem = document.createElement('a');
 			titleElem.classList.add('products__title');
 			titleElem.href = `/#product/${data.id}`;
@@ -48,6 +40,10 @@ class Products {
 		containerImg.append(imgElem);
 
 		elem.append(containerImg, containerContent);
+
+		btnAddElem.addEventListener('click', () => {
+			cartAdd(data.id);
+		})
 		
 		return elem;
 	}
