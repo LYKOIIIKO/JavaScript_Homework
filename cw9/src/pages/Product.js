@@ -32,7 +32,12 @@ class Page {
 			<h1 class="product__title">${data.title}</h1>
 			<div class="product__info">
 				<span class="product__category">${data.category}</span>
-				<span class="product__rate">Rating: ${data.rating.rate} (${data.rating.count})</span>
+				<div class="product__rate">
+					<div class="product__stars">
+						<div class="product__stars_bar" style="width: ${data.rating.rate / 5 * 100}%"></div>
+					</div>
+					<span class="product__votes">${data.rating.rate}/5 (${data.rating.count})</span>
+				</div>
 				<span class="product__id">№ ${data.id}</span>
 			</div>
 			<div class="product__desc">${data.description}</div>
