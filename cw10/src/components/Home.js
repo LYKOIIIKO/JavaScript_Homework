@@ -1,5 +1,5 @@
-import { tags } from './Tags.js';
-import { recipes } from './Recipes.js';
+import { tag } from './Tag.js';
+import { recipe } from './Recipe.js';
 
 
 class Page {
@@ -17,8 +17,8 @@ class Page {
 	init() {
 		let elem = this.create();
 
-		if (tags) elem.append(tags);
-		if (recipes) elem.append(recipes);
+		if (tag) elem.append(tag);
+		if (recipe) elem.append(recipe);
 
 		return elem;
 	}

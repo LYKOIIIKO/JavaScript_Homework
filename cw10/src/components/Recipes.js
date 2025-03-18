@@ -1,56 +1,89 @@
-class Recipes {
+import { tag } from './Tag.js';
+
+class Page {
 	constructor() {
-		this.title = 'Recipes page';
+		this.id = null;
+		this.title = 'Recipes';
+	}
+
+	getId() {
+		let href = location.href;
+		href = href.split('/');
+
+		if (!href || href.length == 0) return;
+
+		return href[href.length - 1];
 	}
 
 	create() {
 		let elem = document.createElement('div');
-		elem.classList.add('recipes__content');
+		elem.classList.add('main__content','content');
 
 		return elem;
 	}
 
-	createRecipes(data) {
+	createRecipe(data) {
 		let elem = document.createElement('div');
-		elem.classList.add('recipes__item');
+		elem.classList.add('recipe__content');
 
 		let firstElem = document.createElement('div');
-		firstElem.classList.add('recipes__part');
+		firstElem.classList.add('recipe__part');
 
 			let imgElem = document.createElement('img');
-			imgElem.classList.add('recipes__img');
+			imgElem.classList.add('recipe__img');
 			imgElem.src = data.image;
 			imgElem.alt = data.name;
 
 		let secondElem = document.createElement('div');
-		secondElem.classList.add('recipes__part');
+		secondElem.classList.add('recipe__part');
 
-			let thirdElem = document.createElement('div');
-			thirdElem.classList.add('recipes__desc');
+			let titleElem = document.createElement('span');
+			titleElem.classList.add('recipe__title');
+			titleElem.innerHTML = data.name;
 
-				let titleElem = document.createElement('a');
-				titleElem.classList.add('recipes__title');
-				titleElem.href = `/#recipes/${data.id}`;
-				titleElem.innerHTML = data.name;
+			let infoElem = document.createElement('div');
+			infoElem.classList.add('recipe__info');
 
-				let rateElem = document.createElement('span');
-				rateElem.classList.add('recipes__rate');
-				rateElem.innerHTML = data.rating;
+			let rateElem = document.createElement('span');
+			rateElem.classList.add('recipe__rate');
+			rateElem.innerHTML = data.rating;
 
-			let fourthElem = document.createElement('div');
-			fourthElem.classList.add('recipes__desc');
+			let timeElem = document.createElement('span');
+			timeElem.classList.add('recipe__time');
+			timeElem.innerHTML = `Cooking time: ${data.cookTimeMinutes} min`;
 
-				let timeElem = document.createElement('span');
-				timeElem.classList.add('recipes__time');
-				timeElem.innerHTML = data.cookTimeMinutes;
+			let time2Elem = document.createElement('span');
+			time2Elem.classList.add('recipe__time');
+			time2Elem.innerHTML = `Preparation time for cooking: ${data.prepTimeMinutes} min`;
 
-				let commentElem = document.createElement('span');
-				commentElem.classList.add('recipes__comment');
-				commentElem.innerHTML = data.reviewCount;
+			let commentElem = document.createElement('span');
+			commentElem.classList.add('recipe__comment');
+			commentElem.innerHTML = data.reviewCount;
 
-		fourthElem.append(timeElem, commentElem);
-		thirdElem.append(titleElem, rateElem);
-		secondElem.append(thirdElem, fourthElem);
+			let tagsElem = document.createElement('div');
+			tagsElem.classList.add('recipe__tags');
+
+			data.tags.forEach(item => {
+				let tagElem = document.createElement('a');
+				tagElem.classList.add('recipe__tag');
+				tagElem.innerHTML = item;
+				tagElem.href = `/#tags/${item}`;
+				tagsElem.append(tagElem);
+			});
+
+		
+			let ingrElem = document.createElement('p');
+			ingrElem.classList.add('recipe__ingr');
+			ingrElem.innerHTML = `Ingredients: ${data.ingredients}`;
+
+			let instElem = document.createElement('p');
+			instElem.classList.add('recipe__instr');
+			instElem.innerHTML = data.instructions;
+
+
+
+		infoElem.append(rateElem, commentElem)
+		secondElem.append(titleElem, tagsElem, infoElem, time2Elem, timeElem, ingrElem, instElem);
 		firstElem.append(imgElem);
 
 		elem.append(firstElem, secondElem);
@@ -61,26 +94,23 @@ class Recipes {
 	async getData(url) {
 		await fetch(url)
 		.then(response => response.json())
-		.then(data => {
-			data.recipes.forEach(item => {
-				this.elem.append(this.createRecipes(item));
-			});
-		})
+		.then(data => this.elem.append(this.createRecipe(data)));
 	}
 
 	init() {
+		this.id = this.getId();
+
 		this.elem = this.create();
 
-		this.getData('https://dummyjson.com/recipes');
+		if (tag) this.elem.append(tag);
+
+		if (this.id) this.getData(`https://dummyjson.com/recipes/${this.id}`);
 
 		return this.elem;
 	}
 }
 
-// let obj = new Page();
-// let elem = obj.init();
-// let elemTitle = obj.title;
-// export {elem as page, elemTitle as pageTitle};
-
-let recipes = new Recipes().init();
-export {recipes};
+let obj = new Page();
+let elem = obj.init();
+let elemTitle = obj.title;
+export {elem as page, elemTitle as pageTitle};
