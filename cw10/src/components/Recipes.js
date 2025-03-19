@@ -3,7 +3,6 @@ import { tag } from './Tag.js';
 class Page {
 	constructor() {
 		this.id = null;
-		this.title = 'Recipes';
 	}
 
 	getId() {
@@ -23,6 +22,9 @@ class Page {
 	}
 
 	createRecipe(data) {
+		let titlePage = document.querySelector('title');
+		titlePage.innerHTML = data.name;
+
 		let elem = document.createElement('div');
 		elem.classList.add('recipe__content');
 
@@ -70,7 +72,6 @@ class Page {
 				tagElem.href = `/#tags/${item}`;
 				tagsElem.append(tagElem);
 			});
-
 		
 			let ingrElem = document.createElement('p');
 			ingrElem.classList.add('recipe__ingr');
@@ -79,8 +80,6 @@ class Page {
 			let instElem = document.createElement('p');
 			instElem.classList.add('recipe__instr');
 			instElem.innerHTML = data.instructions;
-
-
 
 		infoElem.append(rateElem, commentElem)
 		secondElem.append(titleElem, tagsElem, infoElem, time2Elem, timeElem, ingrElem, instElem);
@@ -94,7 +93,10 @@ class Page {
 	async getData(url) {
 		await fetch(url)
 		.then(response => response.json())
-		.then(data => this.elem.append(this.createRecipe(data)));
+		.then(data => {
+			this.elem.append(this.createRecipe(data));
+			
+		} );
 	}
 
 	init() {
@@ -105,7 +107,7 @@ class Page {
 		if (tag) this.elem.append(tag);
 
 		if (this.id) this.getData(`https://dummyjson.com/recipes/${this.id}`);
-
+		
 		return this.elem;
 	}
 }

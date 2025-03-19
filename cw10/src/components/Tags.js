@@ -95,8 +95,6 @@ class Page {
 		this.elems = this.create();
 		this.elem = this.elems[0];
 		this.elemRecipes = this.elems[1];
-
-		
 		
 		this.checkTag(tag, this.id);
 		

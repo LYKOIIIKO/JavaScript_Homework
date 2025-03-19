@@ -8,8 +8,6 @@ class Main {
 
 		elem.append(elemContainer);
 
-		//elem.innerHTML = ``;
-
 		return [elem, elemContainer];
 	}
 
