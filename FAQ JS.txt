@@ -101,7 +101,7 @@
 		console.log(message);
 )
 
-Циклы for while (
+Циклы for while for..in (
 	while (условие для цикл СТОП) {выполняемый код} //while-пока не. Переменная счетчик задается вне тела цикла!
 
 	do {выполняемый код} while(условие СТОП); //выполняет код в любом случае 1 раз
@@ -141,6 +141,24 @@
 
 		console.log('Sum ' + i + ' = ' + sum);
 	}
+
+	//for..in перебор свойств ОБЪЕКТА
+		for (let key in obj) { //можно объявить key раньше. можно обзывать key другим именем. key это имя свойства объекта
+			/* ... делать что-то с obj[key] ... */
+		}
+
+		//Пример
+			var menu = {
+				width: 300,
+				height: 200,
+				title: "Menu"
+			};
+
+			for (var key in menu) {
+				// этот код будет вызван для каждого свойства объекта и выведет имя свойства и его значение
+
+				alert( "Ключ: " + key + " значение: " + menu[key] );
+			}
 )
 
 МАССИВЫ (
@@ -996,328 +1014,307 @@
 	https://www.youtube.com/watch?v=acEMAY5t3R4
 	https://www.youtube.com/watch?v=oxoAMralWnM
 
-	// как ассоциативный массив
+	- как ассоциативный массив
+	//добавить удалить свойство объекта
 
-	console.log('Объекты');
+		user = {
+			name: 'Alex',
+			age: 28,
+			gender: 'Male'
+		};
 
-	let arr = [123, 'Строка', [1, 2, 3], { name: 'Alex'}];
+		user.email = 'name@gmail.com'; //добавит емаил в объект
 
-	console.log(arr);
+		delete user.age; //удалит свойство age из объекта
 
-	let arr2 = [];
-	arr2['name'] = 'Alex';
-	arr2[0] = 123;
-
-	console.log(arr2);
-
-
-	let user = {}; // пустой объект
-	console.log(user, typeof user);
-
-	user = {
-		name: 'Alex',
-		age: 28,
-		gender: 'Male'
-	};
-
-	console.log(user);
-
-	console.log(user.name); // Alex
-	console.log(user.gender); // Male
-
-	user.email = 'name@gmail.com'; //добавит емаил в объект
-	console.log(user);
-
-	delete user.age; //удалит свойство age из объекта
-	console.log(user);
-
-	user.name = 'Bob'; //переопределит имя Алекс на Боб
-	console.log(user);
+		user.name = 'Bob'; //переопределит имя Алекс на Боб
 
 
-	if ('name' in user) { //проверка если есть свойство name в объекте. ИСПОЛЬЗОВАТЬ ЭТУ ПРОВЕРКУ!
-		console.log('Св-во name существует'); //true
-	} else {
-		console.log('Св-во name не существует'); //false
-	}
+		if ('name' in user) { //проверка если есть свойство name в объекте. ИСПОЛЬЗОВАТЬ ЭТУ ПРОВЕРКУ!
+			console.log('Св-во name существует'); //true
+		} else {
+			console.log('Св-во name не существует'); //false
+		}
 
-	if ('blablabla' in user) {
-		console.log('Св-во blablabla существует');
-	} else {
-		console.log('Св-во blablabla не существует'); //true
-	}
+		if ('blablabla' in user) {
+			console.log('Св-во blablabla существует');
+		} else {
+			console.log('Св-во blablabla не существует'); //true
+		}
 
-	if (user.blablabla === undefined) { // та же самая проверка как выше
-		console.log('Св-во blablabla undefined');
-	}
-
-	user.phone = undefined;
-
-	if (user.phone === undefined) {
-		console.log('Св-во phone undefined');
-	}
-
-	// Верный способ проверки св-ва в объекте
-	if ('phone' in user) {
-		console.log('Св-во phone существует'); //undefined но существует!
-	}
-
-	console.log(user);
-
-	console.log(user['email']); //вывести значение свойства емаил.АЛЬТЕРНАТИВНЫЙ СПОСОБ
-
-	// user.last-name
-	user['last-name'] = 'Ivanov'; //добавит свойство last-name. ЧЕРЕЗ ТОЧКУ УЖЕ НЕЛЬЗЯ БУДЕТ ОБРАТИТСЯ. НЕ ИСПОЛЬЗОВАТЬ!
-	console.log(user);
-
-	user['Отчество пользователя'] = 'Иванович'; //можно использовать кириллицу, но НЕ РЕКОМЕНДУЕТСЯ
-	console.log(user);
-
-	let key = 'gender'; //используется в случае когда значение переменной ДИНАМИЧЕСКОЕ
-	console.log(user[key]); // Male
+		if (user.blablabla === undefined) { // та же самая проверка как выше
+			console.log('Св-во blablabla undefined');
+		}
 
 
-	user.size = { // вложенный объект!
-		top: 90,
-		middle: 60,
-		bottom: 90
-	};
+		console.log(user['email']); //вывести значение свойства емаил.АЛЬТЕРНАТИВНЫЙ СПОСОБ
 
-	console.log(user);
-	console.log(user.size.middle); // 60 обращаемся к свойству вложенного объекта
-	console.log(user['size']['middle']); // 60 .АЛЬТЕРНАТИВА
+		// user.last-name
+		user['last-name'] = 'Ivanov'; //добавит свойство last-name. ЧЕРЕЗ ТОЧКУ УЖЕ НЕЛЬЗЯ БУДЕТ ОБРАТИТСЯ. НЕ ИСПОЛЬЗОВАТЬ!
+
+		user['Отчество пользователя'] = 'Иванович'; //можно использовать кириллицу, но НЕ РЕКОМЕНДУЕТСЯ
+
+		let key = 'gender'; //используется в случае когда значение переменной ДИНАМИЧЕСКОЕ
+		console.log(user[key]); // Male
+
+
+		user.size = { // вложенный объект!
+			top: 90,
+			middle: 60,
+			bottom: 90
+		};
+
+		console.log(user);
+		console.log(user.size.middle); // 60 обращаемся к свойству вложенного объекта
+		console.log(user['size']['middle']); // 60 .АЛЬТЕРНАТИВА
 
 	/////////////////////////////////////////////
 	ПЕРЕБОР СВОЙСТВ В объекте
 
-	for(let keyName in user) { //временная переменная keyName
-		console.log(keyName + ': ' + user[keyName]); //выведет свойства и их значения по порядку
-	}
+		- key - имя свойства объекта
+		- obj[key] - значение свойства объекта
+
+		for (let key in obj) { //можно объявить key раньше. можно обзывать key другим именем. key это имя свойства объекта
+			/* ... делать что-то с obj[key] ... */
+		}
+
+		//Пример
+			var menu = {
+				width: 300,
+				height: 200,
+				title: "Menu"
+			};
+
+			for (var key in menu) {
+				// этот код будет вызван для каждого свойства объекта и выведет имя свойства и его значение
+
+				alert( "Ключ: " + key + " значение: " + menu[key] );
+			}
 
 	/////////////////////////////////////////////
 	КЛОНИРУЕМ (ДЕЛАЕМ ССЫЛКУ НА ОРИГИНАЛ) ОБЪЕКТ
 
-	let userClone = user;
+		let userClone = user;
 
-	console.log(userClone);
+		console.log(userClone);
 
-	userClone.name = 'Ivan'; //меняем свойство в оригинальном объекте
-	console.log(userClone); // в клоне имя тоже поменяется!
+		userClone.name = 'Ivan'; //меняем свойство в оригинальном объекте
+		console.log(userClone); // в клоне имя тоже поменяется!
 
-	console.log(user);
+		console.log(user);
 
-	//правильное КОПИРОВАНИЕ циклом
+		//правильное КОПИРОВАНИЕ циклом
 
-	userClone = {};
-	for(let keyName in user) {
-		userClone[keyName] = user[keyName];
-	}
+		userClone = {};
+		for(let keyName in user) {
+			userClone[keyName] = user[keyName];
+		}
 
-	console.log(userClone);
-	userClone.name = 'Dmitriy';
+		console.log(userClone);
+		userClone.name = 'Dmitriy';
 
-	console.log(userClone);
-	console.log(user);
+		console.log(userClone);
+		console.log(user);
 
 	/////////////////////////////////////////////
 	МЕТОДЫ ОБЪЕКТОВ. УРОК 7.2
-	когда свойство объекта содержит функцию оно называется МЕТОДОМ
+		- когда свойство объекта содержит функцию оно называется МЕТОДОМ
 
-	let user = { //создаем объект для экспериментов
-		name: 'Ivan',
-		email: 'name@gmail.com',
-		age: 28,
-		hello: function(){ //можно даже функцию впихнуть. 
-			alert('Привет');
-		}
-	};
+		let user = { //создаем объект для экспериментов
+			name: 'Ivan',
+			email: 'name@gmail.com',
+			age: 28,
+			hello: function(){ //можно даже функцию впихнуть. 
+				alert('Привет');
+			}
+		};
 
-	console.log(user);
-	console.log(user.email);
+		console.log(user);
+		console.log(user.email);
 
-	// user.hello(); //ВЫЗЫВАЕМ МЕТОД
+		// user.hello(); //ВЫЗЫВАЕМ МЕТОД
 
-	user.bye = function() { //добавляем метод в объект
-		alert('Пока');
-	};
+		user.bye = function() { //добавляем метод в объект
+			alert('Пока');
+		};
 
-	// user.bye();
+		// user.bye();
 
-	user.hello = function() {
-		alert('Привет! Меня зовут ' + user.name);
-	};
+		user.hello = function() {
+			alert('Привет! Меня зовут ' + user.name);
+		};
 
-	// user.hello();
+		// user.hello();
 
-	user.setName = function(name) { //добавляем новый метод. вызывая функцию будем менять свойство name на новое значение
-		user.name = name;
-	};
+		user.setName = function(name) { //добавляем новый метод. вызывая функцию будем менять свойство name на новое значение
+			user.name = name;
+		};
 
-	console.log(user); // Иван
+		console.log(user); // Иван
 
-	user.setName('Alex'); //поменяем имя косвенно через функцию
+		user.setName('Alex'); //поменяем имя косвенно через функцию
 
-	console.log(user);// Алекс
+		console.log(user);// Алекс
 
-	// user.hello();
+		// user.hello();
 
 	/////////////////////////////////////////////
 	ИСПОЛЬЗОВАНИЕ this (в этом объекте, собственное я, обращение к себе). самый правильный способ обращения
 	
-	user.hello = function() {
-		alert('Привет! Меня зовут ' + this.name);
-	};
+		user.hello = function() {
+			alert('Привет! Меня зовут ' + this.name);
+		};
 
-	user.setName = function(name) {
-		this.name = name;
-	};
+		user.setName = function(name) {
+			this.name = name;
+		};
 
-	user.setName('Dmitriy');
-	// user.hello();
+		user.setName('Dmitriy');
+		// user.hello();
 
 	/////////////////////////////////////////////
 	ФУНКЦИЯ ПРОТОТИП. ОБЪЕКТЫ КАК АБСТРАКТНЫЕ СУЩНОСТИ СТРУКТУРЫ. 
 
-	let User = function() { //создаем прототип для новых объектов
-		this.name = 'NoName';
-		this.age = 0;
-		this.canWalk = false;
-	};
+		let User = function() { //создаем прототип для новых объектов
+			this.name = 'NoName';
+			this.age = 0;
+			this.canWalk = false;
+		};
 
-	let userAlex = new User(), //создаем новый объект на основании прототипа. три новых юзера
-		userBob = new User(),
-		userMike = new User();
+		let userAlex = new User(), //создаем новый объект на основании прототипа. три новых юзера
+			userBob = new User(),
+			userMike = new User();
 
-	console.log(userAlex);
-	console.log(userBob);
-	console.log(userMike);
+		console.log(userAlex);
+		console.log(userBob);
+		console.log(userMike);
 
-	userAlex.name = 'Alex'; //задаем имена объектам
-	userBob.name = 'Bob';
-	userMike.name = 'Mike';
+		userAlex.name = 'Alex'; //задаем имена объектам
+		userBob.name = 'Bob';
+		userMike.name = 'Mike';
 
-	console.log(userAlex);
-	console.log(userBob);
-	console.log(userMike);
+		console.log(userAlex);
+		console.log(userBob);
+		console.log(userMike);
 
 
-	let Animal = function(name, walk) { //другой прототип обекта
-		this.name = name;
-		this.canWalk = walk;
-	};
+		let Animal = function(name, walk) { //другой прототип обекта
+			this.name = name;
+			this.canWalk = walk;
+		};
 
-	let cat = new Animal('Кот', true), //создаем животных
-		dog = new Animal('Собака', true);
+		let cat = new Animal('Кот', true), //создаем животных
+			dog = new Animal('Собака', true);
 
-	console.log(cat);
-	console.log(dog);
+		console.log(cat);
+		console.log(dog);
 
-	cat.canTalk = 'Meow-meow'; //добавляем свойства объектам
-	dog.canTalk = 'Gaw-gaw!!!';
+		cat.canTalk = 'Meow-meow'; //добавляем свойства объектам
+		dog.canTalk = 'Gaw-gaw!!!';
 
-	console.log(cat);
-	console.log(dog);
+		console.log(cat);
+		console.log(dog);
 
 	/////////////////////////////////////////////
 	КАЛЬКУЛЯТОР
 
-	let Calc = function() { //создаем функцию калькулятора. сам объект ниже
-		this.get = function() {
-			this.a = +prompt('Введите число a'); //запрашиваем данные у пользователя
-			this.b = +prompt('Введите число b');
-			this.oper= prompt('Введите операцию: +, -, *, /');
-			
-			this.operation(); // вызываем следующий метод
+		let Calc = function() { //создаем функцию калькулятора. сам объект ниже
+			this.get = function() {
+				this.a = +prompt('Введите число a'); //запрашиваем данные у пользователя
+				this.b = +prompt('Введите число b');
+				this.oper= prompt('Введите операцию: +, -, *, /');
+				
+				this.operation(); // вызываем следующий метод
+			};
+
+			this.operation = function() { //производим операцию
+				switch(this.oper) {
+					case '+':
+						this.result = this.a + this.b;
+					break;
+					case '-':
+						this.result = this.a - this.b;
+					break;
+					case '*':
+						this.result = this.a * this.b;
+					break;
+					case '/':
+						this.result = this.a / this.b;
+					break;
+					default: this.result = 0;
+				}
+
+				this.show(); //вызывам следующий метод
+			};
+
+			this.show = function() {
+				alert(this.a + ' ' + this.oper + ' ' + this.b + ' = ' + this.result); //выведем результат
+			};
 		};
 
-		this.operation = function() { //производим операцию
-			switch(this.oper) {
-				case '+':
-					this.result = this.a + this.b;
-				break;
-				case '-':
-					this.result = this.a - this.b;
-				break;
-				case '*':
-					this.result = this.a * this.b;
-				break;
-				case '/':
-					this.result = this.a / this.b;
-				break;
-				default: this.result = 0;
-			}
-
-			this.show(); //вызывам следующий метод
-		};
-
-		this.show = function() {
-			alert(this.a + ' ' + this.oper + ' ' + this.b + ' = ' + this.result); //выведем результат
-		};
-	};
-
-	let calc = new Calc(); //создаем сам объект калькулятор
-	calc.get(); //у объекта calc вызываем метод get
+		let calc = new Calc(); //создаем сам объект калькулятор
+		calc.get(); //у объекта calc вызываем метод get
 
 	///////////////////
 	ПОНЯТИЕ ОТКРЫТОГО метода
 
-	function F1 () { //какая-то функция конструктор
+		function F1 () { //какая-то функция конструктор
 
-		let a = function() { //этот метод будет закрытым. К нему нельзя будет обратится из консоли
+			let a = function() { //этот метод будет закрытым. К нему нельзя будет обратится из консоли
 
-		};
+			};
 
-		this.b = function () { //этот метод будет открытым. Его можно вызвать через консоль
+			this.b = function () { //этот метод будет открытым. Его можно вызвать через консоль
 
-		};
-	}
+			};
+		}
 
 	///////////////////
 	КОНТАКТЫ
 
-	https://www.youtube.com/live/GTc5MB8r--Q
+		https://www.youtube.com/live/GTc5MB8r--Q
 
-	/*Контакты. Возм. методы: добавление нового контакта (ввод ФИО, возраст, телефон, эл.почта), проверка введенной информации, например: проверить возраст – должен быть целым неотрицательным числом больше 18, вывод информации о конкретном контакте, вывод всех контактов.*/
+		/*Контакты. Возм. методы: добавление нового контакта (ввод ФИО, возраст, телефон, эл.почта), проверка введенной информации, например: проверить возраст – должен быть целым неотрицательным числом больше 18, вывод информации о конкретном контакте, вывод всех контактов.*/
 
-	function Contacts() {
-		
-		this.data = [];
+		function Contacts() {
+			
+			this.data = [];
 
-		this.add = function(name, phone, age, email) {
-			if (!name || name.length < 2) return false;
-			if (!phone && !email) return false;
+			this.add = function(name, phone, age, email) {
+				if (!name || name.length < 2) return false;
+				if (!phone && !email) return false;
 
-			let obj = { id: 0, name: name };
+				let obj = { id: 0, name: name };
 
-			if (phone.length >= 6) obj.phone = phone;
-			if (email.length >= 8 ) obj.email = email;
+				if (phone.length >= 6) obj.phone = phone;
+				if (email.length >= 8 ) obj.email = email;
 
-			this.data.push(obj);
+				this.data.push(obj);
+			}
+
+			this.edit = function(index, name, phone, age, email) {
+				let contact = this.data[index];
+
+				if (name && name.length > 2) contact.name = name;
+				if (phone) contact.phone = phone;
+				if (age) contact.age = age;
+				if (email) contact.email = email;
+
+				this.data[index] = contact;
+			}
+
+			this.remove = function(index) {
+				this.data.splice(index, 1);
+			}
+
+			this.show = function() {
+				console.log(this.data);
+			}
 		}
 
-		this.edit = function(index, name, phone, age, email) {
-			let contact = this.data[index];
+		let mycontacts = new Contacts();
 
-			if (name && name.length > 2) contact.name = name;
-			if (phone) contact.phone = phone;
-			if (age) contact.age = age;
-			if (email) contact.email = email;
-
-			this.data[index] = contact;
-		}
-
-		this.remove = function(index) {
-			this.data.splice(index, 1);
-		}
-
-		this.show = function() {
-			console.log(this.data);
-		}
-	}
-
-	let mycontacts = new Contacts();
-
-	let viderContacts = new Contacts();
+		let viderContacts = new Contacts();
 )
 
 МЕТОДЫ ПЕРЕБОРА ЗНАЧЕНИЙ forEach filter find map includes keys values (
@@ -1326,7 +1323,7 @@
 	
 
 	//////////////////////////////////
-	forEach перебор значений массива (
+	forEach перебор значений МАССИВА (
 		-forEach не работает с arguments
 		-return отсутствует. не сохраняет значения
 
@@ -2986,7 +2983,7 @@ BOM и DOM (
 		-.then(() => {}) выполняется когда выполнится код Promise
 		-.then(() => {}).catch(() => {}) //catch ожидает ошибку или исключение т.е. reject(). 
 		- Promise.all([]).then(() => {})
-		- async function fAll() { //последовательное выполнение кода
+		- async function fAll() { //последовательное выполнение кода. JS будет ждать ответа от функции с await и после его получения продолжит выполнять код
 			await f1(); //code
 			//code
 			await f2();
@@ -3209,6 +3206,12 @@ BOM и DOM (
 
 			}
 			lol();
+
+		///
+		вывести ошибку в консоль
+		
+			fetch(url)
+			.catch(error => console.log(error.message));
 )
 
 Event loop. Очередь выполнения (
