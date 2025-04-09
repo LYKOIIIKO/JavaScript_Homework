@@ -3,4 +3,5 @@
 
 .vscode
 
-node-modules
+node_modules
+production
