@@ -5,12 +5,12 @@ const ComponentMemo = ({ data }) => {
 	useEffect(() => {
 		console.log('Рендер мемоизированного компонента')
 	})
-	return(
+	return (
 		<div>
-			{data.map(item => <div key={item.id.toString()}>{item.name}</div>)}
+			{data.map(item => <div key={item.id.toString()}>{item.name}</div>)} 
 		</div>
-	)
+	) //при рендере списков для того чтобы реакт понимал что надо перерисовывать указывается значение key
 
 }
 
-export default memo(ComponentMemo)
+export default memo(ComponentMemo) //из-за стрелочной функции

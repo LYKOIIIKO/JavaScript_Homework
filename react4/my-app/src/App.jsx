@@ -1,15 +1,14 @@
-import { useState, useMemo, useCallback, useRef, useEffect, useId, Suspense } from 'react'
-import reactLogo from './assets/react.svg'
-import ViteLogo from '../public/vite.svg?react'
+import { useState, useMemo, useCallback, useRef, useEffect, useId, Suspense, lazy, createContext } from 'react'
 import './App.css'
+import reactLogo from './assets/react.svg'
 import ComponentMemo from './components/ComponentMemo'
 import Component from './components/Component'
-
+import { Link, Route, Routes } from 'react-router'
 import Page1 from './components/Page1'
 
-const Page2 = lazy(() => import('./components/Page2'))
+const Page2 = lazy(() => import('./components/Page2')) //ленивая функция реакта
 
-const initialValues = [
+export const initialValues = [
 	{
 		id: 1,
 		name: 'Alex1'
@@ -35,6 +34,8 @@ const initialValues = [
 		name: 'Alex6'
 	}
 ]
+
+export const AppContext = createContext()
 
 function App() {
 	const [param, setParam] = useState(null)
@@ -67,30 +68,48 @@ function App() {
 		alert(text)
 	}, [param])
 
-	console.log(text)
 
 	return (
-		<div>
-			<input ref={inputRef} type="text" value={text} onChange={(e) => setText(e.target.value)} />
-			<input type="text" value={param} onChange={(e) => setParam(+e.target.value)} />
-			<Link to={'/page1'}>Page1</Link>
-			<Link to={'/page2'}>Page2</Link>
+		<AppContext.Provider value={{ param, text }}>
+			<div>
+				<input id={id} ref={inputRef} type="text" value={text} onChange={(e) => setText(e.target.value)} />
+				<input type="text" value={param} onChange={(e) => setParam(+e.target.value)} />
+				<Link to={'/page1'} >Page1</Link>
+				<Link to={'/page2'} >Page2</Link>
+				{renderValue.map(item => <Link to={`/page2/${item.id}`}>{item.name}</Link>)}
 
-			<ComponentMemo data={renderValue} />
-			<Component data={renderValue} />
-			<button onClick={alertText}>Alert</button>
-			<Routes>
-				<Route path='/page1' element={<Page1 />} />
-				<Route path='/page2' element={
-					<Suspense fallback={
-						<div>
-							<img src=''>
-						</div>
-					}>
+				<ComponentMemo data={renderValue} />
+				<br />
+				<Component data={renderValue} />
+				<button onClick={alertText}>Alert</button>
+				<Routes>
+					<Route path='/page1' element={<Page1 />} />
+					<Route path='/page2' element={
+						<Suspense fallback={
+							<div className='logo react'>
+								<img src={reactLogo} alt="" />
+							</div>
+						}>
+							<Page2 />
+						</Suspense>
+					} >
+						<Route
+							path=':id'
+							element={
+								<Suspense fallback={
+									<div className='logo react'>
+										<img src={reactLogo} alt="" />
+									</div>
+								}>
+									<Page2 />
+								</Suspense>
+							}
+						/>
+					</Route>
 
-					</Suspense>} />
-			</Routes>
-		</div>
+				</Routes>
+			</div>
+		</AppContext.Provider>
 	)
 }
 

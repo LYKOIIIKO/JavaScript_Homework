@@ -1,6 +1,10 @@
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
+import { AppContext } from '../App'
 
 const Component = ({ data }) => {
+	const { param, text } = useContext(AppContext)
+	console.log({param, text});
+	
 	useEffect(() => {
 			console.log('Рендер обычного компонента')
 		})
