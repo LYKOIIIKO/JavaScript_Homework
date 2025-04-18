@@ -1,0 +1,14 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+}
+
+nav {
+  display: flex;
+}
+nav ul {
+  display: flex;
+  gap: 20;
+}/*# sourceMappingURL=header.css.map */

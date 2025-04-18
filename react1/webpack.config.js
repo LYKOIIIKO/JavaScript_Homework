@@ -11,6 +11,9 @@ module.exports = {
 		path: path.resolve(__dirname, 'production'),
 		filename: '[name].[contenthash].js'
 	},
+	resolve: {
+		extensions: ['.tsx', '.ts', '.js', '.jsx'] //расширения файлов по умолчанию. при экспорте можно будет расширения не указывать т.к. они уже прописаны здесь
+	},
 	plugins: [
 		new CleanWebpackPlugin(),
 		new HtmlWebpackPlugin({
@@ -29,6 +32,10 @@ module.exports = {
 			{
 				test: /.(c|sa|sc)ss$/i,
 				use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'] //важен порядок, работают справа на лево
+			},
+			{
+				test: /\.tsx?$/i,
+				use: 'ts-loader'
 			}
 		]
 	}
