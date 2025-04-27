@@ -23,7 +23,8 @@ const CatalogPage = () => {
 			<div style={{
 				display: 'flex',
 				gap: '16px',
-				flexWrap: 'wrap'
+				flexWrap: 'wrap',
+				justifyContent: 'center'
 			}}>
 				{catalog.map(item => <ProductItem key={item.id.toString()} id={item.id} />)}
 			</div>
