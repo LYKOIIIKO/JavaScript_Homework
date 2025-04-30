@@ -2,7 +2,7 @@ import { useCart } from "../../../shared/context/CartContext";
 import CartItem from "./components/CartItem/CartItem";
 
 const CartPage = () => {
-	const { cart } = useCart()
+	const { cart, clear } = useCart()
 
 	return (
 		<div>
@@ -10,6 +10,9 @@ const CartPage = () => {
 			<div>
 				{cart.map(item => <CartItem key={item.id.toString()} product={item} />)}
 			</div>
+			{cart.length && (
+				<button onClick={clear}>Clear all</button>
+			)}
 		</div>
 	)
 };
