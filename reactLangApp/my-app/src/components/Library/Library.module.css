@@ -1,0 +1,90 @@
+.libraryBlock > span {
+	text-align: center;
+	font-size: calc(12px + (24 - 16) * (100vw - 400px) / (800 - 400));
+}
+
+.libraryBlock {
+	display: grid;
+	max-width: 700px;
+	margin: 0 auto;
+}
+
+section {
+	padding: 60px;
+}
+
+.addWordBlock {
+	display: grid;
+	grid-template-columns: 3fr auto;
+	column-gap: 30px;
+	justify-items: center;
+	margin: 60px;
+}
+
+.addWordBlock button {
+	padding: 0;
+	border: 0;
+	background: 0;
+	transition: 0.6s;
+	font-size: 5em;
+}
+
+.settings img {
+	width: 60%;
+}
+
+.settings {
+	z-index: 0;
+	position: absolute;
+	background-color: #f8f8f8;
+	justify-content: end;
+	display: grid;
+	opacity: 0;
+	width: calc(100% + 60px);
+	left: -30px;
+	grid-auto-flow: column;
+	column-gap: 12px;
+	top: 0;
+	padding: 6px 12px;
+	transition: 0.6s;
+}
+
+.settings button {
+	border-radius: 6px;
+	padding: 6px;
+}
+
+.settings button:hover {
+	opacity: 0.6;
+	background-color: #e7e7e7;
+}
+
+.wordsTable > ul:not(:first-child) > li {
+	z-index: 2;
+	padding: 12px 12%;
+}
+
+.wordsTable > ul:not(:first-child):hover .settings {
+	opacity: 1;
+}
+
+.wordsTable h3 {
+	text-align: center;
+	width: 100%;
+}
+
+.wordsTable > ul {
+	position: relative;
+	display: grid;
+	grid-template-columns: 1fr 2fr 1fr;
+	justify-items: start;
+	column-gap: 30px;
+	list-style-type: 0;
+}
+
+.wordsTable {
+	box-shadow: 2px 2px 4px rgba(10, 46, 82, 0.12);
+	border-radius: 30px;
+	padding: 30px;
+	box-sizing: border-box;
+}
