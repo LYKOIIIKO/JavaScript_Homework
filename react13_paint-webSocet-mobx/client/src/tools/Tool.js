@@ -25,6 +25,6 @@ export default class Tool {
   }
 
   set strokeColor(color) {
-    this.ctx.strokeStyle = color
+    this.ctx.strokeStyle = color    
   }
 }

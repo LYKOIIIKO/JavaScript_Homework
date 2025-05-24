@@ -52,7 +52,6 @@ export default class Line extends Tool {
 			);
 			this.ctx.beginPath();
 			this.ctx.moveTo(sx, sy);
-			this.ctx.strokeStyle = "black";
 			this.ctx.lineTo(ex, ey);
 			this.ctx.stroke();
 		};

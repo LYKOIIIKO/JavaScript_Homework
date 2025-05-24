@@ -15,11 +15,19 @@ import Rect from "../../../tools/Rect";
 import Circle from "../../../tools/Circle";
 import Eraser from "../../../tools/Eraser";
 import Line from "../../../tools/Line";
+import { useState } from "react";
 
 const Toolbar = observer(() => {
-	const colorChange = (e) => {
-		toolStore.setFillColor(e.target.value);
-		toolStore.setStrokeColor(e.target.value);
+	const [color, setColor] = useState("#000000");
+
+	const colorChange = (c) => {
+		toolStore.setFillColor(c);
+		toolStore.setStrokeColor(c);
+	};
+
+	const toolChange = (tool, color) => {
+		toolStore.setTool(tool);
+		colorChange(color);
 	};
 
 	return (
@@ -33,35 +41,41 @@ const Toolbar = observer(() => {
 			}}
 		>
 			<IconButton
-				onClick={() => toolStore.setTool(new Brush(canvasState.canvas))}
+				onClick={() => toolChange(new Brush(canvasState.canvas), color)}
 			>
 				<BrushIcon />
 			</IconButton>
 			<IconButton
-				onClick={() => toolStore.setTool(new Rect(canvasState.canvas))}
+				onClick={() => toolChange(new Rect(canvasState.canvas), color)}
 			>
 				<CropSquareIcon />
 			</IconButton>
 			<IconButton
 				onClick={() =>
-					toolStore.setTool(new Circle(canvasState.canvas))
+					toolChange(new Circle(canvasState.canvas), color)
 				}
 			>
 				<CircleIcon />
 			</IconButton>
 			<IconButton
 				onClick={() =>
-					toolStore.setTool(new Eraser(canvasState.canvas))
+					toolChange(new Eraser(canvasState.canvas), "#ffffff")
 				}
 			>
 				<DriveFileRenameOutlineIcon />
 			</IconButton>
 			<IconButton
-				onClick={() => toolStore.setTool(new Line(canvasState.canvas))}
+				onClick={() => toolChange(new Line(canvasState.canvas), color)}
 			>
 				<HorizontalRuleIcon />
 			</IconButton>
-			<input type="color" onChange={(e) => colorChange(e)} />
+			<input
+				type="color"
+				onChange={(e) => {
+					setColor(e.target.value);
+					colorChange(e.target.value);
+				}}
+			/>
 			<IconButton sx={{ marginLeft: "auto" }}>
 				<UndoIcon />
 			</IconButton>
